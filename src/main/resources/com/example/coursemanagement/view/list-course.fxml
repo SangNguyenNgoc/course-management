@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox prefHeight="580.0" prefWidth="1000.0" style="-fx-background-color: #F5F5F5; -fx-background-radius: 0 0 5 5" stylesheets="@../style/toolbar.css" BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.coursemanagement.controller.ListCourseController">
+    <children>
+        <HBox prefHeight="47.0" prefWidth="1000.0">
+            <children>
+                <HBox fx:id="leftToolbar" prefHeight="47.0" prefWidth="724.0" spacing="25" style="-fx-background-color: #F5F5F5;">
+                    <padding>
+                        <Insets top="24.0" />
+                    </padding>
+                </HBox>
+                <HBox fx:id="rightToolbar" nodeOrientation="RIGHT_TO_LEFT" prefHeight="47.0" prefWidth="117.0" style="-fx-background-color: #F5F5F5;">
+                    <padding>
+                        <Insets top="24.0" />
+                    </padding>
+                </HBox>
+            </children>
+            <padding>
+                <Insets left="80.0" right="80.0" />
+            </padding>
+        </HBox>
+      <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" prefHeight="450.0" prefWidth="1000.0" style="-fx-border-color: #F5F5F5;" stylesheets="@../style/scroll.css">
+         <content>
+            <VBox fx:id="content" prefHeight="400.0" prefWidth="985.0" spacing="15" />
+         </content>
+         <VBox.margin>
+            <Insets left="80.0" right="80.0" top="20.0" />
+         </VBox.margin>
+      </ScrollPane>
+    </children>
+</VBox>
