@@ -14,7 +14,7 @@ public class HomeApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HomeApplication.class.getResource(Component.HOME_PAGE.getValue()));
-        Scene scene = new Scene(fxmlLoader.load(), 1000, 665);
+        Scene scene = new Scene(fxmlLoader.load(), 1000, 695);
         scene.setFill(Color.rgb(0, 0, 0, 0));
         stage.initStyle(StageStyle.TRANSPARENT);
         stage.setScene(scene);

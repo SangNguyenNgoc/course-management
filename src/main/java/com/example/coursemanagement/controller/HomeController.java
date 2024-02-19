@@ -1,9 +1,7 @@
 package com.example.coursemanagement.controller;
 
 import com.example.coursemanagement.HomeApplication;
-import com.example.coursemanagement.dal.DbConnection;
 import com.example.coursemanagement.page.Component;
-import com.example.coursemanagement.page.Route;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -16,7 +14,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class HomeController implements Initializable, Route {
+public class HomeController implements Initializable {
     public Button searchButton;
     public BorderPane mainPane;
     public TextField searchField;
@@ -25,11 +23,14 @@ public class HomeController implements Initializable, Route {
     @FXML
     protected void onSearchButtonClick() {
         try {
-            FXMLLoader loader = new FXMLLoader(HomeApplication.class.getResource(Component.LIST_COURSE.getValue()));
-            Parent root = loader.load();
-            mainPane.setCenter(root);
-            ListCourseController controller = loader.getController();
-            controller.initListCourses(searchField.getText());
+            if(!searchField.getText().trim().isEmpty()) {
+                FXMLLoader loader = new FXMLLoader(HomeApplication.class.getResource(Component.DASHBOARD.getValue()));
+                Parent root = loader.load();
+                mainPane.setCenter(root);
+                DashboardController controller = loader.getController();
+                controller.initListCourses(searchField.getText());
+                searchField.setText("");
+            }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -38,13 +39,8 @@ public class HomeController implements Initializable, Route {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        changeView(Component.LIST_COURSE);
-    }
-
-    @Override
-    public void changeView(Component component) {
         try {
-            FXMLLoader loader = new FXMLLoader(HomeApplication.class.getResource(component.getValue()));
+            FXMLLoader loader = new FXMLLoader(HomeApplication.class.getResource(Component.DASHBOARD.getValue()));
             Parent root = null;
             root = loader.load();
             mainPane.setCenter(root);
@@ -52,4 +48,5 @@ public class HomeController implements Initializable, Route {
             throw new RuntimeException(e);
         }
     }
+
 }

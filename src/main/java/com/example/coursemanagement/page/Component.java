@@ -7,9 +7,15 @@ public enum Component {
 
     HOME_PAGE("view/home-view.fxml"),
 
+    DASHBOARD("view/dashboard.fxml"),
+
+    COURSE_ITEM("view/course-item.fxml"),
+
+    ADD_COURSE("view/add-course.fxml"),
+
     LIST_COURSE("view/list-course.fxml"),
 
-    COURSE_ITEM("view/course-item.fxml");
+    EMPTY("view/empty.fxml");
 
     private final String value;
 

@@ -1,4 +1,6 @@
-package com.example.coursemanagement.dal;
+package com.example.coursemanagement.utils;
+
+import javafx.scene.control.Alert;
 
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
@@ -28,7 +30,8 @@ public class DbConnection {
             c = DriverManager.getConnection(URL, USERNAME, PASSWORD);
             Logger.getLogger(DbConnection.class.getName()).log(Level.INFO, "Connection successfully");
         } catch (Exception e) {
-            Logger.getLogger(DbConnection.class.getName()).log(Level.SEVERE, "Connection failure", e);
+            Logger.getLogger(DbConnection.class.getName()).log(Level.SEVERE, "Connection failure", e.getMessage());
+            DialogUtil.getInstance().showAlert("Lỗi","Lỗi kết nối cơ sở dữ liệu", Alert.AlertType.ERROR);
         }
         return c;
     }

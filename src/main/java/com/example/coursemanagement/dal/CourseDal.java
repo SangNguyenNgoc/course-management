@@ -2,14 +2,17 @@ package com.example.coursemanagement.dal;
 
 import com.example.coursemanagement.dal.interfaces.ICourseDal;
 import com.example.coursemanagement.dtos.Course;
-import com.example.coursemanagement.dtos.OnlineCourse;
-import com.example.coursemanagement.dtos.OnsiteCourse;
+import com.example.coursemanagement.mapper.CourseMapper;
+import com.example.coursemanagement.utils.DbConnection;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class CourseDal implements ICourseDal {
 
@@ -23,8 +26,10 @@ public class CourseDal implements ICourseDal {
         return CourseDalHolder.INSTANCE;
     }
 
+    private static final Logger logger = Logger.getLogger(CourseDal.class.getName());
+
     @Override
-    public List<Course> getAllCourses() {
+    public List<Course> getAll() {
         java.sql.Connection connection = DbConnection.getInstance().getConnection();
         String sql = """
                 SELECT c.*, d.Name, c1.PersonID, p.Firstname, p.Lastname, o.url, o1.Location, Days, Time, COUNT(s.StudentID) as sumOfStudents
@@ -51,39 +56,41 @@ public class CourseDal implements ICourseDal {
                     Course course = null;
                     String url = resultSet.getString("url");
                     if(url != null) {
-                        course = OnlineCourse.builder()
-                                .id(resultSet.getInt("CourseID"))
-                                .credits(resultSet.getInt("Credits"))
-                                .department(resultSet.getString("Name"))
-                                .sumOfStudent(0)
-                                .teacher(resultSet.getString("Firstname") == null || resultSet.getString("Lastname") == null ?
-                                        " " : resultSet.getString("Firstname") + " " + resultSet.getString("Lastname"))
-                                .title(resultSet.getString("Title"))
-                                .url(url)
-                                .type("Khóa trực tuyến")
-                                .sumOfStudent(resultSet.getInt("sumOfStudents"))
-                                .build();
+                        course = CourseMapper.getInstance().initOnlineCourse(resultSet);
                     } else {
-                        course = OnsiteCourse.builder()
-                                .id(resultSet.getInt("CourseID"))
-                                .credits(resultSet.getInt("Credits"))
-                                .department(resultSet.getString("Name"))
-                                .sumOfStudent(0)
-                                .teacher(resultSet.getString("Firstname") == null || resultSet.getString("Lastname") == null ?
-                                        " " : resultSet.getString("Firstname") + " " + resultSet.getString("Lastname"))
-                                .title(resultSet.getString("Title"))
-                                .location(resultSet.getString("Location"))
-                                .days(resultSet.getString("Days"))
-                                .time(resultSet.getTime("Time").toLocalTime())
-                                .type("Khóa tại chỗ")
-                                .sumOfStudent(resultSet.getInt("sumOfStudents"))
-                                .build();
+                        course = CourseMapper.getInstance().initOnsiteCourse(resultSet);
                     }
                     courses.add(course);
                 }
                 return courses;
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            logger.log(Level.SEVERE, "Query failure: " + e.getMessage());
+            return null;
         }
+    }
+
+    @Override
+    public Optional<Course> getById(Integer courseId) {
+       return Optional.empty();
+    }
+
+    @Override
+    public int registerStudentForCourse(Integer personId, Integer courseId) {
+        return 0;
+    }
+
+    @Override
+    public Optional<Course> createCourse(Course course) {
+        return Optional.empty();
+    }
+
+    @Override
+    public int deleteCourse(Integer courseId) {
+        return 0;
+    }
+
+    @Override
+    public int updateCourse(Course course) {
+        return 0;
     }
 }
