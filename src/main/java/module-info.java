@@ -12,3 +12,4 @@ module com.example.coursemanagement {
     exports com.example.coursemanagement.page;
     opens com.example.coursemanagement.controller to javafx.fxml;
 }
+///
