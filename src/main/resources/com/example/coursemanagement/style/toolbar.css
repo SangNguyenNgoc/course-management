@@ -1,11 +1,19 @@
 .toolbar-button{
-    -fx-background-color: rgba(0,0,0,0);;
+    -fx-background-color: rgba(0,0,0,0);
     -fx-border-color: rgba(0,0,0,0);
     -fx-font-size: 14;
     -fx-cursor: hand;
     -fx-padding: 0 0 0 0;
 }
 
-.action{
+.menu-button .arrow {
+    visibility: hidden; /* Ẩn mũi tên */
+}
+
+.action .label{
     -fx-text-fill: #1EB2A6;
+}
+
+.action .menu-item .label {
+    -fx-text-fill: black; /* Màu chữ cho MenuItem */
 }

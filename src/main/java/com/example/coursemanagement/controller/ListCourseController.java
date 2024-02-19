@@ -31,7 +31,7 @@ public class ListCourseController {
                     courses = courses.stream().filter(item -> item instanceof OnlineCourse).collect(Collectors.toList());
                     break;
                 }
-                case "inPersonCourse": {
+                case "onsiteCourse": {
                     courses = courses.stream().filter(item -> item instanceof OnsiteCourse).collect(Collectors.toList());
                     break;
                 }
