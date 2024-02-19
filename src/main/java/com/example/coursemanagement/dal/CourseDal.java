@@ -8,6 +8,7 @@ import com.example.coursemanagement.utils.DbConnection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -15,6 +16,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class CourseDal implements ICourseDal {
+    private final java.sql.Connection connection = DbConnection.getInstance().getConnection();
 
     private static class CourseDalHolder{
         private static final CourseDal INSTANCE = new CourseDal();
@@ -81,16 +83,58 @@ public class CourseDal implements ICourseDal {
 
     @Override
     public Optional<Course> createCourse(Course course) {
+        if (course == null || course.getTitle() == null || course.getCredits() == null) {
+            return Optional.empty();
+        }
+        String sql = "INSERT INTO `course` (`Title`, `Credits`, `DepartmentID`) VALUES (?, ?, ?);";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            preparedStatement.setString(1, course.getTitle());
+            preparedStatement.setInt(2, course.getCredits());
+            preparedStatement.setInt(3, 1);
+
+            int isSuccess = preparedStatement.executeUpdate();
+            if (isSuccess > 0) {
+                ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
+                if (generatedKeys.next()) {
+                    int newId = generatedKeys.getInt(1);
+                    course.setId(newId);
+                    return Optional.of(course);
+                }
+            }
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, "Query failure: " + e.getMessage());
+        }
         return Optional.empty();
     }
 
     @Override
     public int deleteCourse(Integer courseId) {
-        return 0;
+        if(courseId == null || courseId <= 0) return 0;
+        String sql = "DELETE FROM `course` WHERE  CourseID=?;";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setString(1, courseId.toString());
+            return preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, "Query failure: " + e.getMessage());
+            return 0;
+        }
     }
 
     @Override
     public int updateCourse(Course course) {
-        return 0;
+        if(course == null || course.getId() == null || course.getCredits() == null)
+            return 0;
+//        String sql = "UPDATE `course` SET `Title`=? AND `Credits`=? AND `DepartmentID`=? WHERE  `CourseID`=?;";
+        String sql = "UPDATE `course` SET `Title`=? AND `Credits`=? WHERE  `CourseID`=?;";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setString(1, course.getTitle().toString());
+            preparedStatement.setString(2, course.getCredits().toString());
+//            preparedStatement.setString(3, course.getDepartment().toString());
+            preparedStatement.setString(3, course.getId().toString());
+            return preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, "Query failure: " + e.getMessage());
+            return 0;
+        }
     }
 }
