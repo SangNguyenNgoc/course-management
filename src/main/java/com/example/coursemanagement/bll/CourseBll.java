@@ -17,7 +17,8 @@ public class CourseBll implements ICourseBll {
         private static final CourseBll INSTANCE = new CourseBll();
     }
 
-    private CourseBll(){}
+    private CourseBll() {
+    }
 
     public static CourseBll getInstance() {
         return CourseBllHolder.INSTANCE;
@@ -26,8 +27,8 @@ public class CourseBll implements ICourseBll {
     @Override
     public List<Course> getAllCourse() {
         List<Course> courses = CourseDal.getInstance().getAll();
-        if(courses == null) {
-            DialogUtil.getInstance().showAlert("Lỗi","Đã xảy ra lỗi", Alert.AlertType.ERROR);
+        if (courses == null) {
+            DialogUtil.getInstance().showAlert("Lỗi", "Đã xảy ra lỗi", Alert.AlertType.ERROR);
             return new ArrayList<>();
         } else {
             return courses;
@@ -35,8 +36,14 @@ public class CourseBll implements ICourseBll {
     }
 
     @Override
-    public Optional<Course> getById(Integer courseId) {
-        return Optional.empty();
+    public Course getById(Integer courseId) {
+        Course course = CourseDal.getInstance().getById(courseId).orElse(null);
+        if (course == null) {
+            DialogUtil.getInstance().showAlert("Lỗi", "Không tìm thấy khóa học.", Alert.AlertType.ERROR);
+            return null;
+        } else {
+            return course;
+        }
     }
 
     @Override

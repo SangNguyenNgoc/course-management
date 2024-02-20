@@ -71,7 +71,41 @@ public class CourseDal implements ICourseDal {
 
     @Override
     public Optional<Course> getById(Integer courseId) {
-       return Optional.empty();
+        java.sql.Connection connection = DbConnection.getInstance().getConnection();
+        String sql = """
+                SELECT c.*, d.Name, c1.PersonID, p.Firstname, p.Lastname, o.url, o1.Location, Days, Time, COUNT(s.StudentID) as sumOfStudents
+                FROM course c
+                LEFT JOIN department d
+                ON c.DepartmentID = d.DepartmentID
+                LEFT JOIN courseinstructor c1
+                ON c.CourseID = c1.CourseID
+                LEFT JOIN person p
+                ON c1.PersonID = p.PersonID
+                LEFT JOIN onlinecourse o
+                ON c.CourseID = o.CourseID
+                LEFT JOIN onsitecourse o1
+                ON c.CourseID = o1.CourseID
+                LEFT JOIN school.studentgrade s
+                ON c.CourseID = s.CourseID
+                WHERE c.CourseID = %s
+                """.formatted(courseId);
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            Course course = null;
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                String url = resultSet.getString("url");
+                if(url != null) {
+                    course = CourseMapper.getInstance().initOnlineCourse(resultSet);
+                } else {
+                    course = CourseMapper.getInstance().initOnsiteCourse(resultSet);
+                }
+            }
+            return Optional.ofNullable(course);
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, "Query failure: " + e.getMessage());
+            return Optional.empty();
+        }
     }
 
     @Override

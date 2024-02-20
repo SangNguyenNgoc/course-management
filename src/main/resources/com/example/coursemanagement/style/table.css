@@ -1,0 +1,18 @@
+.column .label{
+    -fx-background-color: #1EB2A6;
+    -fx-border-color: #FFFFFF;
+}
+
+.column {
+    -fx-border-color: #F5F5F5;
+    -fx-background-color: #FFFFFF;
+}
+
+.label {
+    -fx-border-color: transparent;
+    -fx-text-fill: #FFFFFF;
+}
+
+.parent-table {
+    -fx-border-color: #F5F5F5;
+}

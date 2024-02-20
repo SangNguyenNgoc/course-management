@@ -11,6 +11,8 @@ public enum Component {
 
     COURSE_ITEM("view/course-item.fxml"),
 
+    COURSE_DETAIL("view/course-detail.fxml"),
+
     ADD_COURSE("view/add-course.fxml"),
 
     LIST_COURSE("view/list-course.fxml"),
