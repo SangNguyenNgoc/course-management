@@ -45,12 +45,12 @@ public class CourseBll implements ICourseBll {
     }
 
     @Override
-    public Optional<Course> createCourse(String title, String personId, Integer credits, Integer departmentId, String url) {
+    public Optional<Course> createCourse(String title, String name, String credits, Integer departmentId, String url) {
         return Optional.empty();
     }
 
     @Override
-    public Optional<Course> createCourse(String title, String personId, Integer credits, Integer departmentId, String location, String days, LocalTime time) {
+    public Optional<Course> createCourse(String title, String name, String credits, Integer departmentId, String location, String days, String time) {
         return Optional.empty();
     }
 

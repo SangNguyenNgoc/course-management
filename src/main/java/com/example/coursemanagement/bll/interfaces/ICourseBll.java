@@ -13,9 +13,9 @@ public interface ICourseBll {
 
     int registerStudentForCourse(Integer personId, Integer courseId);
 
-    Optional<Course> createCourse(String title, String personId, Integer credits, Integer departmentId, String url);
+    Optional<Course> createCourse(String title, String name, String credits, Integer departmentId, String url);
 
-    Optional<Course> createCourse(String title, String personId, Integer credits, Integer departmentId, String location, String days, LocalTime time);
+    Optional<Course> createCourse(String title, String name, String credits, Integer departmentId, String location, String days, String time);
 
 
     int deleteCourse(Integer courseId);
