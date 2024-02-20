@@ -7,9 +7,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="300.0" prefWidth="840.0" style="-fx-background-color: white; -fx-border-radius: 8; -fx-background-radius: 8;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.coursemanagement.view.OnlineCourseForm">
+<AnchorPane prefHeight="300.0" prefWidth="840.0" style="-fx-background-color: white; -fx-border-radius: 8; -fx-background-radius: 8;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.coursemanagement.controller.OnlineCourseFormController">
    <children>
-      <Button id="submitButton" layoutX="355.0" layoutY="235.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="130.0" style="-fx-background-color: #1EB2A6;" text="Tạo mới" textFill="WHITE">
+      <Button fx:id="onlineSubmitButton" layoutX="355.0" layoutY="235.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="130.0" style="-fx-background-color: #1EB2A6;" text="Tạo mới" textFill="WHITE">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
@@ -29,17 +29,17 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <TextField id="nameInput" layoutX="219.0" layoutY="81.0">
+      <TextField fx:id="onlineNameInput" layoutX="219.0" layoutY="81.0">
          <font>
             <Font size="14.0" />
          </font>
       </TextField>
-      <TextField id="creditInput" layoutX="219.0" layoutY="158.0">
+      <TextField fx:id="onlineCreditInput" layoutX="219.0" layoutY="158.0">
          <font>
             <Font size="14.0" />
          </font>
       </TextField>
-      <ComboBox id="teacherInput" layoutX="218.0" layoutY="120.0" prefHeight="30.0" prefWidth="174.0" />
+      <ComboBox fx:id="onlineTeacherInput" layoutX="218.0" layoutY="120.0" prefHeight="30.0" prefWidth="174.0" />
       <Label layoutX="445.0" layoutY="84.0" text="Khoa :">
          <font>
             <Font size="14.0" />
@@ -55,17 +55,17 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <TextField id="linkInput" layoutX="550.0" layoutY="159.0">
+      <TextField fx:id="onlineLinkInput" layoutX="550.0" layoutY="159.0">
          <font>
             <Font size="14.0" />
          </font>
       </TextField>
-      <TextField id="sizeInput" layoutX="550.0" layoutY="121.0">
+      <TextField fx:id="onlineSizeInput" layoutX="550.0" layoutY="121.0">
          <font>
             <Font size="14.0" />
          </font>
       </TextField>
-      <ComboBox id="departmentInput" layoutX="549.0" layoutY="80.0" prefHeight="30.0" prefWidth="174.0" />
+      <ComboBox fx:id="onlineDepartmentInput" layoutX="549.0" layoutY="80.0" prefHeight="30.0" prefWidth="174.0" />
       <Label alignment="TOP_RIGHT" contentDisplay="RIGHT" layoutX="593.0" layoutY="39.0" prefHeight="20.0" prefWidth="130.0" text="Khóa trực tuyến" textAlignment="RIGHT" textFill="#1eb2a6">
          <font>
             <Font size="14.0" />
