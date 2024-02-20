@@ -9,7 +9,7 @@ import java.util.Optional;
 public interface ICourseBll {
     List<Course> getAllCourse();
 
-    Optional<Course> getById(Integer courseId);
+    Course getById(Integer courseId);
 
     int registerStudentForCourse(Integer personId, Integer courseId);
 
