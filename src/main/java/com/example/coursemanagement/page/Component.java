@@ -21,7 +21,9 @@ public enum Component {
 
     ONLINE_COURSE_FORM("view/online-course-form.fxml"),
 
-    ONSITE_COURSE_FORM("view/onsite-course-form.fxml");
+    ONSITE_COURSE_FORM("view/onsite-course-form.fxml"),
+
+    UPDATE_GRADE("view/update-grade.fxml");
 
     private final String value;
 

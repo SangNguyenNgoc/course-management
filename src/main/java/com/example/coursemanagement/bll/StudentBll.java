@@ -4,6 +4,8 @@ import com.example.coursemanagement.bll.interfaces.IStudentBll;
 import com.example.coursemanagement.dal.CourseDal;
 import com.example.coursemanagement.dal.StudentDal;
 import com.example.coursemanagement.dtos.Course;
+import com.example.coursemanagement.dtos.Person;
+import com.example.coursemanagement.dtos.Student;
 import com.example.coursemanagement.dtos.StudentGrace;
 import com.example.coursemanagement.utils.DialogUtil;
 import javafx.scene.control.Alert;
@@ -39,7 +41,28 @@ public class StudentBll implements IStudentBll {
     }
 
     @Override
-    public int updateGrade(Integer personId, Integer courseId) {
-        return 0;
+    public int updateGrade(Integer personId, Integer courseId, String grade) {
+        Course course = CourseDal.getInstance().getById(courseId).orElse(null);
+        if(course == null) {
+            DialogUtil.getInstance().showAlert("Lỗi","Không tìm thấy khóa học.", Alert.AlertType.ERROR);
+            return 0;
+        }
+        Student student = StudentDal.getInstance().getById(personId).orElse(null);
+        if(student == null) {
+            DialogUtil.getInstance().showAlert("Lỗi","Không tìm thấy khóa học.", Alert.AlertType.ERROR);
+            return 0;
+        }
+        try {
+            double gradeDouble = Double.parseDouble(grade);
+            if(gradeDouble < 0 || gradeDouble > 10) {
+                DialogUtil.getInstance().showAlert("Lỗi","Điểm phải là số lớn hơn 0 và bé hơn 10.", Alert.AlertType.ERROR);
+                return 0;
+            }
+            return StudentDal.getInstance().updateGrade(personId, courseId, gradeDouble);
+        } catch (NumberFormatException e) {
+            DialogUtil.getInstance().showAlert("Lỗi","Điểm phải là một số.", Alert.AlertType.ERROR);
+            return 0;
+        }
+
     }
 }

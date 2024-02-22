@@ -168,6 +168,11 @@ public class DashboardController implements Initializable, Route {
                     }
                     break;
                 }
+
+                case "courseDetail": {
+                    System.out.println("Register");
+                    break;
+                }
             }
         });
         return button;
@@ -215,10 +220,12 @@ public class DashboardController implements Initializable, Route {
     }
 
     public void initCourseDetail(Integer id) throws IOException {
+        setStage("courseDetail");
         clearLeftToolbar();
         clearRightToolbar();
         body.getChildren().clear();
         addButtonLeftToolbar(initBackButton());
+        addButtonRightToolbar(initAddButton());
         FXMLLoader loader = new FXMLLoader(HomeApplication.class.getResource(Component.COURSE_DETAIL.getValue()));
         Parent root = null;
         root = loader.load();

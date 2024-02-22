@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -28,6 +29,30 @@ public class StudentDal implements IStudentDal {
 
     public static StudentDal getInstance() {
         return StudentDalHolder.INSTANCE;
+    }
+
+    @Override
+    public Optional<Student> getById(Integer studentId) {
+        java.sql.Connection connection = DbConnection.getInstance().getConnection();
+        String sql = "SELECT * FROM person where PersonID = ?";
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setInt(1, studentId);
+            Student student = null;
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                student = Student.builder()
+                        .id(resultSet.getInt("PersonID"))
+                        .lastName(resultSet.getString("Lastname"))
+                        .firstName(resultSet.getString("Firstname"))
+                        .enrollmentDate(resultSet.getString("EnrollmentDate"))
+                        .build();
+            }
+            return Optional.ofNullable(student);
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, "Query failure: " + e.getMessage());
+            return Optional.empty();
+        }
     }
 
     @Override
@@ -63,7 +88,18 @@ public class StudentDal implements IStudentDal {
     }
 
     @Override
-    public int updateGrade(Integer personId, Integer courseId) {
-        return 0;
+    public int updateGrade(Integer personId, Integer courseId, Double grade) {
+        java.sql.Connection connection = DbConnection.getInstance().getConnection();
+        String sql = "UPDATE studentgrade s SET s.Grade = ? WHERE s.StudentID = ? AND s.CourseID = ?";
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setDouble(1, grade);
+            preparedStatement.setInt(2, personId);
+            preparedStatement.setInt(3, courseId);
+            return preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, "Query failure: " + e.getMessage());
+            return 0;
+        }
     }
 }

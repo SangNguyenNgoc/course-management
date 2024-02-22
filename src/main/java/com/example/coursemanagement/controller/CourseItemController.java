@@ -95,11 +95,11 @@ public class CourseItemController {
     }
 
     public void fixCourse() {
-        System.out.println(title.getText());
+        System.out.println(course.getId());
     }
 
     public void deleteCourse() {
-        System.out.println(title.getText());
+        System.out.println(course.getId());
     }
 
     public void setHeaderDetail(Course course) {

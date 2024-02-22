@@ -11,11 +11,11 @@
     <children>
         <TableView fx:id="parentTable" styleClass="parent-table" prefHeight="300.0" prefWidth="840.0" stylesheets="@../style/table.css">
             <columns>
-                <TableColumn fx:id="firstnameColumn" styleClass="column" resizable="false" minWidth="168.0" prefWidth="168.0" text="Họ"/>
-                <TableColumn fx:id="lastnameColumn" styleClass="column" resizable="false" minWidth="168.0" prefWidth="168.0" text="Tên"/>
+                <TableColumn fx:id="idColumn" styleClass="column" resizable="false" minWidth="168.0" prefWidth="168.0"  text="Mã sinh viên"/>
+                <TableColumn fx:id="nameColumn" styleClass="column" resizable="false" minWidth="168.0" prefWidth="168.0" text="Họ tên"/>
                 <TableColumn fx:id="enrollmentColumn" styleClass="column" resizable="false" minWidth="168.0" prefWidth="168.0" text="Ngày đăng Ký"/>
                 <TableColumn fx:id="gradeColumn" styleClass="column" resizable="false" minWidth="168.0" prefWidth="168.0" text="Điểm"/>
-                <TableColumn fx:id="actionColumn" styleClass="column" resizable="false" minWidth="168.0" prefWidth="168.0" text="Tác vụ"/>
+                <TableColumn fx:id="actionColumn" styleClass="column" resizable="false" minWidth="120.0" prefWidth="164.0" text="Tác vụ" style="-fx-alignment: center;"/>
             </columns>
             <VBox.margin>
                 <Insets top="30.0"/>
