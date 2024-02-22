@@ -13,6 +13,7 @@ import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import lombok.Getter;
 
 import java.io.IOException;
 import java.net.URL;
@@ -29,6 +30,7 @@ public class DashboardController implements Initializable, Route {
     @FXML
     public Pane body;
 
+    @Getter
     private String stage;
 
     public void setStage(String stage) {
@@ -133,7 +135,7 @@ public class DashboardController implements Initializable, Route {
 
     public void initListCourses(String key) {
         try {
-            setStage("course");
+            setStage(key);
             body.getChildren().clear();
             FXMLLoader loader = new FXMLLoader(HomeApplication.class.getResource(Component.LIST_COURSE.getValue()));
             Parent root = null;
@@ -156,7 +158,7 @@ public class DashboardController implements Initializable, Route {
                     children.getStyleClass().remove("action"));
             button.getStyleClass().add("action");
             switch (stage) {
-                case "course": {
+                case "course", "allCourse", "onlineCourse", "onsiteCourse": {
                     try {
                         clearLeftToolbar();
                         clearRightToolbar();

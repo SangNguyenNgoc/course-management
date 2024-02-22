@@ -5,22 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0e8c9f3f-92af-4f34-ae72-882333f2c02a" name="Changes" comment="update 20/2/2024">
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/controller/UpdateGradeController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/coursemanagement/img/plus.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/coursemanagement/view/update-grade.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/bll/StudentBll.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/bll/StudentBll.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/bll/interfaces/IStudentBll.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/bll/interfaces/IStudentBll.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/controller/CourseDetailController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/controller/CourseDetailController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/bll/CourseBll.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/bll/CourseBll.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/controller/CourseItemController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/controller/CourseItemController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/controller/DashboardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/controller/DashboardController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/dal/StudentDal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/dal/StudentDal.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/dal/interfaces/IStudentDal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/dal/interfaces/IStudentDal.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/page/Component.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/page/Component.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/coursemanagement/style/table.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/coursemanagement/style/table.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/coursemanagement/view/course-detail.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/coursemanagement/view/course-detail.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/coursemanagement/dal/StudentDalTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/coursemanagement/dal/StudentDalTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -268,7 +256,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="update 17/2/2014 - hoàn thành chức năng xem danh sách khóa học" />
     <MESSAGE value="update 19/2/2024" />
-    <option name="LAST_COMMIT_MESSAGE" value="update 19/2/2024" />
+    <MESSAGE value="update 22/2/2024 - hoàn thành chức năng chỉnh sửa điểm" />
+    <option name="LAST_COMMIT_MESSAGE" value="update 22/2/2024 - hoàn thành chức năng chỉnh sửa điểm" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

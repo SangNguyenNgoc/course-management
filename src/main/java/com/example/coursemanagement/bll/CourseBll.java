@@ -63,7 +63,17 @@ public class CourseBll implements ICourseBll {
 
     @Override
     public int deleteCourse(Integer courseId) {
-        return 0;
+        Course course = CourseDal.getInstance().getById(courseId).orElse(null);
+        if(course == null) {
+            DialogUtil.getInstance().showAlert("Lỗi","Không tìm thấy khóa học.", Alert.AlertType.ERROR);
+            return 0;
+        }
+        int amount = StudentBll.getInstance().getStudentsInCourse(courseId).size();
+        if(amount != 0) {
+            DialogUtil.getInstance().showAlert("Lỗi", "Không thể xóa do đã có học sinh đăng ký.", Alert.AlertType.WARNING);
+            return 0;
+        }
+        return CourseDal.getInstance().deleteCourse(courseId);
     }
 
     @Override

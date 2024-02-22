@@ -1,10 +1,16 @@
 package com.example.coursemanagement.controller;
 
+import com.example.coursemanagement.HomeApplication;
+import com.example.coursemanagement.bll.CourseBll;
+import com.example.coursemanagement.bll.StudentBll;
 import com.example.coursemanagement.dtos.Course;
 import com.example.coursemanagement.dtos.OnlineCourse;
 import com.example.coursemanagement.dtos.OnsiteCourse;
 import com.example.coursemanagement.page.Component;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
@@ -12,6 +18,8 @@ import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
 import java.io.IOException;
@@ -96,10 +104,26 @@ public class CourseItemController {
 
     public void fixCourse() {
         System.out.println(course.getId());
+        try {
+            FXMLLoader loader;
+            if(course.getType().equals("Khóa trực tuyến")) {
+                loader = new FXMLLoader(HomeApplication.class.getResource(Component.ONLINE_COURSE_FORM.getValue()));
+            } else {
+                loader = new FXMLLoader(HomeApplication.class.getResource(Component.ONSITE_COURSE_FORM.getValue()));
+            }
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.initStyle(StageStyle.UTILITY);
+            stage.show();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void deleteCourse() {
-        System.out.println(course.getId());
+        CourseBll.getInstance().deleteCourse(course.getId());
+        dashboardController.initListCourses(dashboardController.getStage());
     }
 
     public void setHeaderDetail(Course course) {
