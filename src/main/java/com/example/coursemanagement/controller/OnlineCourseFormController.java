@@ -63,17 +63,20 @@ public class OnlineCourseFormController implements Initializable {
 
     private void setEventSubmitBtn(){
         onlineSubmitButton.setOnMouseClicked(event -> {
-            Optional<Course> newCourse = CourseBll.getInstance().createCourse("",
-                    onlineNameInput.getText(),
-                    onlineCreditInput.getText(),
-                    departments.get(onlineDepartmentInput.getSelectionModel().getSelectedIndex()).getId(),
-                    onlineLinkInput.getText());
-            if(newCourse.isPresent()){
-                DialogUtil.getInstance().showAlert("Thành công","Đã thêm thành công", Alert.AlertType.CONFIRMATION);
-                clearInput();
-            }else {
-                DialogUtil.getInstance().showAlert("Lỗi","Lỗi không xác định", Alert.AlertType.ERROR);
+            if(checkCombobox()){
+                Optional<Course> newCourse = CourseBll.getInstance().createCourse("",
+                        onlineNameInput.getText(),
+                        onlineCreditInput.getText(),
+                        departments.get(onlineDepartmentInput.getSelectionModel().getSelectedIndex()).getId(),
+                        onlineLinkInput.getText());
+                if(newCourse.isPresent()){
+                    DialogUtil.getInstance().showAlert("Thành công","Đã thêm thành công", Alert.AlertType.CONFIRMATION);
+                    clearInput();
+                }else {
+                    DialogUtil.getInstance().showAlert("Lỗi","Lỗi không xác định", Alert.AlertType.ERROR);
+                }
             }
+
         });
     }
 
@@ -84,5 +87,13 @@ public class OnlineCourseFormController implements Initializable {
         onlineNameInput.setText("");
         onlineCreditInput.setText("");
         onlineSizeInput.setText("");
+    }
+
+    private boolean checkCombobox(){
+        if(onlineDepartmentInput.getSelectionModel().getSelectedIndex() == -1){
+            DialogUtil.getInstance().showAlert("Cảnh báo","Chưa chọn khoa ", Alert.AlertType.WARNING);
+            return false;
+        }
+        return true;
     }
 }
