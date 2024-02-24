@@ -77,16 +77,16 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <Label layoutX="445.0" layoutY="199.0" text="Giờ :">
+      <Label layoutX="445.0" layoutY="199.0" text="Giờ(hh:mm):">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <TextField fx:id="onsiteTimeInput" layoutX="550.0" layoutY="197.0">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </TextField>
+        <TextField fx:id="onsiteTimeInput" layoutX="550.0" layoutY="197.0">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </TextField>
       <DatePicker fx:id="onsiteDateInput" layoutX="218.0" layoutY="199.0"/>
     </children>
 </AnchorPane>

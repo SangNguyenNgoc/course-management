@@ -52,13 +52,15 @@ public class OnsiteCourseFormController implements Initializable {
     private void setEventSubmitBtn(){
         onsiteSubmitButton.setOnMouseClicked(event -> {
             if(checkCombobox()){
-                Optional<Course> newCourse = CourseBll.getInstance().createCourse("",
+                Optional<Course> newCourse = CourseBll.getInstance().createCourse(
                         onsiteNameInput.getText(),
                         onsiteCreditInput.getText(),
                         departments.get(onsiteDepartmentInput.getSelectionModel().getSelectedIndex()).getId(),
                         onsiteLocationInput.getText(),
-                        onsiteDateInput.getValue().toString(),
-                        onsiteTimeInput.getText());
+                        onsiteDateInput.getValue(),
+                        onsiteTimeInput.getText(),
+                        teachers.get(onsiteTeacherInput.getSelectionModel().getSelectedIndex()).getId()
+                        );
                 if(newCourse.isPresent()){
                     DialogUtil.getInstance().showAlert("Thành công","Đã thêm thành công", Alert.AlertType.CONFIRMATION);
                     clearInput();
@@ -94,6 +96,11 @@ public class OnsiteCourseFormController implements Initializable {
         if(onsiteDepartmentInput.getSelectionModel().getSelectedIndex() == -1){
             DialogUtil.getInstance().showAlert("Cảnh báo","Chưa chọn khoa ", Alert.AlertType.WARNING);
             return false;
+        }else {
+            if (onsiteTeacherInput.getSelectionModel().getSelectedIndex() == -1){
+                DialogUtil.getInstance().showAlert("Cảnh báo","Chưa chọn giáo viên ", Alert.AlertType.WARNING);
+                return false;
+            }
         }
         return true;
     }

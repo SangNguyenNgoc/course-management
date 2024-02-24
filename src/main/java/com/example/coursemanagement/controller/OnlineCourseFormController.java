@@ -1,6 +1,9 @@
 package com.example.coursemanagement.controller;
 
 import com.example.coursemanagement.bll.CourseBll;
+import com.example.coursemanagement.bll.DepartmentBll;
+import com.example.coursemanagement.bll.TeacherBll;
+import com.example.coursemanagement.dal.DepartmentDal;
 import com.example.coursemanagement.dtos.Course;
 import com.example.coursemanagement.dtos.Department;
 import com.example.coursemanagement.dtos.Teacher;
@@ -43,8 +46,10 @@ public class OnlineCourseFormController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //Lấy danh sách giáo viên gán nào mảng teacher
+        teachers = (ArrayList<Teacher>) TeacherBll.getInstance().getAllTeacher();
 
         //Lấy danh sách giáo viên gán nào mảng teacher
+        departments = (ArrayList<Department>) DepartmentBll.getInstance().getAllDepartment();
 
         setDataDepartmentInput();
         setDataTecherInput();
@@ -64,11 +69,13 @@ public class OnlineCourseFormController implements Initializable {
     private void setEventSubmitBtn(){
         onlineSubmitButton.setOnMouseClicked(event -> {
             if(checkCombobox()){
-                Optional<Course> newCourse = CourseBll.getInstance().createCourse("",
+                Optional<Course> newCourse = CourseBll.getInstance().createCourse(
                         onlineNameInput.getText(),
                         onlineCreditInput.getText(),
                         departments.get(onlineDepartmentInput.getSelectionModel().getSelectedIndex()).getId(),
-                        onlineLinkInput.getText());
+                        onlineLinkInput.getText(),
+                        teachers.get(onlineTeacherInput.getSelectionModel().getSelectedIndex()).getId()
+                );
                 if(newCourse.isPresent()){
                     DialogUtil.getInstance().showAlert("Thành công","Đã thêm thành công", Alert.AlertType.CONFIRMATION);
                     clearInput();
@@ -89,10 +96,15 @@ public class OnlineCourseFormController implements Initializable {
         onlineSizeInput.setText("");
     }
 
-    private boolean checkCombobox(){
-        if(onlineDepartmentInput.getSelectionModel().getSelectedIndex() == -1){
-            DialogUtil.getInstance().showAlert("Cảnh báo","Chưa chọn khoa ", Alert.AlertType.WARNING);
+    private boolean checkCombobox() {
+        if (onlineDepartmentInput.getSelectionModel().getSelectedIndex() == -1) {
+            DialogUtil.getInstance().showAlert("Cảnh báo", "Chưa chọn khoa ", Alert.AlertType.WARNING);
             return false;
+        } else {
+            if (onlineTeacherInput.getSelectionModel().getSelectedIndex() == -1) {
+                DialogUtil.getInstance().showAlert("Cảnh báo", "Chưa chọn khoa ", Alert.AlertType.WARNING);
+                return false;
+            }
         }
         return true;
     }

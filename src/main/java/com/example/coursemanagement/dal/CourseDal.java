@@ -2,13 +2,19 @@ package com.example.coursemanagement.dal;
 
 import com.example.coursemanagement.dal.interfaces.ICourseDal;
 import com.example.coursemanagement.dtos.Course;
+import com.example.coursemanagement.dtos.OnlineCourse;
 import com.example.coursemanagement.mapper.CourseMapper;
 import com.example.coursemanagement.utils.DbConnection;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Time;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Level;
@@ -114,7 +120,55 @@ public class CourseDal implements ICourseDal {
     }
 
     @Override
-    public Optional<Course> createCourse(Course course) {
+    public Optional<Course> createCourse(Course course, Integer departmentId, Integer teacher) {
+        java.sql.Connection connection = DbConnection.getInstance().getConnection();
+
+        // Câu lệnh SQL để thêm khóa học trực tuyến
+        String sql = "INSERT INTO `course` (`Title`, `Credits`, `DepartmentID`) VALUES (?, ?, ?)";
+
+        try {
+            // Tạo prepared statement và thiết lập giá trị tham số
+            try (PreparedStatement preparedStatement = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
+                preparedStatement.setString(1, course.getTitle());
+                preparedStatement.setInt(2, course.getCredits());
+                preparedStatement.setInt(3, departmentId);
+
+                // Thực hiện câu lệnh SQL
+                int affectedRows = preparedStatement.executeUpdate();
+
+                if (affectedRows == 0) {
+                    throw new SQLException("Creating course failed, no rows affected.");
+                }
+
+                // Lấy thông tin về khóa học vừa được tạo
+                try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
+                    if (generatedKeys.next()) {
+                        int courseID = generatedKeys.getInt(1);
+                        String insertCourseInstructorSql = "INSERT INTO `courseinstructor` (`CourseID`, `PersonID`) VALUES (?, ?)";
+                        try (PreparedStatement courseInstructorStatement = connection.prepareStatement(insertCourseInstructorSql)) {
+                            // Thiết lập các tham số cho bảng courseinstructor
+                            courseInstructorStatement.setInt(1, courseID);
+                            courseInstructorStatement.setInt(2, teacher);
+
+                            // Thực hiện câu lệnh INSERT cho bảng courseinstructor
+                            courseInstructorStatement.executeUpdate();
+                        }
+                        // Tạo và trả về Optional<Course>
+                        return Optional.of(Course.builder()
+                                .id(courseID)
+                                .title(course.getTitle())
+                                .credits(course.getCredits())
+                                .build()
+                        );
+                    } else {
+                        throw new SQLException("Creating course failed, no ID obtained.");
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // Hoặc xử lý lỗi theo nhu cầu của bạn
+        }
+
         return Optional.empty();
     }
 
@@ -127,4 +181,60 @@ public class CourseDal implements ICourseDal {
     public int updateCourse(Course course) {
         return 0;
     }
+
+    public Boolean createCourseOnline(Integer courseId, String url) {
+        java.sql.Connection connection = DbConnection.getInstance().getConnection();
+
+        // Câu lệnh SQL để thêm khóa học trực tuyến
+        String sql = "INSERT INTO `onlinecourse` (`CourseID`, `url`) VALUES (?, ?)";
+
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            // Thiết lập các tham số cho bảng onlinecourse
+            statement.setInt(1, courseId);
+            statement.setString(2, url);
+
+            // Thực hiện câu lệnh INSERT cho bảng onlinecourse
+            int affectedRows = statement.executeUpdate();
+
+            // Kiểm tra xem có bản ghi nào bị ảnh hưởng hay không
+            return affectedRows > 0;
+        } catch (SQLException e) {
+            e.printStackTrace(); // Hoặc xử lý lỗi theo nhu cầu của bạn
+        }
+
+        return false;
+    }
+
+    public Boolean createCourseOnsite(Integer courseId, String location, LocalDate date, LocalTime time) {
+        java.sql.Connection connection = DbConnection.getInstance().getConnection();
+
+        // Câu lệnh SQL để thêm khóa học trực tuyến
+        String sql = "INSERT INTO `onsitecourse` (`CourseID`, `Location`, `Days`, `Time`) VALUES (?, ?, ?, ?)";
+
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            // Thiết lập các tham số cho bảng onsitecourse
+            statement.setInt(1, courseId);
+            statement.setString(2, location);
+
+            // Chuyển đổi LocalDate và LocalTime thành định dạng phù hợp
+            String formattedDate = date.toString(); // Đơn giản lấy chuỗi của LocalDate
+            String formattedTime = time.format(DateTimeFormatter.ofPattern("HH:mm")); // Định dạng LocalTime thành chuỗi "HH:mm"
+
+            // Thiết lập giá trị cho trường Days và Time
+            statement.setString(3, formattedDate);
+            statement.setString(4, formattedTime);
+
+            // Thực hiện câu lệnh INSERT cho bảng onsitecourse
+            int affectedRows = statement.executeUpdate();
+
+            // Kiểm tra xem có bản ghi nào bị ảnh hưởng hay không
+            return affectedRows > 0;
+        } catch (SQLException e) {
+            e.printStackTrace(); // Hoặc xử lý lỗi theo nhu cầu của bạn
+        }
+
+        return false;
+    }
+
+
 }
