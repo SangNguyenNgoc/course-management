@@ -6,6 +6,9 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 class CourseDalTest {
 
     @Test
@@ -18,5 +21,11 @@ class CourseDalTest {
                 System.out.println(course.toString());
             }
         });
+    }
+
+    @Test
+    void registerStudentForCourse() {
+        int result = CourseDal.getInstance().registerStudentForCourse(4,1045);
+        assertNotEquals(result, 0);
     }
 }

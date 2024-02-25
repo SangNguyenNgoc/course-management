@@ -10,5 +10,5 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @AllArgsConstructor
 public class StudentGrace extends Student {
-    protected double grade;
+    protected Double grade;
 }

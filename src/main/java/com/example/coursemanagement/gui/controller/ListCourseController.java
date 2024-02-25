@@ -1,20 +1,17 @@
-package com.example.coursemanagement.controller;
+package com.example.coursemanagement.gui.controller;
 
 import com.example.coursemanagement.HomeApplication;
 import com.example.coursemanagement.bll.CourseBll;
 import com.example.coursemanagement.dtos.Course;
 import com.example.coursemanagement.dtos.OnlineCourse;
 import com.example.coursemanagement.dtos.OnsiteCourse;
-import com.example.coursemanagement.page.Component;
+import com.example.coursemanagement.gui.page.Component;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
-import java.net.URL;
 import java.util.List;
-import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -22,7 +19,7 @@ import java.util.stream.Collectors;
 public class ListCourseController {
     public VBox content;
 
-    public void initListCourses(String type) {
+    public void initListCourses(String type, DashboardController dashboardController) {
         content.getChildren().clear();
         try {
             List<Course> courses = CourseBll.getInstance().getAllCourse();
@@ -31,7 +28,7 @@ public class ListCourseController {
                     courses = courses.stream().filter(item -> item instanceof OnlineCourse).collect(Collectors.toList());
                     break;
                 }
-                case "inPersonCourse": {
+                case "onsiteCourse": {
                     courses = courses.stream().filter(item -> item instanceof OnsiteCourse).collect(Collectors.toList());
                     break;
                 }
@@ -54,7 +51,7 @@ public class ListCourseController {
                     FXMLLoader loader = new FXMLLoader(HomeApplication.class.getResource(Component.COURSE_ITEM.getValue()));
                     Parent root = loader.load();
                     CourseItemController controller = loader.getController();
-                    controller.setData(course);
+                    controller.setData(course, dashboardController);
                     content.getChildren().add(root);
                 }
             }

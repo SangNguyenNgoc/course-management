@@ -2,23 +2,21 @@ package com.example.coursemanagement.bll.interfaces;
 
 import com.example.coursemanagement.dtos.Course;
 
-import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 
 public interface ICourseBll {
     List<Course> getAllCourse();
 
-    Optional<Course> getById(Integer courseId);
+    Course getById(Integer courseId);
 
-    int registerStudentForCourse(Integer personId, Integer courseId);
+    void registerStudentForCourse(String personId, Integer courseId) throws Exception;
 
-    Optional<Course> createCourse(String title, String personId, Integer credits, Integer departmentId, String url);
+    Optional<Course> createCourse(String title, String name, String credits, Integer departmentId, String url);
 
-    Optional<Course> createCourse(String title, String personId, Integer credits, Integer departmentId, String location, String days, LocalTime time);
+    Optional<Course> createCourse(String title, String name, String credits, Integer departmentId, String location, String days, String time);
 
-
-    int deleteCourse(Integer courseId);
+    void deleteCourse(Integer courseId) throws Exception;
 
     int updateCourse(Course course);
 }

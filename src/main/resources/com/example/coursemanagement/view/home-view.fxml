@@ -10,7 +10,7 @@
 <BorderPane fx:id="mainPane" focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
             minWidth="-Infinity" prefHeight="665.0" prefWidth="1000.0"
             style="-fx-background-radius: 5; -fx-background-color: #F8F8F8;" xmlns="http://javafx.com/javafx/21"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.coursemanagement.controller.HomeController">
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.coursemanagement.gui.controller.HomeController">
     <top>
         <HBox prefHeight="80.0" prefWidth="1000.0"
               style="-fx-background-color: #1EB2A6; -fx-background-radius: 5 5 0 0;" BorderPane.alignment="CENTER">

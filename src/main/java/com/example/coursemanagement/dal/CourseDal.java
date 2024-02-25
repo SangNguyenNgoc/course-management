@@ -2,9 +2,10 @@ package com.example.coursemanagement.dal;
 
 import com.example.coursemanagement.dal.interfaces.ICourseDal;
 import com.example.coursemanagement.dtos.Course;
-import com.example.coursemanagement.mapper.CourseMapper;
+import com.example.coursemanagement.utils.mapper.CourseMapper;
 import com.example.coursemanagement.utils.DbConnection;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -73,12 +74,55 @@ public class CourseDal implements ICourseDal {
 
     @Override
     public Optional<Course> getById(Integer courseId) {
-       return Optional.empty();
+        java.sql.Connection connection = DbConnection.getInstance().getConnection();
+        String sql = """
+                SELECT c.*, d.Name, c1.PersonID, p.Firstname, p.Lastname, o.url, o1.Location, Days, Time, COUNT(s.StudentID) as sumOfStudents
+                FROM course c
+                LEFT JOIN department d
+                ON c.DepartmentID = d.DepartmentID
+                LEFT JOIN courseinstructor c1
+                ON c.CourseID = c1.CourseID
+                LEFT JOIN person p
+                ON c1.PersonID = p.PersonID
+                LEFT JOIN onlinecourse o
+                ON c.CourseID = o.CourseID
+                LEFT JOIN onsitecourse o1
+                ON c.CourseID = o1.CourseID
+                LEFT JOIN school.studentgrade s
+                ON c.CourseID = s.CourseID
+                WHERE c.CourseID = %s
+                """.formatted(courseId);
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            Course course = null;
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                String url = resultSet.getString("url");
+                if(url != null) {
+                    course = CourseMapper.getInstance().initOnlineCourse(resultSet);
+                } else {
+                    course = CourseMapper.getInstance().initOnsiteCourse(resultSet);
+                }
+            }
+            return Optional.ofNullable(course);
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, "Query failure: " + e.getMessage());
+            return Optional.empty();
+        }
     }
 
     @Override
-    public int registerStudentForCourse(Integer personId, Integer courseId) {
-        return 0;
+    public int registerStudentForCourse(Integer studentId, Integer courseId) {
+        Connection connection = DbConnection.getInstance().getConnection();
+        String sql = "INSERT INTO studentgrade VALUE (null, ?, ?, null);";
+        try(PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setInt(1, courseId);
+            preparedStatement.setInt(2, studentId);
+            return preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, "Query failure: " + e.getMessage());
+            return 0;
+        }
     }
 
     @Override
@@ -135,6 +179,22 @@ public class CourseDal implements ICourseDal {
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "Query failure: " + e.getMessage());
             return 0;
+        }
+    }
+
+
+    @Override
+    public Boolean isStudentInCourse(Integer studentId, Integer courseId) {
+        Connection connection = DbConnection.getInstance().getConnection();
+        String sql = "SELECT * FROM studentgrade WHERE CourseID = ? AND StudentID = ?";
+        try(PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setInt(1, courseId);
+            preparedStatement.setInt(2, studentId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            return resultSet.next();
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, "Query failure: " + e.getMessage());
+            return null;
         }
     }
 }
