@@ -1,6 +1,8 @@
 package com.example.coursemanagement.gui.controller;
 
 import com.example.coursemanagement.bll.CourseBll;
+import com.example.coursemanagement.bll.DepartmentBll;
+import com.example.coursemanagement.bll.PersonBll;
 import com.example.coursemanagement.dtos.Course;
 import com.example.coursemanagement.dtos.Department;
 import com.example.coursemanagement.dtos.Teacher;
@@ -14,6 +16,7 @@ import javafx.scene.control.TextField;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -26,37 +29,37 @@ public class OnlineCourseFormController implements Initializable {
     @FXML
     private TextField onlineCreditInput;
     @FXML
-    private ComboBox onlineTeacherInput;
+    private ComboBox<String> onlineTeacherInput;
     @FXML
     private TextField onlineLinkInput;
     @FXML
     private TextField onlineSizeInput;
     @FXML
-    private ComboBox onlineDepartmentInput;
+    private ComboBox<String> onlineDepartmentInput;
 
-    private ArrayList<Teacher> teachers = new ArrayList<>();
+    private List<Teacher> teachers;
 
-    private ArrayList<Department> departments = new ArrayList<>();
+    private List<Department> departments;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        //Lấy danh sách giáo viên gán nào mảng teacher
-
-        //Lấy danh sách giáo viên gán nào mảng teacher
-
+        teachers = PersonBll.getInstance().getAllTeachers();
+        departments = DepartmentBll.getInstance().getAll();
         setDataDepartmentInput();
-        setDataTecherInput();
+        setDataTeacherInput();
         setEventSubmitBtn();
     }
 
-    private void setDataTecherInput(){
-        if(!teachers.isEmpty())
-        teachers.forEach(item -> onlineTeacherInput.getItems().add(item.getLastName() + " " + item.getFirstName()));
+    private void setDataTeacherInput(){
+        if(!teachers.isEmpty()) {
+            teachers.forEach(item -> onlineTeacherInput.getItems().add(item.getLastName() + " " + item.getFirstName()));
+        }
     }
 
     private void setDataDepartmentInput(){
-        if(!departments.isEmpty())
-        departments.forEach(item -> onlineDepartmentInput.getItems().add(item.getName()));
+        if(!departments.isEmpty()) {
+            departments.forEach(item -> onlineDepartmentInput.getItems().add(item.getName()));
+        }
     }
 
     private void setEventSubmitBtn(){

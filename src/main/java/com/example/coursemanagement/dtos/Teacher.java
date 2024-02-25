@@ -4,6 +4,7 @@ import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
@@ -12,5 +13,5 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Teacher extends Person {
-    protected LocalDateTime hireDate;
+    protected Date hireDate;
 }

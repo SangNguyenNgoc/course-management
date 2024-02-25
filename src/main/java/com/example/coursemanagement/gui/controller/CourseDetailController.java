@@ -2,7 +2,7 @@ package com.example.coursemanagement.gui.controller;
 
 import com.example.coursemanagement.HomeApplication;
 import com.example.coursemanagement.bll.CourseBll;
-import com.example.coursemanagement.bll.StudentBll;
+import com.example.coursemanagement.bll.PersonBll;
 import com.example.coursemanagement.dtos.Course;
 import com.example.coursemanagement.dtos.StudentGrace;
 import com.example.coursemanagement.gui.model.TableCellWithButton;
@@ -42,7 +42,7 @@ public class CourseDetailController {
             controller.setHeaderDetail(course);
             header.getChildren().add(0, root);
 
-            List<StudentGrace> studentGraces = StudentBll.getInstance().getStudentsInCourse(id);
+            List<StudentGrace> studentGraces = PersonBll.getInstance().getStudentsInCourse(id);
             ObservableList<StudentGrace> students = FXCollections.observableArrayList(studentGraces);
             parentTable.setItems(students);
 

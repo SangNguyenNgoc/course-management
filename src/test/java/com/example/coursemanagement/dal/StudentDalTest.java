@@ -12,7 +12,7 @@ class StudentDalTest {
 
     @Test
     void getStudentsInCourse() {
-        List<StudentGrace> studentGraces = StudentDal.getInstance().getStudentsInCourse(4041);
+        List<StudentGrace> studentGraces = PersonDal.getInstance().getStudentsInCourse(4041);
         studentGraces.forEach(item -> {
             System.out.println(item.getGrade());
         });
@@ -25,13 +25,13 @@ class StudentDalTest {
 
     @Test
     void getById() {
-        Student student = StudentDal.getInstance().getById(2).orElse(null);
+        Student student = PersonDal.getInstance().getStudentById(2).orElse(null);
         assertNotNull(student);
     }
 
     @Test
     void updateGrade() {
-        int t = StudentDal.getInstance().updateGrade(2,2030, 7.8);
+        int t = PersonDal.getInstance().updateGrade(2,2030, 7.8);
         assertNotEquals(0, t);
     }
 }

@@ -1,7 +1,7 @@
 package com.example.coursemanagement.gui.controller;
 
 import com.example.coursemanagement.bll.CourseBll;
-import com.example.coursemanagement.bll.StudentBll;
+import com.example.coursemanagement.bll.PersonBll;
 import com.example.coursemanagement.dtos.StudentGrace;
 import com.example.coursemanagement.utils.DialogUtil;
 import javafx.scene.control.Alert;
@@ -9,8 +9,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-
-import java.io.IOException;
 
 public class UpdateGradeController<T> {
 
@@ -69,7 +67,7 @@ public class UpdateGradeController<T> {
 
     public void updateGrade() {
         try {
-            StudentBll.getInstance().updateGrade(studentGrace.getId(), courseId, inputField.getText());
+            PersonBll.getInstance().updateGrade(studentGrace.getId(), courseId, inputField.getText());
             DialogUtil.getInstance().showAlert("Thông báo", "Thay đổi điểm thành công", Alert.AlertType.INFORMATION);
             CourseDetailController c = (CourseDetailController) controller;
             c.initCourseDetail(courseId);

@@ -1,8 +1,9 @@
 package com.example.coursemanagement.dal;
 
-import com.example.coursemanagement.dal.interfaces.IStudentDal;
+import com.example.coursemanagement.dal.interfaces.IPersonDal;
 import com.example.coursemanagement.dtos.Student;
 import com.example.coursemanagement.dtos.StudentGrace;
+import com.example.coursemanagement.dtos.Teacher;
 import com.example.coursemanagement.utils.DbConnection;
 
 import java.sql.PreparedStatement;
@@ -14,22 +15,22 @@ import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class StudentDal implements IStudentDal {
+public class PersonDal implements IPersonDal {
 
     private static final Logger logger = Logger.getLogger(CourseDal.class.getName());
 
     private static class StudentDalHolder{
-        private static final StudentDal INSTANCE = new StudentDal();
+        private static final PersonDal INSTANCE = new PersonDal();
     }
 
-    private StudentDal(){}
+    private PersonDal(){}
 
-    public static StudentDal getInstance() {
+    public static PersonDal getInstance() {
         return StudentDalHolder.INSTANCE;
     }
 
     @Override
-    public Optional<Student> getById(Integer studentId) {
+    public Optional<Student> getStudentById(Integer studentId) {
         java.sql.Connection connection = DbConnection.getInstance().getConnection();
         String sql = "SELECT * FROM person WHERE PersonID = ? AND EnrollmentDate IS NOT NULL";
 
@@ -49,6 +50,30 @@ public class StudentDal implements IStudentDal {
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "Query failure: " + e.getMessage());
             return Optional.empty();
+        }
+    }
+
+    @Override
+    public List<Teacher> getAllTeachers() {
+        java.sql.Connection connection = DbConnection.getInstance().getConnection();
+        String sql = "SELECT * FROM person WHERE HireDate IS NOT NULL ";
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            List<Teacher> teachers = new ArrayList<>();
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                Teacher teacher = Teacher.builder()
+                        .id(resultSet.getInt("PersonID"))
+                        .lastName(resultSet.getString("Lastname"))
+                        .firstName(resultSet.getString("Firstname"))
+                        .hireDate(resultSet.getDate("HireDate"))
+                        .build();
+                teachers.add(teacher);
+            }
+            return teachers;
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, "Query failure: " + e.getMessage());
+            return null;
         }
     }
 

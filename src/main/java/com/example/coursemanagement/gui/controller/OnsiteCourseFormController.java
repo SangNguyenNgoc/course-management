@@ -1,6 +1,8 @@
 package com.example.coursemanagement.gui.controller;
 
 import com.example.coursemanagement.bll.CourseBll;
+import com.example.coursemanagement.bll.DepartmentBll;
+import com.example.coursemanagement.bll.PersonBll;
 import com.example.coursemanagement.dtos.Course;
 import com.example.coursemanagement.dtos.Department;
 import com.example.coursemanagement.dtos.Teacher;
@@ -11,6 +13,7 @@ import javafx.scene.control.*;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -23,23 +26,23 @@ public class OnsiteCourseFormController implements Initializable {
     @FXML
     private TextField onsiteCreditInput;
     @FXML
-    private ComboBox onsiteTeacherInput;
+    private ComboBox<String> onsiteTeacherInput;
     @FXML
     private TextField onsiteLocationInput;
     @FXML
     private TextField onsiteSizeInput;
     @FXML
-    private ComboBox onsiteDepartmentInput;
+    private ComboBox<String> onsiteDepartmentInput;
     @FXML
     private TextField onsiteTimeInput;
     @FXML
     private DatePicker onsiteDateInput;
 
-    private ArrayList<Teacher> teachers = new ArrayList<>();
+    private List<Teacher> teachers;
 
-    private ArrayList<Department> departments = new ArrayList<>();
+    private List<Department> departments;
 
-    private void setDataTecherInput(){
+    private void setDataTeacherInput(){
         if(!teachers.isEmpty())
             teachers.forEach(item -> onsiteTeacherInput.getItems().add(item.getLastName() + " " + item.getFirstName()));
     }
@@ -81,12 +84,12 @@ public class OnsiteCourseFormController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        //Lấy danh sách giáo viên gán nào mảng teacher
 
-        //Lấy danh sách giáo viên gán nào mảng teacher
+        teachers = PersonBll.getInstance().getAllTeachers();
+        departments = DepartmentBll.getInstance().getAll();
 
         setDataDepartmentInput();
-        setDataTecherInput();
+        setDataTeacherInput();
         setEventSubmitBtn();
     }
 
