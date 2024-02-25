@@ -1,4 +1,4 @@
-package com.example.coursemanagement.page;
+package com.example.coursemanagement.gui.page;
 
 import java.io.IOException;
 

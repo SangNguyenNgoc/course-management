@@ -1,6 +1,6 @@
 package com.example.coursemanagement;
 
-import com.example.coursemanagement.page.Component;
+import com.example.coursemanagement.gui.page.Component;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

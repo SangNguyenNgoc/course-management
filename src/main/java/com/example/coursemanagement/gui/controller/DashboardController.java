@@ -1,18 +1,21 @@
-package com.example.coursemanagement.controller;
+package com.example.coursemanagement.gui.controller;
 
 import com.example.coursemanagement.HomeApplication;
-import com.example.coursemanagement.model.ButtonModel;
-import com.example.coursemanagement.page.Component;
-import com.example.coursemanagement.page.Route;
+import com.example.coursemanagement.gui.model.ButtonModel;
+import com.example.coursemanagement.gui.page.Component;
+import com.example.coursemanagement.gui.page.Route;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import lombok.Getter;
 
 import java.io.IOException;
@@ -33,8 +36,14 @@ public class DashboardController implements Initializable, Route {
     @Getter
     private String stage;
 
+    private Integer courseId;
+
     public void setStage(String stage) {
         this.stage = stage;
+    }
+
+    public void setCourseId(Integer courseId) {
+        this.courseId = courseId;
     }
 
     private static final List<ButtonModel> TOOLBAR_BTN = Arrays.asList(
@@ -60,8 +69,8 @@ public class DashboardController implements Initializable, Route {
         clearLeftToolbar();
         clearRightToolbar();
         addButtonLeftToolbar(initCourseToolbarButtons(TOOLBAR_BTN.get(0)));
-        addButtonLeftToolbar(initStudentToolbarBtn(TOOLBAR_BTN.get(1)));
-        addButtonLeftToolbar(initDepartmentToolbarBtn(TOOLBAR_BTN.get(2)));
+        addButtonLeftToolbar(initDepartmentToolbarBtn(TOOLBAR_BTN.get(1)));
+        addButtonLeftToolbar(initStudentToolbarBtn(TOOLBAR_BTN.get(2)));
         addButtonLeftToolbar(initTeacherToolbarBtn(TOOLBAR_BTN.get(3)));
         addButtonRightToolbar(initAddButton());
         initListCourses("allCourse");
@@ -116,6 +125,11 @@ public class DashboardController implements Initializable, Route {
             leftToolbar.getChildren().forEach(children ->
                     children.getStyleClass().remove("action"));
             button.getStyleClass().add("action");
+            try {
+                initListDepartment();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         });
         return button;
     }
@@ -172,7 +186,27 @@ public class DashboardController implements Initializable, Route {
                 }
 
                 case "courseDetail": {
-                    System.out.println("Register");
+                    FXMLLoader loader = new FXMLLoader(HomeApplication.class.getResource(Component.UPDATE_GRADE.getValue()));
+                    Parent root = null;
+                    try {
+                        root = loader.load();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                    UpdateGradeController<DashboardController> controller = loader.getController();
+                    Stage stage = new Stage();
+                    controller.setStage(stage);
+                    controller.setCourseId(courseId);
+                    controller.initialize("register");
+                    controller.setController(this);
+                    stage.setScene(new Scene(root));
+                    stage.initStyle(StageStyle.UTILITY);
+                    stage.show();
+                    break;
+                }
+
+                case "departments": {
+                    System.out.println("department list");
                     break;
                 }
             }
@@ -232,7 +266,21 @@ public class DashboardController implements Initializable, Route {
         Parent root = null;
         root = loader.load();
         CourseDetailController controller = loader.getController();
+        setCourseId(id);
         controller.initCourseDetail(id);
         body.getChildren().add(root);
     }
+
+    public void initListDepartment() throws IOException {
+        setStage("departments");
+        body.getChildren().clear();
+        FXMLLoader loader = new FXMLLoader(HomeApplication.class.getResource(Component.LIST_DEPARTMENT.getValue()));
+        Parent root = null;
+        root = loader.load();
+        ListDepartmentController controller = loader.getController();
+        controller.initListDepartment();
+        body.getChildren().add(root);
+
+    }
+
 }

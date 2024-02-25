@@ -9,14 +9,14 @@
       minWidth="-Infinity" prefHeight="160.0" prefWidth="840.0"
       style="-fx-background-color: #FFFFFF; -fx-background-radius: 8;" stylesheets="@../style/config.css"
       xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.example.coursemanagement.controller.CourseItemController">
+      fx:controller="com.example.coursemanagement.gui.controller.CourseItemController">
     <children>
         <VBox prefHeight="100.0" prefWidth="180.0">
             <HBox.margin>
                 <Insets bottom="30.0" left="30.0" top="30.0"/>
             </HBox.margin>
             <children>
-                <Label fx:id="title" prefHeight="13.0" prefWidth="140.0" text="CALCULUS">
+                <Label fx:id="title" prefHeight="13.0" prefWidth="160.0" text="CALCULUS">
                     <font>
                         <Font name="System Bold" size="18.0"/>
                     </font>

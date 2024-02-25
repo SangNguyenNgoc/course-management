@@ -1,4 +1,4 @@
-package com.example.coursemanagement.page;
+package com.example.coursemanagement.gui.page;
 
 import lombok.Getter;
 
@@ -23,7 +23,11 @@ public enum Component {
 
     ONSITE_COURSE_FORM("view/onsite-course-form.fxml"),
 
-    UPDATE_GRADE("view/update-grade.fxml");
+    UPDATE_GRADE("view/update-grade.fxml"),
+
+    LIST_DEPARTMENT("view/list-department.fxml"),
+
+    DEPARTMENT_ITEM("view/department-item.fxml");
 
     private final String value;
 

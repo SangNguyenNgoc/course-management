@@ -1,10 +1,9 @@
-package com.example.coursemanagement.controller;
+package com.example.coursemanagement.gui.controller;
 
 import com.example.coursemanagement.bll.CourseBll;
 import com.example.coursemanagement.dtos.Course;
 import com.example.coursemanagement.dtos.Department;
 import com.example.coursemanagement.dtos.Teacher;
-import com.example.coursemanagement.page.Component;
 import com.example.coursemanagement.utils.DialogUtil;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -13,7 +12,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Optional;

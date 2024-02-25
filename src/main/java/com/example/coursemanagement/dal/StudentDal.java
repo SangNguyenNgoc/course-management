@@ -1,16 +1,13 @@
 package com.example.coursemanagement.dal;
 
 import com.example.coursemanagement.dal.interfaces.IStudentDal;
-import com.example.coursemanagement.dtos.Course;
 import com.example.coursemanagement.dtos.Student;
 import com.example.coursemanagement.dtos.StudentGrace;
-import com.example.coursemanagement.mapper.CourseMapper;
 import com.example.coursemanagement.utils.DbConnection;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -34,7 +31,7 @@ public class StudentDal implements IStudentDal {
     @Override
     public Optional<Student> getById(Integer studentId) {
         java.sql.Connection connection = DbConnection.getInstance().getConnection();
-        String sql = "SELECT * FROM person where PersonID = ?";
+        String sql = "SELECT * FROM person WHERE PersonID = ? AND EnrollmentDate IS NOT NULL";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setInt(1, studentId);
@@ -45,7 +42,7 @@ public class StudentDal implements IStudentDal {
                         .id(resultSet.getInt("PersonID"))
                         .lastName(resultSet.getString("Lastname"))
                         .firstName(resultSet.getString("Firstname"))
-                        .enrollmentDate(resultSet.getString("EnrollmentDate"))
+                        .enrollmentDate(resultSet.getDate("EnrollmentDate"))
                         .build();
             }
             return Optional.ofNullable(student);
@@ -71,12 +68,16 @@ public class StudentDal implements IStudentDal {
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 StudentGrace studentGrace = null;
+                Double grade = resultSet.getDouble("Grade");
+                if(resultSet.wasNull()) {
+                    grade = null;
+                }
                 studentGrace = StudentGrace.builder()
                         .id(resultSet.getInt("PersonID"))
                         .firstName(resultSet.getString("Firstname"))
                         .lastName(resultSet.getString("Lastname"))
-                        .enrollmentDate(resultSet.getString("EnrollmentDate"))
-                        .grade(resultSet.getDouble("Grade"))
+                        .enrollmentDate(resultSet.getDate("EnrollmentDate"))
+                        .grade(grade)
                         .build();
                 studentGraces.add(studentGrace);
             }

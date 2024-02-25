@@ -8,8 +8,8 @@ module com.example.coursemanagement {
 
     opens com.example.coursemanagement to javafx.fxml;
     exports com.example.coursemanagement;
-    exports com.example.coursemanagement.controller;
-    exports com.example.coursemanagement.page;
-    opens com.example.coursemanagement.controller to javafx.fxml;
+    exports com.example.coursemanagement.gui.controller;
+    exports com.example.coursemanagement.gui.page;
+    opens com.example.coursemanagement.gui.controller to javafx.fxml;
 }
 ///

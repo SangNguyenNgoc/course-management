@@ -2,11 +2,13 @@ package com.example.coursemanagement.bll;
 
 import com.example.coursemanagement.bll.interfaces.ICourseBll;
 import com.example.coursemanagement.dal.CourseDal;
+import com.example.coursemanagement.dal.StudentDal;
 import com.example.coursemanagement.dtos.Course;
+import com.example.coursemanagement.dtos.Student;
+import com.example.coursemanagement.utils.AppUtil;
 import com.example.coursemanagement.utils.DialogUtil;
 import javafx.scene.control.Alert;
 
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -47,8 +49,38 @@ public class CourseBll implements ICourseBll {
     }
 
     @Override
-    public int registerStudentForCourse(Integer personId, Integer courseId) {
-        return 0;
+    public void registerStudentForCourse(String studentId, Integer courseId) throws Exception {
+        int id = AppUtil.getInstance().validateInteger(studentId, "Mã sinh viên");
+        Student student = StudentDal.getInstance().getById(id).orElse(null);
+        if(student == null) {
+            DialogUtil.getInstance().showAlert("Lỗi","Không tìm thấy sinh viên.", Alert.AlertType.ERROR);
+            throw new Exception();
+        }
+
+        Course course = CourseDal.getInstance().getById(courseId).orElse(null);
+        if(course == null) {
+            DialogUtil.getInstance().showAlert("Lỗi","Không tìm thấy khóa học.", Alert.AlertType.ERROR);
+            throw new Exception();
+        }
+
+
+        if(CourseDal.getInstance().isStudentInCourse(id, courseId)) {
+            DialogUtil.getInstance().showAlert("Lỗi","Sinh viên đã đăng ký khóa học.", Alert.AlertType.ERROR);
+            throw new Exception();
+        }
+
+        if(CourseDal.getInstance().isStudentInCourse(id, courseId) == null) {
+            DialogUtil.getInstance().showAlert("Lỗi","Đã có lỗi xảy ra, vui lòng thử lại sau!", Alert.AlertType.ERROR);
+            throw new Exception();
+        }
+
+        int result = CourseDal.getInstance().registerStudentForCourse(id, courseId);
+        if(result == 0) {
+            DialogUtil.getInstance().showAlert("Lỗi","Đã có lỗi xảy ra, vui lòng thử lại sau!", Alert.AlertType.ERROR);
+            throw new Exception();
+        } else {
+        }
+
     }
 
     @Override
@@ -62,18 +94,18 @@ public class CourseBll implements ICourseBll {
     }
 
     @Override
-    public int deleteCourse(Integer courseId) {
+    public void deleteCourse(Integer courseId) throws Exception {
         Course course = CourseDal.getInstance().getById(courseId).orElse(null);
         if(course == null) {
             DialogUtil.getInstance().showAlert("Lỗi","Không tìm thấy khóa học.", Alert.AlertType.ERROR);
-            return 0;
+            throw new Exception();
         }
         int amount = StudentBll.getInstance().getStudentsInCourse(courseId).size();
         if(amount != 0) {
             DialogUtil.getInstance().showAlert("Lỗi", "Không thể xóa do đã có học sinh đăng ký.", Alert.AlertType.WARNING);
-            return 0;
+            throw new Exception();
         }
-        return CourseDal.getInstance().deleteCourse(courseId);
+        CourseDal.getInstance().deleteCourse(courseId);
     }
 
     @Override

@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="350.0" prefWidth="840.0" style="-fx-background-color: white; -fx-border-radius: 8; -fx-background-radius: 8;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.coursemanagement.controller.OnsiteCourseFormController">
+<AnchorPane prefHeight="350.0" prefWidth="840.0" style="-fx-background-color: white; -fx-border-radius: 8; -fx-background-radius: 8;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.coursemanagement.gui.controller.OnsiteCourseFormController">
     <children>
         <Button fx:id="onsiteSubmitButton" layoutX="354.0" layoutY="277.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="130.0" style="-fx-background-color: #1EB2A6;" text="Tạo mới" textFill="WHITE">
             <font>

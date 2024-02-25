@@ -1,7 +1,7 @@
-package com.example.coursemanagement.controller;
+package com.example.coursemanagement.gui.controller;
 
 import com.example.coursemanagement.HomeApplication;
-import com.example.coursemanagement.page.Component;
+import com.example.coursemanagement.gui.page.Component;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;

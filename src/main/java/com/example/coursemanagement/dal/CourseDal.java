@@ -2,9 +2,10 @@ package com.example.coursemanagement.dal;
 
 import com.example.coursemanagement.dal.interfaces.ICourseDal;
 import com.example.coursemanagement.dtos.Course;
-import com.example.coursemanagement.mapper.CourseMapper;
+import com.example.coursemanagement.utils.mapper.CourseMapper;
 import com.example.coursemanagement.utils.DbConnection;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -109,8 +110,17 @@ public class CourseDal implements ICourseDal {
     }
 
     @Override
-    public int registerStudentForCourse(Integer personId, Integer courseId) {
-        return 0;
+    public int registerStudentForCourse(Integer studentId, Integer courseId) {
+        Connection connection = DbConnection.getInstance().getConnection();
+        String sql = "INSERT INTO studentgrade VALUE (null, ?, ?, null);";
+        try(PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setInt(1, courseId);
+            preparedStatement.setInt(2, studentId);
+            return preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, "Query failure: " + e.getMessage());
+            return 0;
+        }
     }
 
     @Override
@@ -126,5 +136,20 @@ public class CourseDal implements ICourseDal {
     @Override
     public int updateCourse(Course course) {
         return 0;
+    }
+
+    @Override
+    public Boolean isStudentInCourse(Integer studentId, Integer courseId) {
+        Connection connection = DbConnection.getInstance().getConnection();
+        String sql = "SELECT * FROM studentgrade WHERE CourseID = ? AND StudentID = ?";
+        try(PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setInt(1, courseId);
+            preparedStatement.setInt(2, studentId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            return resultSet.next();
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, "Query failure: " + e.getMessage());
+            return null;
+        }
     }
 }

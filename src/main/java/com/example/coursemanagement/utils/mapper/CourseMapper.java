@@ -1,4 +1,4 @@
-package com.example.coursemanagement.mapper;
+package com.example.coursemanagement.utils.mapper;
 
 import com.example.coursemanagement.dtos.OnlineCourse;
 import com.example.coursemanagement.dtos.OnsiteCourse;

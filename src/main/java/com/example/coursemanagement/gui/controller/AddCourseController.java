@@ -1,17 +1,14 @@
-package com.example.coursemanagement.controller;
+package com.example.coursemanagement.gui.controller;
 
 import com.example.coursemanagement.HomeApplication;
-import com.example.coursemanagement.page.Component;
-import com.example.coursemanagement.page.Route;
+import com.example.coursemanagement.gui.page.Component;
+import com.example.coursemanagement.gui.page.Route;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 
 import java.io.IOException;
 import java.net.URL;

@@ -1,16 +1,17 @@
-package com.example.coursemanagement.controller;
+package com.example.coursemanagement.gui.controller;
 
 import com.example.coursemanagement.HomeApplication;
 import com.example.coursemanagement.bll.CourseBll;
-import com.example.coursemanagement.bll.StudentBll;
 import com.example.coursemanagement.dtos.Course;
 import com.example.coursemanagement.dtos.OnlineCourse;
 import com.example.coursemanagement.dtos.OnsiteCourse;
-import com.example.coursemanagement.page.Component;
+import com.example.coursemanagement.gui.page.Component;
+import com.example.coursemanagement.utils.DialogUtil;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
@@ -122,8 +123,13 @@ public class CourseItemController {
     }
 
     public void deleteCourse() {
-        CourseBll.getInstance().deleteCourse(course.getId());
-        dashboardController.initListCourses(dashboardController.getStage());
+        try {
+            CourseBll.getInstance().deleteCourse(course.getId());
+            dashboardController.initListCourses(dashboardController.getStage());
+        } catch (Exception e) {
+            DialogUtil.getInstance().showAlert("Lỗi","Đã có lỗi xảy ra, vui lòng thử lại sau!", Alert.AlertType.ERROR);
+        }
+
     }
 
     public void setHeaderDetail(Course course) {

@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Data
 @SuperBuilder
@@ -15,6 +16,7 @@ public class Department {
     protected Integer id;
     protected String name;
     protected Double budget;
-    protected LocalDateTime startDate;
-    protected Integer administrator;
+    protected Date startDate;
+    protected Integer administratorId;
+    protected String administrator;
 }

@@ -12,9 +12,9 @@ class StudentDalTest {
 
     @Test
     void getStudentsInCourse() {
-        List<StudentGrace> studentGraces = StudentDal.getInstance().getStudentsInCourse(1045);
+        List<StudentGrace> studentGraces = StudentDal.getInstance().getStudentsInCourse(4041);
         studentGraces.forEach(item -> {
-            System.out.println(item.getEnrollmentDate());
+            System.out.println(item.getGrade());
         });
     }
 

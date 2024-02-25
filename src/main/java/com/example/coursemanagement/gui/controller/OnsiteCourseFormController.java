@@ -1,4 +1,4 @@
-package com.example.coursemanagement.controller;
+package com.example.coursemanagement.gui.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

@@ -4,11 +4,61 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0e8c9f3f-92af-4f34-ae72-882333f2c02a" name="Changes" comment="update 20/2/2024">
+    <list default="true" id="0e8c9f3f-92af-4f34-ae72-882333f2c02a" name="Changes" comment="update 22/2/2024 v2 - hoàn thành chức năng chỉnh sửa điểm">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/bll/DepartmentBll.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/bll/interfaces/IDepartmentBll.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/dal/DepartmentDal.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/dal/interfaces/IDepartmentDal.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/gui/controller/DepartmentItemController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/gui/controller/ListDepartmentController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/gui/controller/UpdateGradeController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/gui/model/TableCellWithButton.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/utils/AppUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/coursemanagement/style/cell-button.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/coursemanagement/view/department-item.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/coursemanagement/view/list-department.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/example/coursemanagement/bll/CourseBllTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/example/coursemanagement/dal/DepartmentDalTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/HomeApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/HomeApplication.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/bll/CourseBll.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/bll/CourseBll.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/controller/CourseItemController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/controller/CourseItemController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/controller/DashboardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/controller/DashboardController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/bll/StudentBll.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/bll/StudentBll.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/bll/interfaces/ICourseBll.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/bll/interfaces/ICourseBll.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/bll/interfaces/IStudentBll.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/bll/interfaces/IStudentBll.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/controller/AddCourseController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/gui/controller/AddCourseController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/controller/CourseDetailController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/gui/controller/CourseDetailController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/controller/CourseItemController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/gui/controller/CourseItemController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/controller/DashboardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/gui/controller/DashboardController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/controller/EmptyController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/gui/controller/EmptyController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/controller/HomeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/gui/controller/HomeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/controller/ListCourseController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/gui/controller/ListCourseController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/controller/OnlineCourseFormController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/gui/controller/OnlineCourseFormController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/controller/OnsiteCourseFormController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/gui/controller/OnsiteCourseFormController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/controller/UpdateGradeController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/dal/CourseDal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/dal/CourseDal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/dal/StudentDal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/dal/StudentDal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/dal/interfaces/ICourseDal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/dal/interfaces/ICourseDal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/dtos/Department.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/dtos/Department.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/dtos/Student.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/dtos/Student.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/dtos/StudentGrace.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/dtos/StudentGrace.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/mapper/CourseMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/utils/mapper/CourseMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/model/ButtonModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/gui/model/ButtonModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/page/Component.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/gui/page/Component.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/page/Route.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/gui/page/Route.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/coursemanagement/view/add-course.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/coursemanagement/view/add-course.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/coursemanagement/view/course-detail.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/coursemanagement/view/course-detail.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/coursemanagement/view/course-item.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/coursemanagement/view/course-item.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/coursemanagement/view/dashboard.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/coursemanagement/view/dashboard.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/coursemanagement/view/empty.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/coursemanagement/view/empty.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/coursemanagement/view/home-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/coursemanagement/view/home-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/coursemanagement/view/list-course.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/coursemanagement/view/list-course.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/coursemanagement/view/online-course-form.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/coursemanagement/view/online-course-form.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/coursemanagement/view/onsite-course-form.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/coursemanagement/view/onsite-course-form.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/coursemanagement/view/update-grade.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/coursemanagement/view/update-grade.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/coursemanagement/dal/CourseDalTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/coursemanagement/dal/CourseDalTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/coursemanagement/dal/StudentDalTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/coursemanagement/dal/StudentDalTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,11 +69,11 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Enum" />
-        <option value="JUnit5 Test Class" />
-        <option value="CSS File" />
-        <option value="FxmlFile" />
         <option value="Interface" />
+        <option value="FxmlFile" />
         <option value="Class" />
+        <option value="CSS File" />
+        <option value="JUnit5 Test Class" />
       </list>
     </option>
   </component>
@@ -70,37 +120,37 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;LombokPluginIS_LOMBOK_JPS_FIX_ENABLED&quot;: &quot;true&quot;,
-    &quot;LombokPluginIS_LOMBOK_VERSION_CHECK_Enabled&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
-    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;view-detail-course&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/TKPMTMHPL/project/course-management/src/main/resources/com/example/coursemanagement/img&quot;,
-    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;database.query.execution&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "LombokPluginIS_LOMBOK_JPS_FIX_ENABLED": "true",
+    "LombokPluginIS_LOMBOK_VERSION_CHECK_Enabled": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
+    "git-widget-placeholder": "view-detail-course",
+    "last_opened_file_path": "D:/TKPMTMHPL/project/course-management/src/main/resources/com/example/coursemanagement/img",
+    "list.type.of.created.stylesheet": "CSS",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.2",
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "settings.editor.selected.configurable": "database.query.execution",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;mysql&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\TKPMTMHPL\project\course-management\src\main\resources\com\example\coursemanagement\img" />
@@ -114,6 +164,7 @@
       <recent name="" />
     </key>
     <key name="CreateTestDialog.RecentsKey">
+      <recent name="com.example.coursemanagement.bll" />
       <recent name="com.example.coursemanagement.dal" />
     </key>
   </component>
@@ -131,23 +182,55 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="CourseDalTest.getAllCourses" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="CourseBllTest.registerStudentForCourse" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="course-management" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.example.coursemanagement.utils.*" />
+          <option name="PATTERN" value="com.example.coursemanagement.bll.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.example.coursemanagement.bll" />
+      <option name="MAIN_CLASS_NAME" value="com.example.coursemanagement.bll.CourseBllTest" />
+      <option name="METHOD_NAME" value="registerStudentForCourse" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CourseDalTest.registerStudentForCourse" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="course-management" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.coursemanagement.dal.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.example.coursemanagement.dal" />
       <option name="MAIN_CLASS_NAME" value="com.example.coursemanagement.dal.CourseDalTest" />
-      <option name="METHOD_NAME" value="getAllCourses" />
+      <option name="METHOD_NAME" value="registerStudentForCourse" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="StudentDalTest.getById" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="DepartmentDalTest.getAll" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="course-management" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.coursemanagement.dal.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.example.coursemanagement.dal" />
+      <option name="MAIN_CLASS_NAME" value="com.example.coursemanagement.dal.DepartmentDalTest" />
+      <option name="METHOD_NAME" value="getAll" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="StudentDalTest.getStudentsInCourse" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="course-management" />
       <extension name="coverage">
         <pattern>
@@ -157,23 +240,7 @@
       </extension>
       <option name="PACKAGE_NAME" value="com.example.coursemanagement.dal" />
       <option name="MAIN_CLASS_NAME" value="com.example.coursemanagement.dal.StudentDalTest" />
-      <option name="METHOD_NAME" value="getById" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="StudentDalTest.updateGrade" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="course-management" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.example.coursemanagement.dal.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.example.coursemanagement.dal" />
-      <option name="MAIN_CLASS_NAME" value="com.example.coursemanagement.dal.StudentDalTest" />
-      <option name="METHOD_NAME" value="updateGrade" />
+      <option name="METHOD_NAME" value="getStudentsInCourse" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -182,10 +249,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.HomeApplication" />
-        <item itemvalue="JUnit.StudentDalTest.updateGrade" />
-        <item itemvalue="JUnit.StudentDalTest.getById" />
-        <item itemvalue="JUnit.CourseDalTest.getAllCourses" />
-        <item itemvalue="Application.HomeApplication" />
+        <item itemvalue="JUnit.CourseBllTest.registerStudentForCourse" />
+        <item itemvalue="JUnit.CourseDalTest.registerStudentForCourse" />
+        <item itemvalue="JUnit.StudentDalTest.getStudentsInCourse" />
+        <item itemvalue="JUnit.DepartmentDalTest.getAll" />
       </list>
     </recent_temporary>
   </component>
@@ -219,6 +286,8 @@
       <workItem from="1708441421010" duration="6656000" />
       <workItem from="1708594566323" duration="639000" />
       <workItem from="1708611625667" duration="2640000" />
+      <workItem from="1708653869262" duration="6188000" />
+      <workItem from="1708852116718" duration="10027000" />
     </task>
     <task id="LOCAL-00001" summary="update 17/2/2014 - hoàn thành chức năng xem danh sách khóa học">
       <option name="closed" value="true" />
@@ -247,7 +316,19 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="origin/feature/courseDal" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
@@ -258,6 +339,22 @@
     <MESSAGE value="update 19/2/2024" />
     <MESSAGE value="update 22/2/2024 - hoàn thành chức năng chỉnh sửa điểm" />
     <option name="LAST_COMMIT_MESSAGE" value="update 22/2/2024 - hoàn thành chức năng chỉnh sửa điểm" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/example/coursemanagement/bll/CourseBll.java</url>
+          <line>53</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/example/coursemanagement/gui/controller/UpdateGradeController.java</url>
+          <line>83</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

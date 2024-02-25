@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Font?>
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="140.0"
       prefWidth="320.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.example.coursemanagement.controller.UpdateGradeController">
+      fx:controller="com.example.coursemanagement.gui.controller.UpdateGradeController">
     <children>
         <HBox prefHeight="40.0" prefWidth="320.0">
             <children>
@@ -22,7 +22,7 @@
                         <Insets left="20.0" top="10.0"/>
                     </HBox.margin>
                 </ImageView>
-                <Label prefHeight="60.0" prefWidth="109.0" text="Chỉnh sửa điểm">
+                <Label fx:id="title" prefHeight="60.0" prefWidth="109.0" text="Chỉnh sửa điểm">
                     <HBox.margin>
                         <Insets left="20.0"/>
                     </HBox.margin>
@@ -32,7 +32,7 @@
                 </Label>
             </children>
         </HBox>
-        <Label text="Nhập điểm: ">
+        <Label fx:id="label" text="Nhập điểm: ">
             <VBox.margin>
                 <Insets left="24.0"/>
             </VBox.margin>
@@ -40,13 +40,13 @@
                 <Font size="14.0"/>
             </font>
         </Label>
-        <TextField fx:id="inputGrade" prefHeight="30.0" prefWidth="257.0">
+        <TextField fx:id="inputField" prefHeight="30.0" prefWidth="257.0">
             <VBox.margin>
                 <Insets left="24.0" right="24.0" top="5.0"/>
             </VBox.margin>
         </TextField>
-        <Button mnemonicParsing="false" prefWidth="80.0" style="-fx-background-color: #1EB2A6; -fx-text-fill: #FFFFFF;"
-                text="Chỉnh sửa" onMouseClicked="#updateGrade">
+        <Button fx:id="submitBtn" mnemonicParsing="false" prefWidth="80.0" style="-fx-background-color: #1EB2A6; -fx-text-fill: #FFFFFF;"
+                text="Chỉnh sửa">
             <VBox.margin>
                 <Insets left="120.0" top="10.0"/>
             </VBox.margin>
