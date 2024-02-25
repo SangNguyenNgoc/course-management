@@ -2,6 +2,8 @@ package com.example.coursemanagement.dal;
 
 import com.example.coursemanagement.dal.interfaces.IDepartmentDal;
 import com.example.coursemanagement.dtos.Department;
+import com.example.coursemanagement.dtos.Teacher;
+import com.example.coursemanagement.mapper.TeacherMapper;
 import com.example.coursemanagement.utils.DbConnection;
 
 import java.sql.PreparedStatement;
@@ -9,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -30,6 +33,10 @@ public class DepartmentDal implements IDepartmentDal {
         return DepartmentDal.DepartmentDalHolder.INSTANCE;
     }
 
+<<<<<<< HEAD
+=======
+    private static final Logger logger = Logger.getLogger(CourseDal.class.getName());
+>>>>>>> addCourseGui
     @Override
     public List<Department> getAll() {
         java.sql.Connection connection = DbConnection.getInstance().getConnection();

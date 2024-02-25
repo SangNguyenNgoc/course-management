@@ -5,8 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0e8c9f3f-92af-4f34-ae72-882333f2c02a" name="Changes" comment="update 19/2/2024">
-      <change afterPath="$PROJECT_DIR$/src/main/sql/school (1).sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/controller/OnlineCourseFormController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/controller/OnlineCourseFormController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/controller/OnsiteCourseFormController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/controller/OnsiteCourseFormController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,7 +72,7 @@
     "WebServerToolWindowFactoryState": "false",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
-    "git-widget-placeholder": "dev",
+    "git-widget-placeholder": "addCourseGui",
     "last_opened_file_path": "D:/TKPMTMHPL/project/course-management/src/main/sql",
     "list.type.of.created.stylesheet": "CSS",
     "node.js.detected.package.eslint": "true",
@@ -140,8 +141,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.CourseDalTest.getAllCourses" />
         <item itemvalue="Application.HomeApplication" />
+        <item itemvalue="JUnit.CourseDalTest.getAllCourses" />
         <item itemvalue="Application.HomeApplication" />
         <item itemvalue="JUnit.CourseDalTest.getAllCourses" />
       </list>

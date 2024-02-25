@@ -12,7 +12,7 @@ public interface ICourseDal {
 
     int registerStudentForCourse(Integer studentId, Integer courseId);
 
-    Optional<Course> createCourse(Course course);
+    Optional<Course> createCourse(Course course, Integer departmentId, Integer teache);
 
     int deleteCourse(Integer courseId);
 
