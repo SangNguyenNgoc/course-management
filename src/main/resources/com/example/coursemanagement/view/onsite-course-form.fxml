@@ -2,7 +2,6 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -87,6 +86,6 @@
                 <Font size="14.0" />
             </font>
         </TextField>
-      <DatePicker fx:id="onsiteDateInput" layoutX="218.0" layoutY="199.0"/>
+      <TextField fx:id="onsiteDateInput" layoutX="218.0" layoutY="199.0" prefHeight="25.0" prefWidth="174.0" />
     </children>
 </AnchorPane>

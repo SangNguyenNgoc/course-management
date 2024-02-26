@@ -33,10 +33,6 @@ public class DepartmentDal implements IDepartmentDal {
         return DepartmentDal.DepartmentDalHolder.INSTANCE;
     }
 
-<<<<<<< HEAD
-=======
-    private static final Logger logger = Logger.getLogger(CourseDal.class.getName());
->>>>>>> addCourseGui
     @Override
     public List<Department> getAll() {
         java.sql.Connection connection = DbConnection.getInstance().getConnection();

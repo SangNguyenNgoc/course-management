@@ -104,13 +104,14 @@ public class CourseItemController {
     }
 
     public void fixCourse() {
-        System.out.println(course.getId());
         try {
             FXMLLoader loader;
             if(course.getType().equals("Khóa trực tuyến")) {
                 loader = new FXMLLoader(HomeApplication.class.getResource(Component.ONLINE_COURSE_FORM.getValue()));
+                loader.setControllerFactory(param -> new OnlineCourseFormController((OnlineCourse) course, dashboardController));
             } else {
                 loader = new FXMLLoader(HomeApplication.class.getResource(Component.ONSITE_COURSE_FORM.getValue()));
+                loader.setControllerFactory(param -> new OnsiteCourseFormController((OnsiteCourse) course, dashboardController));
             }
             Parent root = loader.load();
             Stage stage = new Stage();
@@ -125,9 +126,10 @@ public class CourseItemController {
     public void deleteCourse() {
         try {
             CourseBll.getInstance().deleteCourse(course.getId());
+            DialogUtil.getInstance().showAlert("Thông báo","Xóa thành công!", Alert.AlertType.INFORMATION);
             dashboardController.initListCourses(dashboardController.getStage());
         } catch (Exception e) {
-            DialogUtil.getInstance().showAlert("Lỗi","Đã có lỗi xảy ra, vui lòng thử lại sau!", Alert.AlertType.ERROR);
+            DialogUtil.getInstance().showAlert("Lỗi","Xóa không thành công!", Alert.AlertType.ERROR);
         }
 
     }

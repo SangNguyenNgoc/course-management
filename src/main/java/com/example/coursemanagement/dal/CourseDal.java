@@ -3,20 +3,12 @@ package com.example.coursemanagement.dal;
 import com.example.coursemanagement.dal.interfaces.ICourseDal;
 import com.example.coursemanagement.dtos.Course;
 import com.example.coursemanagement.utils.mapper.CourseMapper;
-import com.example.coursemanagement.dtos.OnlineCourse;
-import com.example.coursemanagement.mapper.CourseMapper;
 import com.example.coursemanagement.utils.DbConnection;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Time;
-import java.time.LocalDate;
+import java.sql.*;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Level;
@@ -53,7 +45,7 @@ public class CourseDal implements ICourseDal {
                 LEFT JOIN onsitecourse o1
                 ON c.CourseID = o1.CourseID
                 LEFT JOIN school.studentgrade s
-                ON c.CourseID = s.CourseID GROUP BY s.CourseID
+                ON c.CourseID = s.CourseID GROUP BY c.CourseID
                 ORDER BY c.CourseID
                 """;
 
@@ -143,28 +135,21 @@ public class CourseDal implements ICourseDal {
                 preparedStatement.setString(1, course.getTitle());
                 preparedStatement.setInt(2, course.getCredits());
                 preparedStatement.setInt(3, departmentId);
-
-                // Thực hiện câu lệnh SQL
                 int affectedRows = preparedStatement.executeUpdate();
 
                 if (affectedRows == 0) {
                     throw new SQLException("Creating course failed, no rows affected.");
                 }
-
-                // Lấy thông tin về khóa học vừa được tạo
                 try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
                     if (generatedKeys.next()) {
                         int courseID = generatedKeys.getInt(1);
                         String insertCourseInstructorSql = "INSERT INTO `courseinstructor` (`CourseID`, `PersonID`) VALUES (?, ?)";
                         try (PreparedStatement courseInstructorStatement = connection.prepareStatement(insertCourseInstructorSql)) {
-                            // Thiết lập các tham số cho bảng courseinstructor
                             courseInstructorStatement.setInt(1, courseID);
                             courseInstructorStatement.setInt(2, teacher);
 
-                            // Thực hiện câu lệnh INSERT cho bảng courseinstructor
                             courseInstructorStatement.executeUpdate();
                         }
-                        // Tạo và trả về Optional<Course>
                         return Optional.of(Course.builder()
                                 .id(courseID)
                                 .title(course.getTitle())
@@ -177,20 +162,35 @@ public class CourseDal implements ICourseDal {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace(); // Hoặc xử lý lỗi theo nhu cầu của bạn
-        }
+            logger.log(Level.SEVERE, "Query failure: " + e.getMessage());        }
 
         return Optional.empty();
     }
 
     @Override
-    public int deleteCourse(Integer courseId) {
-        return 0;
-    }
+    public void deleteCourse(Integer courseId) {
+        Connection connection = DbConnection.getInstance().getConnection();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM onlinecourse WHERE CourseID = ?");
+            preparedStatement.setInt(1, courseId);
+            int rowsAffectedOnlineCourse = preparedStatement.executeUpdate();
 
-    @Override
-    public int updateCourse(Course course) {
-        return 0;
+            preparedStatement = connection.prepareStatement("DELETE FROM onsitecourse WHERE CourseID = ?");
+            preparedStatement.setInt(1, courseId);
+            int rowsAffectedOnsiteCourse = preparedStatement.executeUpdate();
+
+            preparedStatement = connection.prepareStatement("DELETE FROM courseinstructor WHERE CourseID = ?");
+            preparedStatement.setInt(1, courseId);
+            int rowsAffectedCourseInstructor = preparedStatement.executeUpdate();
+
+            preparedStatement = connection.prepareStatement("DELETE FROM course WHERE CourseID = ?");
+            preparedStatement.setInt(1, courseId);
+            int rowsAffectedCourse = preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, "Query failure: " + e.getMessage());
+
+        }
     }
 
     @Override
@@ -208,59 +208,99 @@ public class CourseDal implements ICourseDal {
         }
     }
 
+    @Override
     public Boolean createCourseOnline(Integer courseId, String url) {
         java.sql.Connection connection = DbConnection.getInstance().getConnection();
-
-        // Câu lệnh SQL để thêm khóa học trực tuyến
         String sql = "INSERT INTO `onlinecourse` (`CourseID`, `url`) VALUES (?, ?)";
 
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            // Thiết lập các tham số cho bảng onlinecourse
             statement.setInt(1, courseId);
             statement.setString(2, url);
 
-            // Thực hiện câu lệnh INSERT cho bảng onlinecourse
             int affectedRows = statement.executeUpdate();
 
-            // Kiểm tra xem có bản ghi nào bị ảnh hưởng hay không
             return affectedRows > 0;
         } catch (SQLException e) {
-            e.printStackTrace(); // Hoặc xử lý lỗi theo nhu cầu của bạn
-        }
+            logger.log(Level.SEVERE, "Query failure: " + e.getMessage());        }
 
         return false;
     }
 
-    public Boolean createCourseOnsite(Integer courseId, String location, LocalDate date, LocalTime time) {
+    @Override
+    public Boolean createCourseOnsite(Integer courseId, String location, String date, LocalTime time) {
         java.sql.Connection connection = DbConnection.getInstance().getConnection();
-
-        // Câu lệnh SQL để thêm khóa học trực tuyến
         String sql = "INSERT INTO `onsitecourse` (`CourseID`, `Location`, `Days`, `Time`) VALUES (?, ?, ?, ?)";
 
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            // Thiết lập các tham số cho bảng onsitecourse
             statement.setInt(1, courseId);
             statement.setString(2, location);
 
-            // Chuyển đổi LocalDate và LocalTime thành định dạng phù hợp
-            String formattedDate = date.toString(); // Đơn giản lấy chuỗi của LocalDate
             String formattedTime = time.format(DateTimeFormatter.ofPattern("HH:mm")); // Định dạng LocalTime thành chuỗi "HH:mm"
 
-            // Thiết lập giá trị cho trường Days và Time
-            statement.setString(3, formattedDate);
+            statement.setString(3, date);
             statement.setString(4, formattedTime);
 
-            // Thực hiện câu lệnh INSERT cho bảng onsitecourse
             int affectedRows = statement.executeUpdate();
-
-            // Kiểm tra xem có bản ghi nào bị ảnh hưởng hay không
             return affectedRows > 0;
         } catch (SQLException e) {
-            e.printStackTrace(); // Hoặc xử lý lỗi theo nhu cầu của bạn
+            logger.log(Level.SEVERE, "Query failure: " + e.getMessage());
         }
-
         return false;
     }
 
+    @Override
+    public int updateCourse(Course course, Integer departmentId, Integer teacher) {
+        Connection connection = DbConnection.getInstance().getConnection();
+        String sql = "UPDATE course SET Title = ?, Credits = ?, DepartmentID = ? WHERE CourseID = ?";
+        try(PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setString(1, course.getTitle());
+            preparedStatement.setInt(2, course.getCredits());
+            preparedStatement.setInt(3, departmentId);
+            preparedStatement.setInt(4, course.getId());
+            int result = preparedStatement.executeUpdate();
+            if(result != 0) {
+                String updateCourseInstructor = "UPDATE courseinstructor SET PersonID = ? WHERE CourseID =?";
+                PreparedStatement courseInstructorPrepare = connection.prepareStatement(updateCourseInstructor);
+                courseInstructorPrepare.setInt(1, teacher);
+                courseInstructorPrepare.setInt(2, course.getId());
+                return courseInstructorPrepare.executeUpdate();
+            } else {
+                return 0;
+            }
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, "Query failure: " + e.getMessage());
+        }
+        return 0;
+    }
 
+    @Override
+    public int updateCourseOnsite(Integer courseId, String location, String date, LocalTime time) {
+        Connection connection = DbConnection.getInstance().getConnection();
+        String sql = "UPDATE onsitecourse SET Days = ?, Location = ?, Time = ? WHERE CourseID = ?";
+        try(PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            String formattedTime = time.format(DateTimeFormatter.ofPattern("HH:mm"));
+            preparedStatement.setString(1, date);
+            preparedStatement.setString(2, location);
+            preparedStatement.setString(3, formattedTime);
+            preparedStatement.setInt(4, courseId);
+            return preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, "Query failure: " + e.getMessage());
+        }
+        return 0;
+    }
+
+    @Override
+    public int updateCourseOnline(Integer courseId, String url) {
+        Connection connection = DbConnection.getInstance().getConnection();
+        String sql = "UPDATE onlinecourse SET url = ? WHERE CourseID = ?";
+        try(PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setString(1, url);
+            preparedStatement.setInt(2, courseId);
+            return preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, "Query failure: " + e.getMessage());
+        }
+        return 0;
+    }
 }

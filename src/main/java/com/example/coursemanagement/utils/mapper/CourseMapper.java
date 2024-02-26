@@ -26,7 +26,7 @@ public class CourseMapper {
                 .department(resultSet.getString("Name"))
                 .sumOfStudent(0)
                 .teacher(resultSet.getString("Firstname") == null || resultSet.getString("Lastname") == null ?
-                        " " : resultSet.getString("Firstname") + " " + resultSet.getString("Lastname"))
+                        " " : resultSet.getString("Lastname") + " " + resultSet.getString("Firstname"))
                 .title(resultSet.getString("Title"))
                 .location(resultSet.getString("Location"))
                 .days(resultSet.getString("Days"))
@@ -43,7 +43,7 @@ public class CourseMapper {
                 .department(resultSet.getString("Name"))
                 .sumOfStudent(0)
                 .teacher(resultSet.getString("Firstname") == null || resultSet.getString("Lastname") == null ?
-                        " " : resultSet.getString("Firstname") + " " + resultSet.getString("Lastname"))
+                        " " : resultSet.getString("Lastname") + " " + resultSet.getString("Firstname"))
                 .title(resultSet.getString("Title"))
                 .url(resultSet.getString("url"))
                 .type("Khóa trực tuyến")

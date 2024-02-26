@@ -1,9 +1,7 @@
 package com.example.coursemanagement.dal;
 
 import com.example.coursemanagement.dal.interfaces.ITeacherDal;
-import com.example.coursemanagement.dtos.Course;
 import com.example.coursemanagement.dtos.Teacher;
-import com.example.coursemanagement.mapper.CourseMapper;
 import com.example.coursemanagement.mapper.TeacherMapper;
 import com.example.coursemanagement.utils.DbConnection;
 
