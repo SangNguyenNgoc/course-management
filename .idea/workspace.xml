@@ -4,8 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0e8c9f3f-92af-4f34-ae72-882333f2c02a" name="Changes" comment="update 26/2/2024 - hoàn thành chức năng chỉnh sửa khóa học">
+    <list default="true" id="0e8c9f3f-92af-4f34-ae72-882333f2c02a" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/example/coursemanagement/dal/TeacherDalTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/dal/TeacherDal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/dal/TeacherDal.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -15,48 +18,20 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Enum" />
         <option value="JUnit5 Test Class" />
-        <option value="CSS File" />
-        <option value="Interface" />
-        <option value="FxmlFile" />
-        <option value="Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="feature/courseDal" />
+        <entry key="$PROJECT_DIR$" value="dev" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory">{
-  &quot;history&quot;: [
-    {
-      &quot;state&quot;: &quot;OPEN&quot;,
-      &quot;assignee&quot;: &quot;notobo15&quot;
-    }
-  ],
-  &quot;lastFilter&quot;: {
-    &quot;state&quot;: &quot;OPEN&quot;,
-    &quot;assignee&quot;: &quot;notobo15&quot;
-  }
-}</component>
-  <component name="GithubPullRequestsUISettings">
-    <option name="selectedUrlAndAccountId">
-      <UrlAndAccount>
-        <option name="accountId" value="52f8ff37-723c-41ce-9379-c930d278d0dd" />
-        <option name="url" value="https://github.com/SangNguyenNgoc/course-management.git" />
-      </UrlAndAccount>
-    </option>
-  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
-  </component>
-  <component name="ProblemsViewState">
-    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 8
@@ -69,58 +44,38 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "LombokPluginIS_LOMBOK_JPS_FIX_ENABLED": "true",
-    "LombokPluginIS_LOMBOK_VERSION_CHECK_Enabled": "true",
+    "Application.HomeApplication.executor": "Run",
+    "JUnit.TeacherDalTest.addTeacher.executor": "Run",
+    "JUnit.TeacherDalTest.deleteTeacher.executor": "Run",
+    "JUnit.TeacherDalTest.updateTeacher.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
-    "git-widget-placeholder": "dev",
-    "last_opened_file_path": "D:/TKPMTMHPL/project/course-management/src/main/sql",
-    "list.type.of.created.stylesheet": "CSS",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
+    "git-widget-placeholder": "add-Teacher",
+    "kotlin-language-version-configured": "true",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
-    "run.code.analysis.last.selected.profile": "pProject Default",
-    "settings.editor.selected.configurable": "database.query.execution",
     "vue.rearranger.settings.migration": "true"
-  },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "mysql"
-    ]
   }
 }]]></component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\TKPMTMHPL\project\course-management\src\main\resources\com\example\coursemanagement\img" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\TKPMTMHPL\project\course-management\src\main\resources\com\example\coursemanagement\img" />
-      <recent name="D:\TKPMTMHPL\project\course-management\src\main\resources\com\example\coursemanagemen" />
-      <recent name="D:\TKPMTMHPL\project\course-management\src\main\resources\com\example\coursemanagement\gui" />
-    </key>
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
     </key>
     <key name="CreateTestDialog.RecentsKey">
-      <recent name="com.example.coursemanagement.bll" />
       <recent name="com.example.coursemanagement.dal" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.HomeApplication">
+  <component name="RunManager" selected="JUnit.TeacherDalTest.deleteTeacher">
     <configuration name="HomeApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.example.coursemanagement.HomeApplication" />
       <module name="course-management" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.example.coursemanagement.controller.*" />
+          <option name="PATTERN" value="com.example.coursemanagement.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -128,39 +83,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="CourseBllTest.updateCourse" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="course-management" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.example.coursemanagement.bll.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.example.coursemanagement.bll" />
-      <option name="MAIN_CLASS_NAME" value="com.example.coursemanagement.bll.CourseBllTest" />
-      <option name="METHOD_NAME" value="updateCourse" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="CourseDalTest.getAllCourses" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="course-management" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.example.coursemanagement.utils.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.example.coursemanagement.dal" />
-      <option name="MAIN_CLASS_NAME" value="com.example.coursemanagement.dal.CourseDalTest" />
-      <option name="METHOD_NAME" value="getAllCourses" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="CourseDalTest.registerStudentForCourse" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="TeacherDalTest.addTeacher" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="course-management" />
       <extension name="coverage">
         <pattern>
@@ -169,8 +92,40 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.example.coursemanagement.dal" />
-      <option name="MAIN_CLASS_NAME" value="com.example.coursemanagement.dal.CourseDalTest" />
-      <option name="METHOD_NAME" value="registerStudentForCourse" />
+      <option name="MAIN_CLASS_NAME" value="com.example.coursemanagement.dal.TeacherDalTest" />
+      <option name="METHOD_NAME" value="addTeacher" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TeacherDalTest.deleteTeacher" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="course-management" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.coursemanagement.dal.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.example.coursemanagement.dal" />
+      <option name="MAIN_CLASS_NAME" value="com.example.coursemanagement.dal.TeacherDalTest" />
+      <option name="METHOD_NAME" value="deleteTeacher" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TeacherDalTest.updateTeacher" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="course-management" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.coursemanagement.dal.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.example.coursemanagement.dal" />
+      <option name="MAIN_CLASS_NAME" value="com.example.coursemanagement.dal.TeacherDalTest" />
+      <option name="METHOD_NAME" value="updateTeacher" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -178,13 +133,19 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.HomeApplication" />
-        <item itemvalue="JUnit.CourseBllTest.updateCourse" />
-        <item itemvalue="JUnit.CourseDalTest.registerStudentForCourse" />
-        <item itemvalue="JUnit.CourseDalTest.getAllCourses" />
+        <item itemvalue="JUnit.TeacherDalTest.deleteTeacher" />
+        <item itemvalue="JUnit.TeacherDalTest.updateTeacher" />
+        <item itemvalue="JUnit.TeacherDalTest.addTeacher" />
         <item itemvalue="Application.HomeApplication" />
       </list>
     </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="jdk-21.0.2-openjdk-21.0.2-4caba194b151-4f524021" />
+      </set>
+    </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -194,89 +155,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1705995262738</updated>
-      <workItem from="1705995263845" duration="4076000" />
-      <workItem from="1706238292395" duration="4167000" />
-      <workItem from="1706338798045" duration="2278000" />
-      <workItem from="1706429179668" duration="2468000" />
-      <workItem from="1706510912034" duration="3800000" />
-      <workItem from="1706521706843" duration="2607000" />
-      <workItem from="1706524352576" duration="3005000" />
-      <workItem from="1706527373768" duration="1626000" />
-      <workItem from="1706612485773" duration="1038000" />
-      <workItem from="1706680569987" duration="4847000" />
-      <workItem from="1706789219547" duration="12216000" />
-      <workItem from="1706856574329" duration="4266000" />
-      <workItem from="1707230030405" duration="2179000" />
-      <workItem from="1708093727882" duration="5576000" />
-      <workItem from="1708167694200" duration="9338000" />
-      <workItem from="1708251700700" duration="3030000" />
-      <workItem from="1708256978868" duration="6695000" />
-      <workItem from="1708309947189" duration="1855000" />
-      <workItem from="1708322403617" duration="4141000" />
-      <workItem from="1708875427966" duration="4442000" />
-      <workItem from="1708916072042" duration="3372000" />
-      <workItem from="1708927458846" duration="1504000" />
+      <workItem from="1705995263845" duration="2000" />
     </task>
-    <task id="LOCAL-00001" summary="update 17/2/2014 - hoàn thành chức năng xem danh sách khóa học">
-      <option name="closed" value="true" />
-      <created>1708178212046</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1708178212046</updated>
-    </task>
-    <task id="LOCAL-00002" summary="update 19/2/2024">
-      <option name="closed" value="true" />
-      <created>1708323333874</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1708323333874</updated>
-    </task>
-    <task id="LOCAL-00003" summary="update 25/2/2024">
-      <option name="closed" value="true" />
-      <created>1708867410017</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1708867410017</updated>
-    </task>
-    <option name="localTasksCounter" value="4" />
     <servers />
-  </component>
-  <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="3" />
-  </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
-  </component>
-  <component name="VcsManagerConfiguration">
-    <MESSAGE value="update 17/2/2014 - hoàn thành chức năng xem danh sách khóa học" />
-    <MESSAGE value="update 19/2/2024" />
-    <MESSAGE value="update 25/2/2024" />
-    <option name="LAST_COMMIT_MESSAGE" value="update 25/2/2024" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/example/coursemanagement/dal/CourseDal.java</url>
-          <line>253</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
-  </component>
-  <component name="XSLT-Support.FileAssociations.UIState">
-    <expand />
-    <select />
   </component>
 </project>
