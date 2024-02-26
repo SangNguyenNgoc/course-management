@@ -60,4 +60,8 @@ public class StudentBll implements IStudentBll {
         return StudentDal.getInstance().updateGrade(personId, courseId, gradeDouble);
 
     }
+
+    public int createStudent() {
+        return 0;
+    }
 }
