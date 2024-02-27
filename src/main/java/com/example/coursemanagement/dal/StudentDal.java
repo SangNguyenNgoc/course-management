@@ -117,7 +117,7 @@ public class StudentDal {
         }
     }
 
-    @Override
+
     public int addStudent(Student student) {
         java.sql.Connection connection = DbConnection.getInstance().getConnection();
         String sql = "INSERT INTO person (PersonID, Lastname, Firstname, EnrollmentDate) VALUES (?, ?, ?, ?)";
@@ -135,7 +135,7 @@ public class StudentDal {
         }
     }
 
-    @Override
+
     public int updateStudent(Student student) {
         java.sql.Connection connection = DbConnection.getInstance().getConnection();
         String sql = "UPDATE person SET Lastname = ?, Firstname = ?, EnrollmentDate = ? WHERE PersonID = ?";
@@ -153,7 +153,7 @@ public class StudentDal {
         }
     }
 
-    @Override
+
     public boolean isStudentInGradeTable(Integer studentId) {
         java.sql.Connection connection = DbConnection.getInstance().getConnection();
         String sql = "SELECT COUNT(*) AS count FROM studentgrade WHERE StudentID = ?";
@@ -171,7 +171,7 @@ public class StudentDal {
         return false;
     }
 
-    @Override
+
     public int deleteStudent(Integer studentId) {
         java.sql.Connection connection = DbConnection.getInstance().getConnection();
         String sql = "DELETE FROM person WHERE PersonID = ?";
