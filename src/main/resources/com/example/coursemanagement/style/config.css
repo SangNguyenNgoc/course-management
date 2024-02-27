@@ -1,7 +1,0 @@
-root {
-    --primary-color: #1EB2A6;
-}
-
-.shadowed {
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 4, 0, 0, 2);
-}
