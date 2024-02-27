@@ -5,6 +5,7 @@ import com.example.coursemanagement.dtos.StudentGrade;
 import com.example.coursemanagement.utils.DbConnection;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -115,4 +116,73 @@ public class StudentDal {
             return 0;
         }
     }
+
+    @Override
+    public int addStudent(Student student) {
+        java.sql.Connection connection = DbConnection.getInstance().getConnection();
+        String sql = "INSERT INTO person (PersonID, Lastname, Firstname, EnrollmentDate) VALUES (?, ?, ?, ?)";
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setInt(1, student.getId());
+            preparedStatement.setString(2, student.getLastName());
+            preparedStatement.setString(3, student.getFirstName());
+            preparedStatement.setDate(4, (Date) student.getEnrollmentDate());
+
+            return preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, "Query failure: " + e.getMessage());
+            return 0;
+        }
+    }
+
+    @Override
+    public int updateStudent(Student student) {
+        java.sql.Connection connection = DbConnection.getInstance().getConnection();
+        String sql = "UPDATE person SET Lastname = ?, Firstname = ?, EnrollmentDate = ? WHERE PersonID = ?";
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setString(1, student.getLastName());
+            preparedStatement.setString(2, student.getFirstName());
+            preparedStatement.setDate(3, (Date) student.getEnrollmentDate());
+            preparedStatement.setInt(4, student.getId());
+
+            return preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, "Query failure: " + e.getMessage());
+            return 0;
+        }
+    }
+
+    @Override
+    public boolean isStudentInGradeTable(Integer studentId) {
+        java.sql.Connection connection = DbConnection.getInstance().getConnection();
+        String sql = "SELECT COUNT(*) AS count FROM studentgrade WHERE StudentID = ?";
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setInt(1, studentId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                int count = resultSet.getInt("count");
+                return count > 0;
+            }
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, "Query failure: " + e.getMessage());
+        }
+        return false;
+    }
+
+    @Override
+    public int deleteStudent(Integer studentId) {
+        java.sql.Connection connection = DbConnection.getInstance().getConnection();
+        String sql = "DELETE FROM person WHERE PersonID = ?";
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setInt(1, studentId);
+            return preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, "Query failure: " + e.getMessage());
+            return 0;
+        }
+    }
+
 }
