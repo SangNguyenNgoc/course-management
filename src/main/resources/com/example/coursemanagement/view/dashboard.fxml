@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.*?>
+<VBox prefHeight="580.0" prefWidth="1000.0" style="-fx-background-color: #F5F5F5; -fx-background-radius: 0 0 5 5"
+      stylesheets="@../style/toolbar.css" BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx/21"
+      xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.coursemanagement.gui.controller.DashboardController">
+    <children>
+        <HBox prefHeight="47.0" prefWidth="1000.0">
+            <children>
+                <HBox fx:id="leftToolbar" prefHeight="47.0" prefWidth="724.0"
+                      style="-fx-background-color: #F5F5F5;">
+                    <padding>
+                        <Insets top="15.0"/>
+                    </padding>
+                </HBox>
+                <HBox fx:id="rightToolbar" nodeOrientation="RIGHT_TO_LEFT" prefHeight="47.0" prefWidth="117.0"
+                      style="-fx-background-color: #F5F5F5;">
+                    <padding>
+                        <Insets top="20.0"/>
+                    </padding>
+                </HBox>
+            </children>
+            <padding>
+                <Insets left="80.0" right="80.0"/>
+            </padding>
+        </HBox>
+        <Pane fx:id="body" prefHeight="510.0" prefWidth="1000.0">
+            <children>
+
+            </children>
+            <VBox.margin>
+                <Insets left="80.0" right="80.0" top="15.0"/>
+            </VBox.margin>
+        </Pane>
+    </children>
+</VBox>

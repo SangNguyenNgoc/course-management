@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.VBox?>
+<ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" prefHeight="510.0" prefWidth="880.0"
+            style="-fx-border-color: #F5F5F5;" stylesheets="@../style/scroll.css" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.example.coursemanagement.gui.controller.ListCourseController">
+    <VBox fx:id="content" prefHeight="400.0" prefWidth="985.0" spacing="10"/>
+</ScrollPane>

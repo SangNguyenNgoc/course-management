@@ -1,0 +1,23 @@
+.column {
+    -fx-border-color: #F5F5F5;
+    -fx-background-color: #FFFFFF;
+}
+
+.label {
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 14;
+    -fx-alignment: center;
+}
+
+.parent-table {
+    -fx-border-color: #F5F5F5;
+}
+
+.table-view .column-header-background .column{
+    -fx-background-color: #1EB2A6;
+}
+
+.table-view .column-header-background {
+    -fx-min-height: 35px;
+    -fx-max-height: 35px;
+}

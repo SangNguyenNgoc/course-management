@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<HBox fx:id="parent" styleClass="shadowed" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+      minWidth="-Infinity" prefHeight="160.0" prefWidth="840.0"
+      style="-fx-background-color: #FFFFFF; -fx-background-radius: 8;" stylesheets="@../style/config.css"
+      xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.example.coursemanagement.gui.controller.CourseItemController">
+    <children>
+        <VBox prefHeight="100.0" prefWidth="180.0">
+            <HBox.margin>
+                <Insets bottom="30.0" left="30.0" top="30.0"/>
+            </HBox.margin>
+            <children>
+                <Label fx:id="title" prefHeight="13.0" prefWidth="160.0" text="CALCULUS">
+                    <font>
+                        <Font name="System Bold" size="18.0"/>
+                    </font>
+                </Label>
+                <Label fx:id="department" prefHeight="13.0" prefWidth="100.0" text="[Engineering]">
+                    <font>
+                        <Font size="13.0"/>
+                    </font>
+                </Label>
+                <Label fx:id="type" prefHeight="13.0" prefWidth="150.0"
+                       style="-fx-font-weight: 500; -fx-text-fill: #1EB2A6;" stylesheets="@../style/config.css"
+                       text="Khóa trực tuyến">
+                    <font>
+                        <Font size="14.0"/>
+                    </font>
+                    <VBox.margin>
+                        <Insets top="34.0"/>
+                    </VBox.margin>
+                </Label>
+            </children>
+        </VBox>
+        <VBox prefHeight="200.0" prefWidth="180.0">
+            <HBox.margin>
+                <Insets bottom="30.0" left="44.0" top="30.0"/>
+            </HBox.margin>
+            <children>
+                <Label prefHeight="20.0" prefWidth="133.0" style="-fx-font-weight: 600; -fx-text-fill: rgba(0,0,0,0.6);"
+                       text="Thông tin khóa học">
+                    <font>
+                        <Font size="14.0"/>
+                    </font>
+                    <VBox.margin>
+                        <Insets bottom="10.0"/>
+                    </VBox.margin>
+                </Label>
+                <HBox prefHeight="17.0" prefWidth="200.0">
+                    <children>
+                        <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../img/user.png"/>
+                            </image>
+                        </ImageView>
+                        <Label fx:id="teacher" style="-fx-font-weight: 600; -fx-text-fill: rgba(0,0,0,0.75);"
+                               text="Fakhouri Fadi">
+                            <HBox.margin>
+                                <Insets left="10.0"/>
+                            </HBox.margin>
+                            <font>
+                                <Font size="14.0"/>
+                            </font>
+                        </Label>
+                    </children>
+                    <VBox.margin>
+                        <Insets bottom="5.0"/>
+                    </VBox.margin>
+                </HBox>
+                <HBox prefHeight="17.0" prefWidth="200.0">
+                    <children>
+                        <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../img/tag.png"/>
+                            </image>
+                        </ImageView>
+                        <Label fx:id="credits" style="-fx-font-weight: 600; -fx-text-fill: rgba(0,0,0,0.75);"
+                               text="Tín chỉ: 4">
+                            <HBox.margin>
+                                <Insets left="10.0"/>
+                            </HBox.margin>
+                            <font>
+                                <Font size="14.0"/>
+                            </font>
+                        </Label>
+                    </children>
+                    <VBox.margin>
+                        <Insets bottom="5.0"/>
+                    </VBox.margin>
+                </HBox>
+                <HBox prefHeight="17.0" prefWidth="200.0">
+                    <children>
+                        <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../img/users.png"/>
+                            </image>
+                        </ImageView>
+                        <Label fx:id="amount" style="-fx-font-weight: 600; -fx-text-fill: rgba(0,0,0,0.75);"
+                               text="Số lượng: 12">
+                            <HBox.margin>
+                                <Insets left="10.0"/>
+                            </HBox.margin>
+                            <font>
+                                <Font size="14.0"/>
+                            </font>
+                        </Label>
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+        <VBox prefHeight="200.0" prefWidth="180.0">
+            <children>
+                <Label fx:id="link" prefHeight="20.0" prefWidth="133.0"
+                       style="-fx-font-weight: 600; -fx-text-fill: rgba(0,0,0,0.6);" text="Liên kết">
+                    <font>
+                        <Font size="14.0"/>
+                    </font>
+                    <VBox.margin>
+                        <Insets bottom="10.0"/>
+                    </VBox.margin>
+                </Label>
+                <HBox prefHeight="17.0" prefWidth="200.0">
+                    <children>
+                        <ImageView fitHeight="6.0" fitWidth="6.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../img/line.png"/>
+                            </image>
+                            <HBox.margin>
+                                <Insets top="7.0"/>
+                            </HBox.margin>
+                        </ImageView>
+                        <Label fx:id="info1" style="-fx-font-weight: 600; -fx-text-fill: rgba(0,0,0,0.75);"
+                               text="https://docs.google.com/document/d/1hE_kr8MqunoPwib17lqx9q71xq95ONHb_A9VgGytf5c">
+                            <HBox.margin>
+                                <Insets left="10.0"/>
+                            </HBox.margin>
+                            <font>
+                                <Font size="14.0"/>
+                            </font>
+                        </Label>
+                    </children>
+                    <VBox.margin>
+                        <Insets bottom="5.0"/>
+                    </VBox.margin>
+                </HBox>
+                <HBox prefHeight="17.0" prefWidth="200.0">
+                    <children>
+                        <ImageView fitHeight="6.0" fitWidth="6.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../img/line.png"/>
+                            </image>
+                            <HBox.margin>
+                                <Insets top="7.0"/>
+                            </HBox.margin>
+                        </ImageView>
+                        <Label fx:id="info2" style="-fx-font-weight: 600; -fx-text-fill: rgba(0,0,0,0.75);"
+                               text="Thứ 2 - 4 - 6">
+                            <HBox.margin>
+                                <Insets left="10.0"/>
+                            </HBox.margin>
+                            <font>
+                                <Font size="14.0"/>
+                            </font>
+                        </Label>
+                    </children>
+                    <VBox.margin>
+                        <Insets bottom="5.0"/>
+                    </VBox.margin>
+                </HBox>
+                <HBox prefHeight="17.0" prefWidth="200.0">
+                    <children>
+                        <ImageView fitHeight="6.0" fitWidth="6.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../img/line.png"/>
+                            </image>
+                            <HBox.margin>
+                                <Insets top="7.0"/>
+                            </HBox.margin>
+                        </ImageView>
+                        <Label fx:id="info3" prefHeight="20.0" prefWidth="114.0"
+                               style="-fx-font-weight: 600; -fx-text-fill: rgba(0,0,0,0.75);" text="15:30">
+                            <HBox.margin>
+                                <Insets left="10.0"/>
+                            </HBox.margin>
+                            <font>
+                                <Font size="14.0"/>
+                            </font>
+                        </Label>
+                    </children>
+                </HBox>
+            </children>
+            <HBox.margin>
+                <Insets bottom="30.0" top="30.0"/>
+            </HBox.margin>
+        </VBox>
+        <VBox fx:id="btnList" prefHeight="160.0" prefWidth="140.0" style="-fx-spacing: 10;">
+            <HBox.margin>
+                <Insets left="80.0"/>
+            </HBox.margin>
+            <children>
+                <Button fx:id="viewListStudentBtn" mnemonicParsing="false" onMouseClicked="#viewListStudents"
+                        prefHeight="30.0" prefWidth="100.0"
+                        style="-fx-background-color: #1EB2A6; -fx-border-width: 2; -fx-border-color: #1EB2A6; -fx-border-radius: 6; -fx-background-radius: 6;"
+                        text="Danh sách" textFill="WHITE">
+                    <font>
+                        <Font size="14.0"/>
+                    </font>
+                </Button>
+                <Button fx:id="fixBtn" mnemonicParsing="false" onMouseClicked="#fixCourse" prefHeight="30.0"
+                        prefWidth="100.0"
+                        style="-fx-background-color: transparent; -fx-border-color: #1EB2A6; -fx-border-width: 2; -fx-border-radius: 6;"
+                        text="Chỉnh sửa" textFill="#1eb2a6">
+                    <font>
+                        <Font size="14.0"/>
+                    </font>
+                </Button>
+                <Button fx:id="deleteBtn" mnemonicParsing="false" onMouseClicked="#deleteCourse" prefHeight="30.0"
+                        prefWidth="100.0"
+                        style="-fx-background-color: transparent; -fx-border-color: #CD4242; -fx-border-width: 2; -fx-border-radius: 6;"
+                        text="Xóa" textFill="#cd4242">
+                    <font>
+                        <Font size="14.0"/>
+                    </font>
+                </Button>
+            </children>
+            <padding>
+                <Insets left="20.0" top="20.0"/>
+            </padding>
+        </VBox>
+    </children>
+</HBox>
