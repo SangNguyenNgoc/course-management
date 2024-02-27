@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Font?>
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="140.0"
       prefWidth="320.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.example.coursemanagement.gui.controller.UpdateGradeController">
+      fx:controller="com.example.coursemanagement.gui.controller.RegisterController">
     <children>
         <HBox prefHeight="40.0" prefWidth="320.0">
             <children>

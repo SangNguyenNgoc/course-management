@@ -1,6 +1,5 @@
 package com.example.coursemanagement.bll;
 
-import com.example.coursemanagement.bll.interfaces.ICourseBll;
 import com.example.coursemanagement.dal.CourseDal;
 import com.example.coursemanagement.dal.StudentDal;
 import com.example.coursemanagement.dtos.Course;
@@ -18,7 +17,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-public class CourseBll implements ICourseBll {
+public class CourseBll {
 
     private static class CourseBllHolder {
         private static final CourseBll INSTANCE = new CourseBll();
@@ -31,7 +30,7 @@ public class CourseBll implements ICourseBll {
         return CourseBllHolder.INSTANCE;
     }
 
-    @Override
+
     public List<Course> getAllCourse() {
         List<Course> courses = CourseDal.getInstance().getAll();
         if (courses == null) {
@@ -42,7 +41,6 @@ public class CourseBll implements ICourseBll {
         }
     }
 
-    @Override
     public Course getById(Integer courseId) {
         Course course = CourseDal.getInstance().getById(courseId).orElse(null);
         if (course == null) {
@@ -53,7 +51,6 @@ public class CourseBll implements ICourseBll {
         }
     }
 
-    @Override
     public void registerStudentForCourse(String studentId, Integer courseId) throws Exception {
         int id = AppUtil.getInstance().validateInteger(studentId, "Mã sinh viên");
         Student student = StudentDal.getInstance().getById(id).orElse(null);
@@ -87,7 +84,6 @@ public class CourseBll implements ICourseBll {
 
     }
 
-    @Override
     public Optional<Course> createCourse(String title, String credits, Integer departmentId, String url, Integer teacherId) throws Exception {
         if (validateCourseOnline(title, credits, departmentId, url, teacherId)) {
             Course newCourse = Course.builder()
@@ -105,7 +101,6 @@ public class CourseBll implements ICourseBll {
         return Optional.empty();
     }
 
-    @Override
     public Optional<Course> createCourse(String title, String credits, Integer departmentId, String location, String days, String time, Integer teacherId) throws Exception {
         if (validateCourseOnsite(title, credits, departmentId, location, days, teacherId)) {
             Course newCourse = Course.builder()
@@ -123,7 +118,6 @@ public class CourseBll implements ICourseBll {
         return Optional.empty();
     }
 
-    @Override
     public void deleteCourse(Integer courseId) throws Exception {
         Course course = CourseDal.getInstance().getById(courseId).orElse(null);
         if (course == null) {
@@ -149,7 +143,6 @@ public class CourseBll implements ICourseBll {
         }
     }
 
-    @Override
     public int updateCourse(Integer courseId, String title, String credits, Integer departmentId, String url, Integer teacherId) throws Exception {
         if (validateCourseOnline(title, credits, departmentId, url, teacherId)) {
             Course course = Course.builder()
@@ -157,23 +150,22 @@ public class CourseBll implements ICourseBll {
                     .title(title)
                     .credits(validateCredits(credits))
                     .build();
-            if(CourseDal.getInstance().updateCourse(course, departmentId, teacherId) != 0) {
+            if (CourseDal.getInstance().updateCourse(course, departmentId, teacherId) != 0) {
                 return CourseDal.getInstance().updateCourseOnline(courseId, url);
             }
         }
         return 0;
     }
 
-    @Override
     public int updateCourse(Integer courseId, String title, String credits, Integer departmentId, String location, String days, String time, Integer teacherId) throws Exception {
-        if(validateCourseOnsite(title, credits, departmentId, location, days,teacherId)) {
+        if (validateCourseOnsite(title, credits, departmentId, location, days, teacherId)) {
             Course newCourse = Course.builder()
                     .id(courseId)
                     .credits(validateCredits(credits))
                     .title(title)
                     .build();
-            if (CourseDal.getInstance().updateCourse(newCourse, departmentId, teacherId)!=0){
-                return CourseDal.getInstance().updateCourseOnsite(courseId,location, days, Objects.requireNonNull(convertStringToTime(time)));
+            if (CourseDal.getInstance().updateCourse(newCourse, departmentId, teacherId) != 0) {
+                return CourseDal.getInstance().updateCourseOnsite(courseId, location, days, Objects.requireNonNull(convertStringToTime(time)));
             }
         }
         return 0;

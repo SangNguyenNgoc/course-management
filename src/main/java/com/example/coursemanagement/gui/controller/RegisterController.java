@@ -2,7 +2,7 @@ package com.example.coursemanagement.gui.controller;
 
 import com.example.coursemanagement.bll.CourseBll;
 import com.example.coursemanagement.bll.StudentBll;
-import com.example.coursemanagement.dtos.StudentGrace;
+import com.example.coursemanagement.dtos.StudentGrade;
 import com.example.coursemanagement.utils.DialogUtil;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -10,16 +10,14 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-import java.io.IOException;
-
-public class UpdateGradeController<T> {
+public class RegisterController<T> {
 
     public TextField inputField;
     public Label title;
     public Label label;
     public Button submitBtn;
 
-    private StudentGrace studentGrace;
+    private StudentGrade studentGrade;
 
     private Stage stage;
 
@@ -27,8 +25,8 @@ public class UpdateGradeController<T> {
 
     private Integer courseId;
 
-    public void setStudentGrace(StudentGrace studentGrace) {
-        this.studentGrace = studentGrace;
+    public void setStudentGrace(StudentGrade studentGrade) {
+        this.studentGrade = studentGrade;
     }
 
     public void setStage(Stage stage) {
@@ -69,7 +67,7 @@ public class UpdateGradeController<T> {
 
     public void updateGrade() {
         try {
-            StudentBll.getInstance().updateGrade(studentGrace.getId(), courseId, inputField.getText());
+            StudentBll.getInstance().updateGrade(studentGrade.getId(), courseId, inputField.getText());
             DialogUtil.getInstance().showAlert("Thông báo", "Thay đổi điểm thành công", Alert.AlertType.INFORMATION);
             CourseDetailController c = (CourseDetailController) controller;
             c.initCourseDetail(courseId);

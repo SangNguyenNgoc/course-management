@@ -16,7 +16,8 @@ public class HomeApplication extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(HomeApplication.class.getResource(Component.HOME_PAGE.getValue()));
         Scene scene = new Scene(fxmlLoader.load(), 1000, 695);
         scene.setFill(Color.rgb(0, 0, 0, 0));
-        stage.initStyle(StageStyle.TRANSPARENT);
+        stage.initStyle(StageStyle.DECORATED);
+        stage.setResizable(false);
         stage.setScene(scene);
         stage.show();
     }

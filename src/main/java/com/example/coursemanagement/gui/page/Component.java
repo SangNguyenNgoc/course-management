@@ -23,11 +23,14 @@ public enum Component {
 
     ONSITE_COURSE_FORM("view/onsite-course-form.fxml"),
 
-    UPDATE_GRADE("view/update-grade.fxml"),
+    REGISTER("view/register.fxml"),
 
     LIST_DEPARTMENT("view/list-department.fxml"),
 
-    DEPARTMENT_ITEM("view/department-item.fxml");
+    DEPARTMENT_ITEM("view/department-item.fxml"),
+
+    ADD_DEPARTMENT("view/add-department.fxml");
+
 
     private final String value;
 

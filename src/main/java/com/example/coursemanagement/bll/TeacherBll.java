@@ -1,6 +1,5 @@
 package com.example.coursemanagement.bll;
 
-import com.example.coursemanagement.bll.interfaces.ITeacherBll;
 import com.example.coursemanagement.dal.TeacherDal;
 import com.example.coursemanagement.dtos.Teacher;
 import com.example.coursemanagement.utils.DialogUtil;
@@ -9,7 +8,7 @@ import javafx.scene.control.Alert;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TeacherBll implements ITeacherBll {
+public class TeacherBll {
 
     private static class TeacherBllHolder {
         private static final TeacherBll INSTANCE = new TeacherBll();
@@ -21,7 +20,8 @@ public class TeacherBll implements ITeacherBll {
     public static TeacherBll getInstance() {
         return TeacherBllHolder.INSTANCE;
     }
-    @Override
+
+
     public List<Teacher> getAllTeacher() {
         List<Teacher> teachers = TeacherDal.getInstance().getAll();
         if (teachers == null) {

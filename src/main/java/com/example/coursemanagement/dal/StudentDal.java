@@ -1,10 +1,10 @@
 package com.example.coursemanagement.dal;
 
-import com.example.coursemanagement.dal.interfaces.IStudentDal;
 import com.example.coursemanagement.dtos.Student;
-import com.example.coursemanagement.dtos.StudentGrace;
+import com.example.coursemanagement.dtos.StudentGrade;
 import com.example.coursemanagement.utils.DbConnection;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,21 +14,21 @@ import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class StudentDal implements IStudentDal {
+public class StudentDal {
 
     private static final Logger logger = Logger.getLogger(CourseDal.class.getName());
 
-    private static class StudentDalHolder{
+    private static class StudentDalHolder {
         private static final StudentDal INSTANCE = new StudentDal();
     }
 
-    private StudentDal(){}
+    private StudentDal() {
+    }
 
     public static StudentDal getInstance() {
         return StudentDalHolder.INSTANCE;
     }
 
-    @Override
     public Optional<Student> getById(Integer studentId) {
         java.sql.Connection connection = DbConnection.getInstance().getConnection();
         String sql = "SELECT * FROM person WHERE PersonID = ? AND EnrollmentDate IS NOT NULL";
@@ -52,8 +52,7 @@ public class StudentDal implements IStudentDal {
         }
     }
 
-    @Override
-    public List<StudentGrace> getStudentsInCourse(Integer courseId) {
+    public List<StudentGrade> getStudentsInCourse(Integer courseId) {
         java.sql.Connection connection = DbConnection.getInstance().getConnection();
         String sql = """
                 SELECT p.PersonID ,p.Firstname, p.Lastname, p.EnrollmentDate, d.Grade
@@ -64,31 +63,30 @@ public class StudentDal implements IStudentDal {
                 """.formatted(courseId);
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-            List<StudentGrace> studentGraces = new ArrayList<>();
+            List<StudentGrade> studentGrades = new ArrayList<>();
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                StudentGrace studentGrace = null;
+                StudentGrade studentGrade = null;
                 Double grade = resultSet.getDouble("Grade");
-                if(resultSet.wasNull()) {
+                if (resultSet.wasNull()) {
                     grade = null;
                 }
-                studentGrace = StudentGrace.builder()
+                studentGrade = StudentGrade.builder()
                         .id(resultSet.getInt("PersonID"))
                         .firstName(resultSet.getString("Firstname"))
                         .lastName(resultSet.getString("Lastname"))
                         .enrollmentDate(resultSet.getDate("EnrollmentDate"))
                         .grade(grade)
                         .build();
-                studentGraces.add(studentGrace);
+                studentGrades.add(studentGrade);
             }
-            return studentGraces;
+            return studentGrades;
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "Query failure: " + e.getMessage());
             return null;
         }
     }
 
-    @Override
     public int updateGrade(Integer personId, Integer courseId, Double grade) {
         java.sql.Connection connection = DbConnection.getInstance().getConnection();
         String sql = "UPDATE studentgrade s SET s.Grade = ? WHERE s.StudentID = ? AND s.CourseID = ?";
@@ -97,6 +95,20 @@ public class StudentDal implements IStudentDal {
             preparedStatement.setDouble(1, grade);
             preparedStatement.setInt(2, personId);
             preparedStatement.setInt(3, courseId);
+            return preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, "Query failure: " + e.getMessage());
+            return 0;
+        }
+    }
+
+    public int deleteGrade(Integer courseId, Integer studentId) {
+        Connection connection = DbConnection.getInstance().getConnection();
+        String sql = "DELETE FROM studentgrade WHERE StudentID = ? AND CourseID = ?";
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setInt(1, studentId);
+            preparedStatement.setInt(2, courseId);
             return preparedStatement.executeUpdate();
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "Query failure: " + e.getMessage());

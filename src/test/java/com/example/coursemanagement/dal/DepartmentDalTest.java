@@ -17,4 +17,10 @@ class DepartmentDalTest {
             System.out.println(item.getStartDate().toString());
         });
     }
+
+    @Test
+    void getId() {
+        int a = DepartmentDal.getInstance().getId();
+        System.out.println(a);
+    }
 }

@@ -1,7 +1,7 @@
 package com.example.coursemanagement.gui.controller;
 
 import com.example.coursemanagement.HomeApplication;
-import com.example.coursemanagement.gui.model.ButtonModel;
+import com.example.coursemanagement.gui.button.ButtonModel;
 import com.example.coursemanagement.gui.page.Component;
 import com.example.coursemanagement.gui.page.Route;
 import javafx.fxml.FXML;
@@ -186,14 +186,14 @@ public class DashboardController implements Initializable, Route {
                 }
 
                 case "courseDetail": {
-                    FXMLLoader loader = new FXMLLoader(HomeApplication.class.getResource(Component.UPDATE_GRADE.getValue()));
+                    FXMLLoader loader = new FXMLLoader(HomeApplication.class.getResource(Component.REGISTER.getValue()));
                     Parent root = null;
                     try {
                         root = loader.load();
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
-                    UpdateGradeController<DashboardController> controller = loader.getController();
+                    RegisterController<DashboardController> controller = loader.getController();
                     Stage stage = new Stage();
                     controller.setStage(stage);
                     controller.setCourseId(courseId);
@@ -206,7 +206,19 @@ public class DashboardController implements Initializable, Route {
                 }
 
                 case "departments": {
-                    System.out.println("department list");
+                    FXMLLoader loader = new FXMLLoader(HomeApplication.class.getResource(Component.ADD_DEPARTMENT.getValue()));
+                    Parent root = null;
+                    try {
+                        root = loader.load();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                    AddDepartmentController<DashboardController> addDepartmentController = loader.getController();
+                    addDepartmentController.setController(this);
+                    Stage stage = new Stage();
+                    stage.setScene(new Scene(root));
+                    stage.initStyle(StageStyle.UTILITY);
+                    stage.show();
                     break;
                 }
             }
@@ -278,7 +290,6 @@ public class DashboardController implements Initializable, Route {
         Parent root = null;
         root = loader.load();
         ListDepartmentController controller = loader.getController();
-        controller.initListDepartment();
         body.getChildren().add(root);
 
     }

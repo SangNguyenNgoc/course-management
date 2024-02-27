@@ -4,17 +4,21 @@ import com.example.coursemanagement.HomeApplication;
 import com.example.coursemanagement.bll.CourseBll;
 import com.example.coursemanagement.bll.StudentBll;
 import com.example.coursemanagement.dtos.Course;
-import com.example.coursemanagement.dtos.StudentGrace;
-import com.example.coursemanagement.gui.model.TableCellWithButton;
+import com.example.coursemanagement.dtos.StudentGrade;
+import com.example.coursemanagement.gui.button.UnregisterButton;
 import com.example.coursemanagement.gui.page.Component;
 import com.example.coursemanagement.utils.AppUtil;
+import com.example.coursemanagement.utils.DialogUtil;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
@@ -22,12 +26,12 @@ import java.util.List;
 
 public class CourseDetailController {
     public VBox header;
-    public TableColumn<StudentGrace, String> idColumn;
-    public TableColumn<StudentGrace, String> nameColumn;
-    public TableColumn<StudentGrace, String> enrollmentColumn;
-    public TableColumn<StudentGrace, String> gradeColumn;
-    public TableColumn<StudentGrace, Void> actionColumn;
-    public TableView<StudentGrace> parentTable;
+    public TableColumn<StudentGrade, String> idColumn;
+    public TableColumn<StudentGrade, String> nameColumn;
+    public TableColumn<StudentGrade, String> enrollmentColumn;
+    public TableColumn<StudentGrade, String> gradeColumn;
+    public TableColumn<StudentGrade, Void> actionColumn;
+    public TableView<StudentGrade> parentTable;
 
 
     public void initCourseDetail(Integer id) throws IOException {
@@ -42,8 +46,10 @@ public class CourseDetailController {
             controller.setHeaderDetail(course);
             header.getChildren().add(0, root);
 
-            List<StudentGrace> studentGraces = StudentBll.getInstance().getStudentsInCourse(id);
-            ObservableList<StudentGrace> students = FXCollections.observableArrayList(studentGraces);
+            parentTable.setEditable(true);
+
+            List<StudentGrade> studentGrades = StudentBll.getInstance().getStudentsInCourse(id);
+            ObservableList<StudentGrade> students = FXCollections.observableArrayList(studentGrades);
             parentTable.setItems(students);
 
             idColumn.setCellValueFactory(cellData -> initTableCell(cellData.getValue().getId().toString()));
@@ -55,7 +61,22 @@ public class CourseDetailController {
                 }
                 return initTableCell(cellData.getValue().getGrade().toString());
             });
-            actionColumn.setCellFactory(param -> new TableCellWithButton(id, this));
+            gradeColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+            gradeColumn.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<StudentGrade, String>>() {
+                @Override
+                public void handle(TableColumn.CellEditEvent<StudentGrade, String> studentGraceDoubleCellEditEvent) {
+                    StudentGrade studentGrade = studentGraceDoubleCellEditEvent.getRowValue();
+                    String input = studentGraceDoubleCellEditEvent.getNewValue();
+                    try {
+                        StudentBll.getInstance().updateGrade(studentGrade.getId(), id, input);
+                        DialogUtil.getInstance().showAlert("Thông báo", "Thay đổi điểm thành công", Alert.AlertType.INFORMATION);
+                        studentGrade.setGrade(Double.parseDouble(input));
+                    } catch (Exception e) {
+                        DialogUtil.getInstance().showAlert("Lỗi", "Thay đổi điểm không thành công", Alert.AlertType.ERROR);
+                    }
+                }
+            });
+            actionColumn.setCellFactory(param -> new UnregisterButton(id, this));
 
             parentTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
             parentTable.setFixedCellSize(30);

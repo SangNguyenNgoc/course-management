@@ -1,31 +1,29 @@
 package com.example.coursemanagement.dal;
 
-import com.example.coursemanagement.dal.interfaces.ICourseDal;
 import com.example.coursemanagement.dtos.Course;
-import com.example.coursemanagement.utils.mapper.CourseMapper;
 import com.example.coursemanagement.utils.DbConnection;
+import com.example.coursemanagement.utils.mapper.CourseMapper;
 
-import java.sql.*;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class CourseDal implements ICourseDal {
+public class CourseDal {
 
-    private static class CourseDalHolder{
+    private static class CourseDalHolder {
         private static final CourseDal INSTANCE = new CourseDal();
     }
 
-    private CourseDal(){}
+    private CourseDal() {
+    }
 
     public static CourseDal getInstance() {
         return CourseDalHolder.INSTANCE;
@@ -33,7 +31,7 @@ public class CourseDal implements ICourseDal {
 
     private static final Logger logger = Logger.getLogger(CourseDal.class.getName());
 
-    @Override
+
     public List<Course> getAll() {
         java.sql.Connection connection = DbConnection.getInstance().getConnection();
         String sql = """
@@ -57,24 +55,23 @@ public class CourseDal implements ICourseDal {
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             List<Course> courses = new ArrayList<>();
             ResultSet resultSet = preparedStatement.executeQuery();
-                while (resultSet.next()) {
-                    Course course = null;
-                    String url = resultSet.getString("url");
-                    if(url != null) {
-                        course = CourseMapper.getInstance().initOnlineCourse(resultSet);
-                    } else {
-                        course = CourseMapper.getInstance().initOnsiteCourse(resultSet);
-                    }
-                    courses.add(course);
+            while (resultSet.next()) {
+                Course course = null;
+                String url = resultSet.getString("url");
+                if (url != null) {
+                    course = CourseMapper.getInstance().initOnlineCourse(resultSet);
+                } else {
+                    course = CourseMapper.getInstance().initOnsiteCourse(resultSet);
                 }
-                return courses;
+                courses.add(course);
+            }
+            return courses;
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "Query failure: " + e.getMessage());
             return null;
         }
     }
 
-    @Override
     public Optional<Course> getById(Integer courseId) {
         java.sql.Connection connection = DbConnection.getInstance().getConnection();
         String sql = """
@@ -100,7 +97,7 @@ public class CourseDal implements ICourseDal {
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 String url = resultSet.getString("url");
-                if(url != null) {
+                if (url != null) {
                     course = CourseMapper.getInstance().initOnlineCourse(resultSet);
                 } else {
                     course = CourseMapper.getInstance().initOnsiteCourse(resultSet);
@@ -113,11 +110,10 @@ public class CourseDal implements ICourseDal {
         }
     }
 
-    @Override
     public int registerStudentForCourse(Integer studentId, Integer courseId) {
         Connection connection = DbConnection.getInstance().getConnection();
         String sql = "INSERT INTO studentgrade VALUE (null, ?, ?, null);";
-        try(PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setInt(1, courseId);
             preparedStatement.setInt(2, studentId);
             return preparedStatement.executeUpdate();
@@ -127,7 +123,6 @@ public class CourseDal implements ICourseDal {
         }
     }
 
-    @Override
     public Optional<Course> createCourse(Course course, Integer departmentId, Integer teacher) {
         java.sql.Connection connection = DbConnection.getInstance().getConnection();
 
@@ -167,12 +162,12 @@ public class CourseDal implements ICourseDal {
                 }
             }
         } catch (SQLException e) {
-            logger.log(Level.SEVERE, "Query failure: " + e.getMessage());        }
+            logger.log(Level.SEVERE, "Query failure: " + e.getMessage());
+        }
 
         return Optional.empty();
     }
 
-    @Override
     public void deleteCourse(Integer courseId) {
         Connection connection = DbConnection.getInstance().getConnection();
         try {
@@ -198,11 +193,10 @@ public class CourseDal implements ICourseDal {
         }
     }
 
-    @Override
     public Boolean isStudentInCourse(Integer studentId, Integer courseId) {
         Connection connection = DbConnection.getInstance().getConnection();
         String sql = "SELECT * FROM studentgrade WHERE CourseID = ? AND StudentID = ?";
-        try(PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setInt(1, courseId);
             preparedStatement.setInt(2, studentId);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -213,7 +207,6 @@ public class CourseDal implements ICourseDal {
         }
     }
 
-    @Override
     public Boolean createCourseOnline(Integer courseId, String url) {
         java.sql.Connection connection = DbConnection.getInstance().getConnection();
         String sql = "INSERT INTO `onlinecourse` (`CourseID`, `url`) VALUES (?, ?)";
@@ -226,12 +219,12 @@ public class CourseDal implements ICourseDal {
 
             return affectedRows > 0;
         } catch (SQLException e) {
-            logger.log(Level.SEVERE, "Query failure: " + e.getMessage());        }
+            logger.log(Level.SEVERE, "Query failure: " + e.getMessage());
+        }
 
         return false;
     }
 
-    @Override
     public Boolean createCourseOnsite(Integer courseId, String location, String date, LocalTime time) {
         java.sql.Connection connection = DbConnection.getInstance().getConnection();
         String sql = "INSERT INTO `onsitecourse` (`CourseID`, `Location`, `Days`, `Time`) VALUES (?, ?, ?, ?)";
@@ -253,17 +246,16 @@ public class CourseDal implements ICourseDal {
         return false;
     }
 
-    @Override
     public int updateCourse(Course course, Integer departmentId, Integer teacher) {
         Connection connection = DbConnection.getInstance().getConnection();
         String sql = "UPDATE course SET Title = ?, Credits = ?, DepartmentID = ? WHERE CourseID = ?";
-        try(PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setString(1, course.getTitle());
             preparedStatement.setInt(2, course.getCredits());
             preparedStatement.setInt(3, departmentId);
             preparedStatement.setInt(4, course.getId());
             int result = preparedStatement.executeUpdate();
-            if(result != 0) {
+            if (result != 0) {
                 String updateCourseInstructor = "UPDATE courseinstructor SET PersonID = ? WHERE CourseID =?";
                 PreparedStatement courseInstructorPrepare = connection.prepareStatement(updateCourseInstructor);
                 courseInstructorPrepare.setInt(1, teacher);
@@ -278,11 +270,10 @@ public class CourseDal implements ICourseDal {
         return 0;
     }
 
-    @Override
     public int updateCourseOnsite(Integer courseId, String location, String date, LocalTime time) {
         Connection connection = DbConnection.getInstance().getConnection();
         String sql = "UPDATE onsitecourse SET Days = ?, Location = ?, Time = ? WHERE CourseID = ?";
-        try(PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             String formattedTime = time.format(DateTimeFormatter.ofPattern("HH:mm"));
             preparedStatement.setString(1, date);
             preparedStatement.setString(2, location);
@@ -295,11 +286,10 @@ public class CourseDal implements ICourseDal {
         return 0;
     }
 
-    @Override
     public int updateCourseOnline(Integer courseId, String url) {
         Connection connection = DbConnection.getInstance().getConnection();
         String sql = "UPDATE onlinecourse SET url = ? WHERE CourseID = ?";
-        try(PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setString(1, url);
             preparedStatement.setInt(2, courseId);
             return preparedStatement.executeUpdate();

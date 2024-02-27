@@ -1,4 +1,4 @@
-package com.example.coursemanagement.gui.model;
+package com.example.coursemanagement.gui.button;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

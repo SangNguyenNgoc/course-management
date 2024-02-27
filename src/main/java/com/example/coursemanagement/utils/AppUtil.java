@@ -3,6 +3,8 @@ package com.example.coursemanagement.utils;
 import javafx.scene.control.Alert;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 public class AppUtil {
@@ -21,6 +23,11 @@ public class AppUtil {
     public String formatDate(Date date) {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         return sdf.format(date);
+    }
+
+    public String formatDate(LocalDate date) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        return date.format(formatter);
     }
 
     public Integer validateInteger(String str, String message) throws Exception {

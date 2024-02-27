@@ -1,7 +1,7 @@
 package com.example.coursemanagement.dal;
 
 import com.example.coursemanagement.dtos.Student;
-import com.example.coursemanagement.dtos.StudentGrace;
+import com.example.coursemanagement.dtos.StudentGrade;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -12,8 +12,8 @@ class StudentDalTest {
 
     @Test
     void getStudentsInCourse() {
-        List<StudentGrace> studentGraces = StudentDal.getInstance().getStudentsInCourse(4041);
-        studentGraces.forEach(item -> {
+        List<StudentGrade> studentGrades = StudentDal.getInstance().getStudentsInCourse(4041);
+        studentGrades.forEach(item -> {
             System.out.println(item.getGrade());
         });
     }

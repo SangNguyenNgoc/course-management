@@ -9,6 +9,6 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-public class StudentGrace extends Student {
+public class StudentGrade extends Student {
     protected Double grade;
 }
