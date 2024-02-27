@@ -19,7 +19,7 @@ public class StudentBll implements IStudentBll {
         private static final StudentBll INSTANCE = new StudentBll();
     }
 
-    private StudentBll(){}
+    public StudentBll(){}
 
     public static StudentBll getInstance() {
         return StudentBll.StudentBllHolder.INSTANCE;
@@ -60,8 +60,35 @@ public class StudentBll implements IStudentBll {
         return StudentDal.getInstance().updateGrade(personId, courseId, gradeDouble);
 
     }
+    public int addStudent(Student student) {
+        // Kiểm tra xem student đã tồn tại hay chưa
+        if (StudentDal.getInstance().getById(student.getId()).isPresent()) {
+            DialogUtil.getInstance().showAlert("Lỗi", "Học sinh đã tồn tại trong hệ thống.", Alert.AlertType.ERROR);
+            return 0; // Trả về 0 để biểu thị lỗi
+        }
 
-    public int createStudent() {
-        return 0;
+        // Thực hiện thêm student vào cơ sở dữ liệu
+        return StudentDal.getInstance().addStudent(student);
+    }
+
+    public int updateStudent(Student student) {
+        // Kiểm tra xem student có tồn tại trong cơ sở dữ liệu không
+        if (StudentDal.getInstance().getById(student.getId()).isEmpty()) {
+            DialogUtil.getInstance().showAlert("Lỗi", "Học sinh không tồn tại trong hệ thống.", Alert.AlertType.ERROR);
+            return 0; // Trả về 0 để biểu thị lỗi
+        }
+        // Thực hiện sửa thông tin học sinh
+        return StudentDal.getInstance().updateStudent(student);
+    }
+
+    public int deleteStudent(Integer studentId) {
+        // Kiểm tra xem student có tồn tại trong bảng studentgrade không
+        if (StudentDal.getInstance().isStudentInGradeTable(studentId)) {
+            DialogUtil.getInstance().showAlert("Lỗi", "Không thể xóa học sinh vì học sinh đã có điểm trong bảng studentgrade.", Alert.AlertType.ERROR);
+            return 0; // Trả về 0 để biểu thị lỗi
+        }
+
+        // Thực hiện xóa học sinh
+        return StudentDal.getInstance().deleteStudent(studentId);
     }
 }

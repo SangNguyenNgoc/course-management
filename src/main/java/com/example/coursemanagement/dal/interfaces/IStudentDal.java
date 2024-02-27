@@ -13,4 +13,12 @@ public interface IStudentDal {
     List<StudentGrace> getStudentsInCourse(Integer courseId);
 
     int updateGrade(Integer personId, Integer courseId, Double grade);
+
+    int addStudent(Student student);
+
+    int updateStudent(Student student);
+
+    boolean isStudentInGradeTable(Integer studentId);
+
+    int deleteStudent(Integer studentId);
 }
