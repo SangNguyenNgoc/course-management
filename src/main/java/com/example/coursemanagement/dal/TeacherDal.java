@@ -1,12 +1,14 @@
 package com.example.coursemanagement.dal;
 import java.sql.*;
 
+import com.example.coursemanagement.dtos.Student;
 import com.example.coursemanagement.dtos.Teacher;
 import com.example.coursemanagement.mapper.TeacherMapper;
 import com.example.coursemanagement.utils.DbConnection;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -45,7 +47,30 @@ public class TeacherDal {
             return null;
         }
     }
-    public void addTeacher(Teacher teacher) {
+
+    public Optional<Teacher> getById(Integer teacherId) {
+        java.sql.Connection connection = DbConnection.getInstance().getConnection();
+        String sql = "SELECT * FROM person WHERE PersonID = ? AND person.HireDate IS NOT NULL";
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setInt(1, teacherId);
+            Teacher teacher = null;
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                teacher = Teacher.builder()
+                        .id(resultSet.getInt("PersonID"))
+                        .lastName(resultSet.getString("Lastname"))
+                        .firstName(resultSet.getString("Firstname"))
+                        .hireDate(resultSet.getDate("HireDate").toLocalDate().atStartOfDay())
+                        .build();
+            }
+            return Optional.ofNullable(teacher);
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, "Query failure: " + e.getMessage());
+            return Optional.empty();
+        }
+    }
+    public int addTeacher(Teacher teacher) {
         Connection connection = DbConnection.getInstance().getConnection();
         String sql = """
             INSERT INTO person (Lastname, Firstname, HireDate)
@@ -58,12 +83,13 @@ public class TeacherDal {
             preparedStatement.setDate(3, Date.valueOf(teacher.getHireDate().toLocalDate())); // Assuming HireDate is of type java.util.Date
 
             // Execute the statement
-            preparedStatement.executeUpdate();
+            return preparedStatement.executeUpdate();
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "Insertion failure: " + e.getMessage());
+            return 0;
         }
     }
-    public void updateTeacher(Teacher teacher) {
+    public int updateTeacher(Teacher teacher) {
         Connection connection = DbConnection.getInstance().getConnection();
         String sql = """
             UPDATE person
@@ -78,9 +104,10 @@ public class TeacherDal {
             preparedStatement.setInt(4, teacher.getId()); // Assuming PersonID is the unique identifier for a teacher
 
             // Execute the statement
-            preparedStatement.executeUpdate();
+            return preparedStatement.executeUpdate();
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "Update failure: " + e.getMessage());
+            return 0;
         }
     }
     public boolean checkTeacher(int personID) {
@@ -96,18 +123,19 @@ public class TeacherDal {
         }
         return false;
     }
-    public void deleteTeacher(int personID) {
+    public int deleteTeacher(int personID) {
         Connection connection = DbConnection.getInstance().getConnection();
         String sql = "DELETE FROM person WHERE PersonID = ?";
-        if(!checkTeacher(personID)) return;
+        if(!checkTeacher(personID)) return 0;
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             // Set the parameter for the prepared statement
             preparedStatement.setInt(1, personID); // Assuming PersonID is the unique identifier for a teacher
 
             // Execute the statement
-            preparedStatement.executeUpdate();
+            return preparedStatement.executeUpdate();
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "Deletion failure: " + e.getMessage());
+            return 0;
         }
     }
 

@@ -257,6 +257,7 @@ public class DashboardController implements Initializable, Route {
                     }
                     AddPersonController<DashboardController> controller = loader.getController();
                     controller.setState("addTeacher");
+                    controller.setController(this);
                     Stage stage = new Stage();
                     stage.setScene(new Scene(root));
                     stage.initStyle(StageStyle.UTILITY);

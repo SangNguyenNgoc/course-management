@@ -2,6 +2,7 @@ package com.example.coursemanagement.gui.controller;
 
 import com.example.coursemanagement.HomeApplication;
 import com.example.coursemanagement.bll.StudentBll;
+import com.example.coursemanagement.bll.TeacherBll;
 import com.example.coursemanagement.dtos.Student;
 import com.example.coursemanagement.dtos.Teacher;
 import com.example.coursemanagement.gui.page.Component;
@@ -51,16 +52,16 @@ public class PersonItemController {
     public void initPerson(Student student) {
         setState("student");
         setStudent(student);
-        col1.setText(student.getFirstName());
-        col2.setText(student.getLastName());
+        col1.setText(student.getId() + "");
+        col2.setText(student.getLastName() + " " + student.getFirstName());
         col3.setText(AppUtil.getInstance().formatDate(student.getEnrollmentDate()));
     }
 
     public void initPerson(Teacher teacher) {
         setState("teacher");
         setTeacher(teacher);
-        col1.setText(teacher.getFirstName());
-        col2.setText(teacher.getLastName());
+        col1.setText(teacher.getId() + "");
+        col2.setText(teacher.getLastName() + " " + teacher.getFirstName());
         col3.setText(AppUtil.getInstance().formatDate(teacher.getHireDate().toLocalDate()));
     }
 
@@ -82,17 +83,41 @@ public class PersonItemController {
             stage.initStyle(StageStyle.UTILITY);
             stage.show();
         } else {
-            System.out.println("updateTeacher");
+            FXMLLoader loader = new FXMLLoader(HomeApplication.class.getResource(Component.ADD_PERSON.getValue()));
+            Parent root = null;
+            try {
+                root = loader.load();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            AddPersonController<PersonItemController> controller = loader.getController();
+            controller.setTeacher(teacher);
+            controller.setState("updateTeacher");
+            controller.setController(this);
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.initStyle(StageStyle.UTILITY);
+            stage.show();
         }
     }
 
     public void deleteAction(ActionEvent actionEvent) {
-        int result = StudentBll.getInstance().deleteStudent(student.getId());
-        if(result != 0) {
-            controller.initListStudent();
-            DialogUtil.getInstance().showAlert("Thông báo", "Xóa thành công.", Alert.AlertType.INFORMATION);
+        if(state.equals("student")) {
+            int result = StudentBll.getInstance().deleteStudent(student.getId());
+            if(result != 0) {
+                controller.initListStudent();
+                DialogUtil.getInstance().showAlert("Thông báo", "Xóa thành công.", Alert.AlertType.INFORMATION);
+            } else {
+                DialogUtil.getInstance().showAlert("Lỗi", "Xóa không thành công.", Alert.AlertType.ERROR);
+            }
         } else {
-            DialogUtil.getInstance().showAlert("Lỗi", "Xóa không thành công.", Alert.AlertType.ERROR);
+            int result = TeacherBll.getInstance().deleteTeacher(teacher.getId());
+            if(result != 0) {
+                controller.initListTeacher();
+                DialogUtil.getInstance().showAlert("Thông báo", "Xóa thành công.", Alert.AlertType.INFORMATION);
+            } else {
+                DialogUtil.getInstance().showAlert("Lỗi", "Xóa không thành công.", Alert.AlertType.ERROR);
+            }
         }
     }
 }
