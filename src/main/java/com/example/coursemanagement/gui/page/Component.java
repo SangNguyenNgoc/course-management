@@ -29,7 +29,13 @@ public enum Component {
 
     DEPARTMENT_ITEM("view/department-item.fxml"),
 
-    ADD_DEPARTMENT("view/add-department.fxml");
+    ADD_DEPARTMENT("view/add-department.fxml"),
+
+    LIST_PERSON("view/list-person.fxml"),
+
+    PERSON_ITEM("view/person-item.fxml"),
+
+    ADD_PERSON("view/add-person.fxml");
 
 
     private final String value;

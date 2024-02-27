@@ -13,7 +13,7 @@
             xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.coursemanagement.gui.controller.HomeController">
     <top>
         <HBox prefHeight="80.0" prefWidth="1000.0"
-              style="-fx-background-color: #1EB2A6; -fx-background-radius: 5 5 0 0;" BorderPane.alignment="CENTER">
+              style="-fx-background-color: #1EB2A6;" BorderPane.alignment="CENTER">
             <children>
                 <ImageView fitHeight="45.0" fitWidth="124.0" pickOnBounds="true" preserveRatio="true">
                     <image>

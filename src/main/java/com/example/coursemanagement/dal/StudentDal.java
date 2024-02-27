@@ -30,6 +30,29 @@ public class StudentDal {
         return StudentDalHolder.INSTANCE;
     }
 
+    public List<Student> getAll() {
+        java.sql.Connection connection = DbConnection.getInstance().getConnection();
+        String sql = "SELECT * FROM person WHERE EnrollmentDate IS NOT NULL";
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            List<Student> students = new ArrayList<>();
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                Student student = Student.builder()
+                        .id(resultSet.getInt("PersonID"))
+                        .lastName(resultSet.getString("Lastname"))
+                        .firstName(resultSet.getString("Firstname"))
+                        .enrollmentDate(resultSet.getDate("EnrollmentDate"))
+                        .build();
+                students.add(student);
+            }
+            return students;
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, "Query failure: " + e.getMessage());
+            return new ArrayList<>();
+        }
+    }
+
     public Optional<Student> getById(Integer studentId) {
         java.sql.Connection connection = DbConnection.getInstance().getConnection();
         String sql = "SELECT * FROM person WHERE PersonID = ? AND EnrollmentDate IS NOT NULL";
@@ -120,13 +143,12 @@ public class StudentDal {
 
     public int addStudent(Student student) {
         java.sql.Connection connection = DbConnection.getInstance().getConnection();
-        String sql = "INSERT INTO person (PersonID, Lastname, Firstname, EnrollmentDate) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO person (Lastname, Firstname, EnrollmentDate) VALUES (?, ?, ?)";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-            preparedStatement.setInt(1, student.getId());
-            preparedStatement.setString(2, student.getLastName());
-            preparedStatement.setString(3, student.getFirstName());
-            preparedStatement.setDate(4, (Date) student.getEnrollmentDate());
+            preparedStatement.setString(1, student.getLastName());
+            preparedStatement.setString(2, student.getFirstName());
+            preparedStatement.setDate(3, (Date) student.getEnrollmentDate());
 
             return preparedStatement.executeUpdate();
         } catch (SQLException e) {

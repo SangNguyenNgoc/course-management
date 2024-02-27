@@ -113,6 +113,11 @@ public class DashboardController implements Initializable, Route {
             leftToolbar.getChildren().forEach(children ->
                     children.getStyleClass().remove("action"));
             button.getStyleClass().add("action");
+            try {
+                initListStudent();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         });
         return button;
     }
@@ -142,6 +147,11 @@ public class DashboardController implements Initializable, Route {
             leftToolbar.getChildren().forEach(children ->
                     children.getStyleClass().remove("action"));
             button.getStyleClass().add("action");
+            try {
+                initListTeacher();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         });
         return button;
     }
@@ -168,9 +178,6 @@ public class DashboardController implements Initializable, Route {
         button.getStyleClass().add("toolbar-button");
         button.setId(DashboardController.ADD_BTN.getKey());
         button.setOnAction(event -> {
-            leftToolbar.getChildren().forEach(children ->
-                    children.getStyleClass().remove("action"));
-            button.getStyleClass().add("action");
             switch (stage) {
                 case "course", "allCourse", "onlineCourse", "onsiteCourse": {
                     try {
@@ -221,6 +228,43 @@ public class DashboardController implements Initializable, Route {
                     stage.show();
                     break;
                 }
+
+                case "students": {
+                    FXMLLoader loader = new FXMLLoader(HomeApplication.class.getResource(Component.ADD_PERSON.getValue()));
+                    Parent root = null;
+                    try {
+                        root = loader.load();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                    AddPersonController<DashboardController> controller = loader.getController();
+                    controller.setState("addStudent");
+                    controller.setController(this);
+                    Stage stage = new Stage();
+                    stage.setScene(new Scene(root));
+                    stage.initStyle(StageStyle.UTILITY);
+                    stage.show();
+                    break;
+                }
+
+                case "teachers": {
+                    FXMLLoader loader = new FXMLLoader(HomeApplication.class.getResource(Component.ADD_PERSON.getValue()));
+                    Parent root = null;
+                    try {
+                        root = loader.load();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                    AddPersonController<DashboardController> controller = loader.getController();
+                    controller.setState("addTeacher");
+                    Stage stage = new Stage();
+                    stage.setScene(new Scene(root));
+                    stage.initStyle(StageStyle.UTILITY);
+                    stage.show();
+                    break;
+                }
+
+
             }
         });
         return button;
@@ -292,6 +336,30 @@ public class DashboardController implements Initializable, Route {
         ListDepartmentController controller = loader.getController();
         body.getChildren().add(root);
 
+    }
+
+    public void initListStudent() throws IOException {
+        setStage("students");
+        body.getChildren().clear();
+        FXMLLoader loader = new FXMLLoader(HomeApplication.class.getResource(Component.LIST_PERSON.getValue()));
+        Parent root = null;
+        root = loader.load();
+        ListPersonController controller = loader.getController();
+        controller.setState("student");
+        controller.initList();
+        body.getChildren().add(root);
+    }
+
+    public void initListTeacher() throws IOException {
+        setStage("teachers");
+        body.getChildren().clear();
+        FXMLLoader loader = new FXMLLoader(HomeApplication.class.getResource(Component.LIST_PERSON.getValue()));
+        Parent root = null;
+        root = loader.load();
+        ListPersonController controller = loader.getController();
+        controller.setState("teacher");
+        controller.initList();
+        body.getChildren().add(root);
     }
 
 }
