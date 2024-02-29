@@ -34,4 +34,9 @@ class StudentDalTest {
         int t = StudentDal.getInstance().updateGrade(2,2030, 7.8);
         assertNotEquals(0, t);
     }
+
+    @Test
+    void isStudentInGradeTable() {
+        assertTrue(StudentDal.getInstance().isStudentInGradeTable(30));
+    }
 }

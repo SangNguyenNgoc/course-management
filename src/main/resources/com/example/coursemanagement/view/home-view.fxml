@@ -36,7 +36,7 @@
                                 <Font size="14.0"/>
                             </font>
                         </TextField>
-                        <Button fx:id="searchButton" mnemonicParsing="false" onMouseClicked="#onSearchButtonClick"
+                        <Button fx:id="searchButton" mnemonicParsing="false" onMouseClicked="#onSearchButtonClick" onKeyPressed="#handleEnterKey"
                                 prefHeight="34.0" prefWidth="52.0"
                                 style="-fx-background-color: #E6E6E6; -fx-background-radius: 0 20 20 0;">
                             <graphic>

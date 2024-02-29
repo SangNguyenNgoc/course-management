@@ -34,8 +34,6 @@ public class OnlineCourseFormController implements Initializable {
     @FXML
     private TextField onlineLinkInput;
     @FXML
-    private TextField onlineSizeInput;
-    @FXML
     private ComboBox<String> onlineDepartmentInput;
 
     private List<Teacher> teachers = new ArrayList<>();
@@ -109,7 +107,6 @@ public class OnlineCourseFormController implements Initializable {
         onlineLinkInput.setText("");
         onlineNameInput.setText("");
         onlineCreditInput.setText("");
-        onlineSizeInput.setText("");
     }
 
     private boolean checkCombobox() {
@@ -132,7 +129,6 @@ public class OnlineCourseFormController implements Initializable {
         onlineNameInput.setText(onlineCourse.getTitle());
         onlineCreditInput.setText(onlineCourse.getCredits() + "");
         onlineSubmitButton.setText("Cập nhật");
-        onlineSizeInput.setText("");
         onlineDepartmentInput.getSelectionModel().select(onlineCourse.getDepartment());
         onlineTeacherInput.getSelectionModel().select(onlineCourse.getTeacher());
         onlineSubmitButton.setOnMouseClicked(event -> {

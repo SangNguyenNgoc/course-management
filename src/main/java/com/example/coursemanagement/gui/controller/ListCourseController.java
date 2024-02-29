@@ -6,6 +6,7 @@ import com.example.coursemanagement.dtos.Course;
 import com.example.coursemanagement.dtos.OnlineCourse;
 import com.example.coursemanagement.dtos.OnsiteCourse;
 import com.example.coursemanagement.gui.page.Component;
+import com.example.coursemanagement.utils.AppUtil;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.layout.VBox;
@@ -36,7 +37,10 @@ public class ListCourseController {
                     break;
                 }
                 default: {
-                    courses = courses.stream().filter(item -> item.getTitle().equalsIgnoreCase(type)).collect(Collectors.toList());
+                    courses = courses.stream().filter(item ->
+                            item.getTitle().toLowerCase().contains(type.toLowerCase())
+                            || item.getDepartment().toLowerCase().contains(type.toLowerCase()))
+                            .collect(Collectors.toList());
                     System.out.println(type);
                 }
             }

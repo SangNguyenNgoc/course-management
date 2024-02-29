@@ -70,7 +70,7 @@ public class AddDepartmentController<T> implements Initializable {
                     DialogUtil.getInstance().showAlert("Thông báo", "Tạo thành công", Alert.AlertType.INFORMATION);
                     clearInput();
                     DashboardController c = (DashboardController) controller;
-                    c.initListDepartment();
+                    c.initListDepartment(null);
                 } else {
                     DialogUtil.getInstance().showAlert("Lỗi", "Đã xảy ra lỗi, vui lòng thử lại", Alert.AlertType.ERROR);
                 }

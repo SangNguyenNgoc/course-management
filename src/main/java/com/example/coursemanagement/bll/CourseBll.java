@@ -182,7 +182,8 @@ public class CourseBll {
         return validateTitle(title) &&
                 validateDepartmentId(departmentId) &&
                 validateLocation(location) &&
-                validateTeacherId(teacherId)
+                validateTeacherId(teacherId) &&
+                validateDays(days)
                 ;
     }
 
@@ -232,7 +233,12 @@ public class CourseBll {
         return false;
     }
 
-    private static boolean validateDays(LocalDate days) {
-        return days != null; // Có thể thêm các kiểm tra khác tùy vào yêu cầu
+    private static boolean validateDays(String days) {
+        if(days != null && !days.isEmpty()) {
+            return true;
+        } else {
+            DialogUtil.getInstance().showAlert("Lỗi", "Hãy chọn ngày", Alert.AlertType.ERROR);
+            return false;
+        }
     }
 }

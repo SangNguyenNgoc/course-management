@@ -10,10 +10,7 @@ import com.example.coursemanagement.dtos.Teacher;
 import com.example.coursemanagement.utils.DialogUtil;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
 import java.net.URL;
 import java.time.format.DateTimeFormatter;
@@ -23,6 +20,12 @@ import java.util.ResourceBundle;
 
 public class OnsiteCourseFormController implements Initializable {
 
+    public CheckBox mon;
+    public CheckBox thu;
+    public CheckBox fri;
+    public CheckBox sat;
+    public CheckBox wed;
+    public CheckBox tue;
     @FXML
     private Button onsiteSubmitButton;
     @FXML
@@ -34,13 +37,9 @@ public class OnsiteCourseFormController implements Initializable {
     @FXML
     private TextField onsiteLocationInput;
     @FXML
-    private TextField onsiteSizeInput;
-    @FXML
     private ComboBox<String> onsiteDepartmentInput;
     @FXML
     private TextField onsiteTimeInput;
-    @FXML
-    private TextField onsiteDateInput;
 
     private List<Teacher> teachers;
 
@@ -77,7 +76,7 @@ public class OnsiteCourseFormController implements Initializable {
                             onsiteCreditInput.getText(),
                             departments.get(onsiteDepartmentInput.getSelectionModel().getSelectedIndex()).getId(),
                             onsiteLocationInput.getText(),
-                            onsiteDateInput.getText(),
+                            createDay(),
                             onsiteTimeInput.getText(),
                             teachers.get(onsiteTeacherInput.getSelectionModel().getSelectedIndex()).getId()
                     );
@@ -97,11 +96,11 @@ public class OnsiteCourseFormController implements Initializable {
     private void clearInput() {
         onsiteCreditInput.setText("");
         onsiteDepartmentInput.setValue(null);
-        onsiteSizeInput.setText("");
         onsiteNameInput.setText("");
         onsiteLocationInput.setText("");
         onsiteTeacherInput.setValue(null);
         onsiteTimeInput.setText("");
+        createCheckbox("");
     }
 
     @Override
@@ -121,12 +120,11 @@ public class OnsiteCourseFormController implements Initializable {
         String formattedTime = onsiteCourse.getTime().format(DateTimeFormatter.ofPattern("HH:mm"));
         onsiteCreditInput.setText(onsiteCourse.getCredits() + "");
         onsiteDepartmentInput.setValue(null);
-        onsiteSizeInput.setText("");
         onsiteNameInput.setText(onsiteCourse.getTitle());
         onsiteLocationInput.setText(onsiteCourse.getLocation());
         onsiteTeacherInput.setValue(null);
         onsiteTimeInput.setText(formattedTime);
-        onsiteDateInput.setText(onsiteCourse.getDays());
+        createCheckbox(onsiteCourse.getDays());
         onsiteSubmitButton.setText("Cập nhật");
         onsiteDepartmentInput.getSelectionModel().select(onsiteCourse.getDepartment());
         onsiteTeacherInput.getSelectionModel().select(onsiteCourse.getTeacher());
@@ -138,7 +136,7 @@ public class OnsiteCourseFormController implements Initializable {
                         onsiteCreditInput.getText(),
                         departments.get(onsiteDepartmentInput.getSelectionModel().getSelectedIndex()).getId(),
                         onsiteLocationInput.getText(),
-                        onsiteDateInput.getText(),
+                        createDay(),
                         onsiteTimeInput.getText(),
                         teachers.get(onsiteTeacherInput.getSelectionModel().getSelectedIndex()).getId()
                 );
@@ -161,5 +159,37 @@ public class OnsiteCourseFormController implements Initializable {
             }
         }
         return true;
+    }
+
+    public String createDay() {
+        String result = "";
+        if(mon.isSelected()) {
+            result += "M";
+        }
+        if(tue.isSelected()) {
+            result += "T";
+        }
+        if(wed.isSelected()) {
+            result += "W";
+        }
+        if(thu.isSelected()) {
+            result += "H";
+        }
+        if(fri.isSelected()) {
+            result += "F";
+        }
+        if(sat.isSelected()) {
+            result += "S";
+        }
+        return result;
+    }
+
+    public void createCheckbox(String days) {
+        mon.setSelected(days.contains("M"));
+        tue.setSelected(days.contains("T"));
+        wed.setSelected(days.contains("W"));
+        thu.setSelected(days.contains("H"));
+        fri.setSelected(days.contains("F"));
+        sat.setSelected(days.contains("S"));
     }
 }

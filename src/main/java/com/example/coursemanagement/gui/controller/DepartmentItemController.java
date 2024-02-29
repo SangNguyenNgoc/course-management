@@ -75,7 +75,7 @@ public class DepartmentItemController {
         try {
             if(DepartmentBll.getInstance().deleteDepartment(department.getId()) != 0) {
                 DialogUtil.getInstance().showAlert("Thông báo", "Xóa thành công.", Alert.AlertType.INFORMATION);
-                listDepartmentController.initialize(null,null);
+                listDepartmentController.initList();
             } else {
                 DialogUtil.getInstance().showAlert("Lỗi", "Xóa không thành công, lỗi bất định.", Alert.AlertType.ERROR);
             }

@@ -98,7 +98,7 @@ public class AddPersonController<T> {
                     DialogUtil.getInstance().showAlert("Thông báo", "Thêm thành công", Alert.AlertType.INFORMATION);
                     DashboardController c = (DashboardController) controller;
                     try {
-                        c.initListStudent();
+                        c.initListStudent(null);
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
@@ -118,7 +118,7 @@ public class AddPersonController<T> {
                     DialogUtil.getInstance().showAlert("Thông báo", "Thêm thành công", Alert.AlertType.INFORMATION);
                     DashboardController c = (DashboardController) controller;
                     try {
-                        c.initListTeacher();
+                        c.initListTeacher(null);
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
