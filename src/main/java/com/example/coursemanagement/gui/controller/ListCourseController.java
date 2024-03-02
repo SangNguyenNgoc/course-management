@@ -41,26 +41,29 @@ public class ListCourseController {
                             item.getTitle().toLowerCase().contains(type.toLowerCase())
                             || item.getDepartment().toLowerCase().contains(type.toLowerCase()))
                             .collect(Collectors.toList());
-                    System.out.println(type);
                 }
             }
-            if(courses.isEmpty()) {
-                FXMLLoader loader = new FXMLLoader(HomeApplication.class.getResource(Component.EMPTY.getValue()));
-                Parent root = loader.load();
-                EmptyController controller = loader.getController();
-                controller.setText("Không có khóa học !!!");
-                content.getChildren().add(root);
-            } else {
-                for (Course course : courses) {
-                    FXMLLoader loader = new FXMLLoader(HomeApplication.class.getResource(Component.COURSE_ITEM.getValue()));
-                    Parent root = loader.load();
-                    CourseItemController controller = loader.getController();
-                    controller.setData(course, dashboardController);
-                    content.getChildren().add(root);
-                }
-            }
+            render(courses, dashboardController);
         } catch (IOException e) {
             Logger.getLogger(DashboardController.class.getName()).log(Level.SEVERE, "Error", e);
+        }
+    }
+
+    public void render(List<Course> courses, DashboardController dashboardController) throws IOException {
+        if(courses.isEmpty()) {
+            FXMLLoader loader = new FXMLLoader(HomeApplication.class.getResource(Component.EMPTY.getValue()));
+            Parent root = loader.load();
+            EmptyController controller = loader.getController();
+            controller.setText("Không có khóa học !!!");
+            content.getChildren().add(root);
+        } else {
+            for (Course course : courses) {
+                FXMLLoader loader = new FXMLLoader(HomeApplication.class.getResource(Component.COURSE_ITEM.getValue()));
+                Parent root = loader.load();
+                CourseItemController controller = loader.getController();
+                controller.setData(course, dashboardController);
+                content.getChildren().add(root);
+            }
         }
     }
 }

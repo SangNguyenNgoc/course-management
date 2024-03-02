@@ -82,7 +82,7 @@ public class RegisterController<T> {
             CourseBll.getInstance().registerStudentForCourse(inputField.getText(), courseId);
             DialogUtil.getInstance().showAlert("Thông báo", "Đăng ký thành công", Alert.AlertType.INFORMATION);
             DashboardController c = (DashboardController) controller;
-            c.initCourseDetail(courseId);
+            c.initCourseDetail(courseId, null);
         } catch (Exception e) {
             DialogUtil.getInstance().showAlert("Lỗi", "Đăng ký không thành công", Alert.AlertType.ERROR);
         }

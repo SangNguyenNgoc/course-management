@@ -35,7 +35,9 @@ public enum Component {
 
     PERSON_ITEM("view/person-item.fxml"),
 
-    ADD_PERSON("view/add-person.fxml");
+    ADD_PERSON("view/add-person.fxml"),
+
+    COURSE_FILTER("view/course-filter.fxml");
 
 
     private final String value;

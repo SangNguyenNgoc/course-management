@@ -96,7 +96,7 @@ public class CourseItemController {
 
     public void viewListStudents() {
         try {
-            dashboardController.initCourseDetail(course.getId());
+            dashboardController.initCourseDetail(course.getId(), null);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

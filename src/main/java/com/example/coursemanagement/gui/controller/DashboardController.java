@@ -1,6 +1,7 @@
 package com.example.coursemanagement.gui.controller;
 
 import com.example.coursemanagement.HomeApplication;
+import com.example.coursemanagement.dtos.Course;
 import com.example.coursemanagement.gui.button.ButtonModel;
 import com.example.coursemanagement.gui.page.Component;
 import com.example.coursemanagement.gui.page.Route;
@@ -63,6 +64,8 @@ public class DashboardController implements Initializable, Route {
 
     private static final ButtonModel ADD_BTN = ButtonModel.builder().key("add").text("Thêm mới").build();
 
+    private static final ButtonModel FILTER_BTN = ButtonModel.builder().key("filter").text("Lọc").build();
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -73,6 +76,7 @@ public class DashboardController implements Initializable, Route {
         addButtonLeftToolbar(initStudentToolbarBtn(TOOLBAR_BTN.get(2)));
         addButtonLeftToolbar(initTeacherToolbarBtn(TOOLBAR_BTN.get(3)));
         addButtonRightToolbar(initAddButton());
+        addButtonRightToolbar(initFilterButton());
         initListCourses("allCourse");
     }
 
@@ -94,6 +98,7 @@ public class DashboardController implements Initializable, Route {
                         throw new RuntimeException(e);
                     }
                 } else {
+                    addButtonRightToolbar(initFilterButton());
                     initListCourses(btn.getKey());
                 }
                 leftToolbar.getChildren().forEach(children ->
@@ -110,6 +115,7 @@ public class DashboardController implements Initializable, Route {
         button.getStyleClass().addAll("toolbar-button", "menu-button");
         button.setId(item.getKey());
         button.setOnMouseClicked(event -> {
+            rightToolbar.getChildren().remove(1);
             leftToolbar.getChildren().forEach(children ->
                     children.getStyleClass().remove("action"));
             button.getStyleClass().add("action");
@@ -127,6 +133,7 @@ public class DashboardController implements Initializable, Route {
         button.getStyleClass().addAll("toolbar-button", "menu-button");
         button.setId(item.getKey());
         button.setOnMouseClicked(event -> {
+            rightToolbar.getChildren().remove(1);
             leftToolbar.getChildren().forEach(children ->
                     children.getStyleClass().remove("action"));
             button.getStyleClass().add("action");
@@ -144,6 +151,7 @@ public class DashboardController implements Initializable, Route {
         button.getStyleClass().addAll("toolbar-button");
         button.setId(item.getKey());
         button.setOnMouseClicked(event -> {
+            rightToolbar.getChildren().remove(1);
             leftToolbar.getChildren().forEach(children ->
                     children.getStyleClass().remove("action"));
             button.getStyleClass().add("action");
@@ -170,6 +178,43 @@ public class DashboardController implements Initializable, Route {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public void initListCourses(List<Course> courses) {
+        try {
+            setStage("allCourse");
+            body.getChildren().clear();
+            FXMLLoader loader = new FXMLLoader(HomeApplication.class.getResource(Component.LIST_COURSE.getValue()));
+            Parent root = null;
+            root = loader.load();
+            ListCourseController controller = loader.getController();
+            controller.render(courses, this);
+            body.getChildren().add(root);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private Button initFilterButton() {
+        Button button = new Button(DashboardController.FILTER_BTN.getText());
+        button.getStyleClass().add("toolbar-button");
+        button.setId(DashboardController.ADD_BTN.getKey());
+        button.setOnMouseClicked(event -> {
+            FXMLLoader loader = new FXMLLoader(HomeApplication.class.getResource(Component.COURSE_FILTER.getValue()));
+            Parent root = null;
+            try {
+                root = loader.load();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            CourseFilterController controller = loader.getController();
+            Stage stage = new Stage();
+            controller.initToFilter(this, stage);
+            stage.setScene(new Scene(root));
+            stage.initStyle(StageStyle.UTILITY);
+            stage.show();
+        });
+        return button;
     }
 
 
@@ -312,7 +357,7 @@ public class DashboardController implements Initializable, Route {
         rightToolbar.getChildren().add(button);
     }
 
-    public void initCourseDetail(Integer id) throws IOException {
+    public void initCourseDetail(Integer id, String studentSearch) throws IOException {
         setStage("courseDetail");
         clearLeftToolbar();
         clearRightToolbar();
@@ -324,7 +369,11 @@ public class DashboardController implements Initializable, Route {
         root = loader.load();
         CourseDetailController controller = loader.getController();
         setCourseId(id);
-        controller.initCourseDetail(id);
+        if(studentSearch == null) {
+            controller.initCourseDetail(id);
+        } else {
+            controller.initCourseDetail(id, studentSearch);
+        }
         body.getChildren().add(root);
     }
 
@@ -388,6 +437,10 @@ public class DashboardController implements Initializable, Route {
         }
         if(stage.equals("teachers")) {
             initListTeacher(text);
+            return;
+        }
+        if(stage.equals("courseDetail")) {
+            initCourseDetail(courseId, text);
             return;
         }
         initListCourses(text);

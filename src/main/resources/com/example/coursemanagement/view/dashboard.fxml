@@ -9,13 +9,13 @@
     <children>
         <HBox prefHeight="47.0" prefWidth="1000.0">
             <children>
-                <HBox fx:id="leftToolbar" prefHeight="47.0" prefWidth="724.0"
+                <HBox fx:id="leftToolbar" prefHeight="47.0" prefWidth="691.0"
                       style="-fx-background-color: #F5F5F5;">
                     <padding>
                         <Insets top="15.0"/>
                     </padding>
                 </HBox>
-                <HBox fx:id="rightToolbar" nodeOrientation="RIGHT_TO_LEFT" prefHeight="47.0" prefWidth="117.0"
+                <HBox fx:id="rightToolbar" nodeOrientation="RIGHT_TO_LEFT" spacing="20" prefHeight="47.0" prefWidth="150.0"
                       style="-fx-background-color: #F5F5F5;">
                     <padding>
                         <Insets top="20.0"/>
