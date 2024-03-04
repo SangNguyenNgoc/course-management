@@ -2,11 +2,11 @@ package com.example.coursemanagement.gui.controller;
 
 import com.example.coursemanagement.HomeApplication;
 import com.example.coursemanagement.bll.CourseBll;
-import com.example.coursemanagement.dtos.Course;
-import com.example.coursemanagement.dtos.OnlineCourse;
-import com.example.coursemanagement.dtos.OnsiteCourse;
+import com.example.coursemanagement.bll.dtos.Course;
+import com.example.coursemanagement.bll.dtos.OnlineCourse;
+import com.example.coursemanagement.bll.dtos.OnsiteCourse;
 import com.example.coursemanagement.gui.page.Component;
-import com.example.coursemanagement.utils.DialogUtil;
+import com.example.coursemanagement.gui.utils.DialogUtil;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -126,10 +126,12 @@ public class CourseItemController {
     public void deleteCourse() {
         try {
             CourseBll.getInstance().deleteCourse(course.getId());
-            DialogUtil.getInstance().showAlert("Thông báo","Xóa thành công!", Alert.AlertType.INFORMATION);
+            DialogUtil.getInstance().showAlert(
+                    "Thông báo","Xóa thành công!", Alert.AlertType.INFORMATION);
             dashboardController.initListCourses(dashboardController.getStage());
         } catch (Exception e) {
-            DialogUtil.getInstance().showAlert("Lỗi","Xóa không thành công!", Alert.AlertType.ERROR);
+            DialogUtil.getInstance().showAlert(
+                    "Lỗi","Xóa không thành công!", Alert.AlertType.ERROR);
         }
 
     }

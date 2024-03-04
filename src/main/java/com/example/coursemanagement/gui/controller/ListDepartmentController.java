@@ -2,9 +2,9 @@ package com.example.coursemanagement.gui.controller;
 
 import com.example.coursemanagement.HomeApplication;
 import com.example.coursemanagement.bll.DepartmentBll;
-import com.example.coursemanagement.dtos.Department;
+import com.example.coursemanagement.bll.dtos.Department;
 import com.example.coursemanagement.gui.page.Component;
-import com.example.coursemanagement.utils.AppUtil;
+import com.example.coursemanagement.bll.utils.AppUtil;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.layout.VBox;
@@ -25,7 +25,8 @@ public class ListDepartmentController {
     private void renderList(List<Department> departments) {
         if(!departments.isEmpty()) {
             for (Department department : departments) {
-                FXMLLoader loader = new FXMLLoader(HomeApplication.class.getResource(Component.DEPARTMENT_ITEM.getValue()));
+                FXMLLoader loader = new FXMLLoader(
+                        HomeApplication.class.getResource(Component.DEPARTMENT_ITEM.getValue()));
                 Parent root = null;
                 try {
                     root = loader.load();

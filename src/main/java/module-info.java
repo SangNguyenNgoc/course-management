@@ -6,7 +6,7 @@ module com.example.coursemanagement {
     requires mysql.connector.j;
 
 
-    opens com.example.coursemanagement.dtos to javafx.base;
+    opens com.example.coursemanagement.bll.dtos to javafx.base;
     opens com.example.coursemanagement to javafx.fxml;
     exports com.example.coursemanagement;
     exports com.example.coursemanagement.gui.controller;

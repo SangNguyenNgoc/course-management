@@ -1,7 +1,7 @@
-package com.example.coursemanagement.utils.mapper;
+package com.example.coursemanagement.bll.utils.mapper;
 
-import com.example.coursemanagement.dtos.OnlineCourse;
-import com.example.coursemanagement.dtos.OnsiteCourse;
+import com.example.coursemanagement.bll.dtos.OnlineCourse;
+import com.example.coursemanagement.bll.dtos.OnsiteCourse;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

@@ -1,7 +1,7 @@
 package com.example.coursemanagement.dal;
 
-import com.example.coursemanagement.dtos.Department;
-import com.example.coursemanagement.utils.DbConnection;
+import com.example.coursemanagement.bll.dtos.Department;
+import com.example.coursemanagement.bll.utils.DbConnection;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -43,7 +43,9 @@ public class DepartmentDal {
                         .name(resultSet.getString("Name"))
                         .budget(resultSet.getDouble("Budget"))
                         .startDate(resultSet.getDate("StartDate"))
-                        .administrator(resultSet.getString("Lastname") + " " + resultSet.getString("Firstname"))
+                        .administrator(
+                                resultSet.getString("Lastname") + " " +
+                                        resultSet.getString("Firstname"))
                         .administratorId(resultSet.getInt("Administrator"))
                         .build();
                 departments.add(department);
@@ -63,7 +65,6 @@ public class DepartmentDal {
                 JOIN person p ON d.Administrator = p.PersonID
                 WHERE DepartmentID = ?
                 """;
-
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -74,7 +75,9 @@ public class DepartmentDal {
                         .name(resultSet.getString("Name"))
                         .budget(resultSet.getDouble("Budget"))
                         .startDate(resultSet.getDate("StartDate"))
-                        .administrator(resultSet.getString("Lastname") + " " + resultSet.getString("Firstname"))
+                        .administrator(
+                                resultSet.getString("Lastname") + " " +
+                                        resultSet.getString("Firstname"))
                         .administratorId(resultSet.getInt("Administrator"))
                         .build();
             }

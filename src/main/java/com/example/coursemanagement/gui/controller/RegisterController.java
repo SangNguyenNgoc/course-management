@@ -2,8 +2,8 @@ package com.example.coursemanagement.gui.controller;
 
 import com.example.coursemanagement.bll.CourseBll;
 import com.example.coursemanagement.bll.StudentBll;
-import com.example.coursemanagement.dtos.StudentGrade;
-import com.example.coursemanagement.utils.DialogUtil;
+import com.example.coursemanagement.bll.dtos.StudentGrade;
+import com.example.coursemanagement.gui.utils.DialogUtil;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -80,11 +80,13 @@ public class RegisterController<T> {
     public void registerCourse() {
         try {
             CourseBll.getInstance().registerStudentForCourse(inputField.getText(), courseId);
-            DialogUtil.getInstance().showAlert("Thông báo", "Đăng ký thành công", Alert.AlertType.INFORMATION);
+            DialogUtil.getInstance().showAlert(
+                    "Thông báo", "Đăng ký thành công", Alert.AlertType.INFORMATION);
             DashboardController c = (DashboardController) controller;
             c.initCourseDetail(courseId, null);
         } catch (Exception e) {
-            DialogUtil.getInstance().showAlert("Lỗi", "Đăng ký không thành công", Alert.AlertType.ERROR);
+            DialogUtil.getInstance().showAlert(
+                    "Lỗi", "Đăng ký không thành công", Alert.AlertType.ERROR);
         }
         this.stage.close();
     }

@@ -1,8 +1,7 @@
 package com.example.coursemanagement.gui.button;
 
 import com.example.coursemanagement.HomeApplication;
-import com.example.coursemanagement.dtos.Department;
-import com.example.coursemanagement.dtos.StudentGrade;
+import com.example.coursemanagement.bll.dtos.Department;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableCell;
 

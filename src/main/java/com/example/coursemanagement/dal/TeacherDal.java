@@ -1,10 +1,9 @@
 package com.example.coursemanagement.dal;
 import java.sql.*;
 
-import com.example.coursemanagement.dtos.Student;
-import com.example.coursemanagement.dtos.Teacher;
-import com.example.coursemanagement.mapper.TeacherMapper;
-import com.example.coursemanagement.utils.DbConnection;
+import com.example.coursemanagement.bll.dtos.Teacher;
+import com.example.coursemanagement.bll.utils.mapper.TeacherMapper;
+import com.example.coursemanagement.bll.utils.DbConnection;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -80,7 +79,7 @@ public class TeacherDal {
             // Set parameters for the prepared statement
             preparedStatement.setString(1, teacher.getLastName());
             preparedStatement.setString(2, teacher.getFirstName());
-            preparedStatement.setDate(3, Date.valueOf(teacher.getHireDate().toLocalDate())); // Assuming HireDate is of type java.util.Date
+            preparedStatement.setDate(3, Date.valueOf(teacher.getHireDate().toLocalDate()));
 
             // Execute the statement
             return preparedStatement.executeUpdate();
@@ -117,16 +116,16 @@ public class TeacherDal {
             // Set the parameter for the prepared statement
             preparedStatement.setInt(1, personID); // Assuming PersonID is the unique identifier for a teacher
             ResultSet resultSet = preparedStatement.executeQuery();
-            return !resultSet.next();
+            return resultSet.next();
         } catch (SQLException e) {
             logger.log(Level.SEVERE,e.getMessage());
         }
-        return false;
+        return true;
     }
     public int deleteTeacher(int personID) {
         Connection connection = DbConnection.getInstance().getConnection();
         String sql = "DELETE FROM person WHERE PersonID = ?";
-        if(!checkTeacher(personID)) return 0;
+        if(checkTeacher(personID)) return 0;
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             // Set the parameter for the prepared statement
             preparedStatement.setInt(1, personID); // Assuming PersonID is the unique identifier for a teacher

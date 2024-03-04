@@ -1,9 +1,11 @@
 package com.example.coursemanagement.bll;
 
+import com.example.coursemanagement.bll.dtos.Student;
 import com.example.coursemanagement.dal.DepartmentDal;
-import com.example.coursemanagement.dtos.Department;
-import com.example.coursemanagement.utils.AppUtil;
-import com.example.coursemanagement.utils.DialogUtil;
+import com.example.coursemanagement.bll.dtos.Department;
+import com.example.coursemanagement.bll.utils.AppUtil;
+import com.example.coursemanagement.dal.StudentDal;
+import com.example.coursemanagement.gui.utils.DialogUtil;
 import javafx.scene.control.Alert;
 
 import java.util.ArrayList;
@@ -33,6 +35,16 @@ public class DepartmentBll {
         }
     }
 
+    public Optional<Department> getDepartmentById(Integer id) {
+        Optional<Department> department = DepartmentDal.getInstance().getById(id);
+        if (department.isEmpty()) {
+            DialogUtil.getInstance().showAlert("Lỗi", "Đã xảy ra lỗi", Alert.AlertType.ERROR);
+            return Optional.empty();
+        } else {
+            return department;
+        }
+    }
+
     public int createDepartment(String name, String budget, Date startDate, Integer administrator) throws Exception {
         Double budgetDouble = AppUtil.getInstance().validateDouble(budget, "Ngân sách");
         int maxId = DepartmentDal.getInstance().getId();
@@ -40,7 +52,8 @@ public class DepartmentBll {
             throw new Exception();
         }
         if(startDate == null) {
-            DialogUtil.getInstance().showAlert("Lỗi", "Ngày thành lập không được để trống", Alert.AlertType.ERROR);
+            DialogUtil.getInstance().showAlert(
+                    "Lỗi", "Ngày thành lập không được để trống", Alert.AlertType.ERROR);
             throw new Exception();
         }
         Department department = Department.builder()
@@ -53,10 +66,13 @@ public class DepartmentBll {
         return DepartmentDal.getInstance().createDepartment(department);
     }
 
-    public int updateDepartment(Integer departmentId, String name, String budget, Date startDate, Integer administrator) throws Exception {
+    public int updateDepartment(
+            Integer departmentId, String name, String budget, Date startDate, Integer administrator
+    ) throws Exception {
         Double budgetDouble = AppUtil.getInstance().validateDouble(budget, "Ngân sách");
         if(startDate == null) {
-            DialogUtil.getInstance().showAlert("Lỗi", "Ngày thành lập không được để trống", Alert.AlertType.ERROR);
+            DialogUtil.getInstance().showAlert(
+                     "Lỗi", "Ngày thành lập không được để trống", Alert.AlertType.ERROR);
             throw new Exception();
         }
         Department department = Department.builder()
@@ -77,7 +93,8 @@ public class DepartmentBll {
         if(DepartmentDal.getInstance().checkDepartment(id)) {
             return DepartmentDal.getInstance().deleteDepartment(id);
         } else {
-            DialogUtil.getInstance().showAlert("Lỗi", "Đã có khóa học trực thuộc khoa, không thể xóa.", Alert.AlertType.ERROR);
+            DialogUtil.getInstance().showAlert(
+                    "Lỗi", "Đã có khóa học trực thuộc khoa, không thể xóa.", Alert.AlertType.ERROR);
             throw new Exception();
         }
     }

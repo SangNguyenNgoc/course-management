@@ -2,24 +2,20 @@ package com.example.coursemanagement.gui.controller;
 
 import com.example.coursemanagement.HomeApplication;
 import com.example.coursemanagement.bll.DepartmentBll;
-import com.example.coursemanagement.dtos.Department;
+import com.example.coursemanagement.bll.dtos.Department;
 import com.example.coursemanagement.gui.page.Component;
-import com.example.coursemanagement.utils.AppUtil;
-import com.example.coursemanagement.utils.DialogUtil;
+import com.example.coursemanagement.bll.utils.AppUtil;
+import com.example.coursemanagement.gui.utils.DialogUtil;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
-import java.net.URL;
-import java.time.LocalDate;
-import java.util.ResourceBundle;
+import java.util.Optional;
 
 public class DepartmentItemController {
     public Label col1;
@@ -54,33 +50,40 @@ public class DepartmentItemController {
     }
 
     public void updateDepartment() {
-        FXMLLoader loader = new FXMLLoader(HomeApplication.class.getResource(Component.ADD_DEPARTMENT.getValue()));
-        Parent root = null;
-        try {
-            root = loader.load();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        Optional<Department> d = DepartmentBll.getInstance().getDepartmentById(department.getId());
+        if(d.isPresent()) {
+            FXMLLoader loader = new FXMLLoader(
+                    HomeApplication.class.getResource(Component.ADD_DEPARTMENT.getValue()));
+            Parent root = null;
+            try {
+                root = loader.load();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            AddDepartmentController<DepartmentItemController> addDepartmentController = loader.getController();
+            addDepartmentController.setDepartment(department);
+            addDepartmentController.setController(this);
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.initStyle(StageStyle.UTILITY);
+            stage.show();
         }
-        AddDepartmentController<DepartmentItemController> addDepartmentController = loader.getController();
-        addDepartmentController.setDepartment(department);
-        addDepartmentController.setController(this);
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root));
-        stage.initStyle(StageStyle.UTILITY);
-        stage.show();
     }
 
 
     public void deleteDepartment() {
         try {
             if(DepartmentBll.getInstance().deleteDepartment(department.getId()) != 0) {
-                DialogUtil.getInstance().showAlert("Thông báo", "Xóa thành công.", Alert.AlertType.INFORMATION);
+                DialogUtil.getInstance().showAlert(
+                        "Thông báo", "Xóa thành công.", Alert.AlertType.INFORMATION);
                 listDepartmentController.initList();
             } else {
-                DialogUtil.getInstance().showAlert("Lỗi", "Xóa không thành công, lỗi bất định.", Alert.AlertType.ERROR);
+                DialogUtil.getInstance().showAlert(
+                        "Lỗi", "Xóa không thành công, lỗi bất định.", Alert.AlertType.ERROR);
             }
         } catch (Exception e) {
-            DialogUtil.getInstance().showAlert("Lỗi", "Xóa không thành công.", Alert.AlertType.ERROR);
+            DialogUtil.getInstance().showAlert(
+                    "Lỗi", "Xóa không thành công.", Alert.AlertType.ERROR);
         }
     }
 }

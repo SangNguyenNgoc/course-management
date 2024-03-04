@@ -1,8 +1,8 @@
 package com.example.coursemanagement.dal;
 
-import com.example.coursemanagement.dtos.Course;
-import com.example.coursemanagement.utils.DbConnection;
-import com.example.coursemanagement.utils.mapper.CourseMapper;
+import com.example.coursemanagement.bll.dtos.Course;
+import com.example.coursemanagement.bll.utils.DbConnection;
+import com.example.coursemanagement.bll.utils.mapper.CourseMapper;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -35,7 +35,8 @@ public class CourseDal {
     public List<Course> getAll() {
         java.sql.Connection connection = DbConnection.getInstance().getConnection();
         String sql = """
-                SELECT c.*, d.Name, c1.PersonID, p.Firstname, p.Lastname, o.url, o1.Location, Days, Time, COUNT(s.StudentID) as sumOfStudents
+                SELECT c.*, d.Name, c1.PersonID, p.Firstname,
+                p.Lastname, o.url, o1.Location, Days, Time, COUNT(s.StudentID) as sumOfStudents
                 FROM course c
                 LEFT JOIN department d
                 ON c.DepartmentID = d.DepartmentID
@@ -48,10 +49,8 @@ public class CourseDal {
                 LEFT JOIN onsitecourse o1
                 ON c.CourseID = o1.CourseID
                 LEFT JOIN school.studentgrade s
-                ON c.CourseID = s.CourseID GROUP BY c.CourseID
-                ORDER BY c.CourseID
+                ON c.CourseID = s.CourseID GROUP BY c.CourseID ORDER BY c.CourseID
                 """;
-
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             List<Course> courses = new ArrayList<>();
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -75,7 +74,8 @@ public class CourseDal {
     public Optional<Course> getById(Integer courseId) {
         java.sql.Connection connection = DbConnection.getInstance().getConnection();
         String sql = """
-                SELECT c.*, d.Name, c1.PersonID, p.Firstname, p.Lastname, o.url, o1.Location, Days, Time, COUNT(s.StudentID) as sumOfStudents
+                SELECT c.*, d.Name, c1.PersonID, p.Firstname, 
+                p.Lastname, o.url, o1.Location, Days, Time, COUNT(s.StudentID) as sumOfStudents
                 FROM course c
                 LEFT JOIN department d
                 ON c.DepartmentID = d.DepartmentID
@@ -125,13 +125,11 @@ public class CourseDal {
 
     public Optional<Course> createCourse(Course course, Integer departmentId, Integer teacher) {
         java.sql.Connection connection = DbConnection.getInstance().getConnection();
-
         // Câu lệnh SQL để thêm khóa học trực tuyến
         String sql = "INSERT INTO `course` (`Title`, `Credits`, `DepartmentID`) VALUES (?, ?, ?)";
-
         try {
-            // Tạo prepared statement và thiết lập giá trị tham số
-            try (PreparedStatement preparedStatement = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
+            try (PreparedStatement preparedStatement = connection.prepareStatement(
+                    sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
                 preparedStatement.setString(1, course.getTitle());
                 preparedStatement.setInt(2, course.getCredits());
                 preparedStatement.setInt(3, departmentId);
@@ -143,8 +141,11 @@ public class CourseDal {
                 try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
                     if (generatedKeys.next()) {
                         int courseID = generatedKeys.getInt(1);
-                        String insertCourseInstructorSql = "INSERT INTO `courseinstructor` (`CourseID`, `PersonID`) VALUES (?, ?)";
-                        try (PreparedStatement courseInstructorStatement = connection.prepareStatement(insertCourseInstructorSql)) {
+                        // Câu lệnh SQL để thêm vào bảng phân công giảng dạy
+                        String insertCourseInstructorSql =
+                                "INSERT INTO `courseinstructor` (`CourseID`, `PersonID`) VALUES (?, ?)";
+                        try (PreparedStatement courseInstructorStatement = connection.prepareStatement(
+                                insertCourseInstructorSql)) {
                             courseInstructorStatement.setInt(1, courseID);
                             courseInstructorStatement.setInt(2, teacher);
 
@@ -164,32 +165,35 @@ public class CourseDal {
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "Query failure: " + e.getMessage());
         }
-
         return Optional.empty();
     }
 
-    public void deleteCourse(Integer courseId) {
+    public void deleteCourse(Integer courseId) throws Exception {
         Connection connection = DbConnection.getInstance().getConnection();
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM onlinecourse WHERE CourseID = ?");
+            PreparedStatement preparedStatement = connection.prepareStatement(
+                    "DELETE FROM onlinecourse WHERE CourseID = ?");
             preparedStatement.setInt(1, courseId);
             int rowsAffectedOnlineCourse = preparedStatement.executeUpdate();
 
-            preparedStatement = connection.prepareStatement("DELETE FROM onsitecourse WHERE CourseID = ?");
+            preparedStatement = connection.prepareStatement(
+                    "DELETE FROM onsitecourse WHERE CourseID = ?");
             preparedStatement.setInt(1, courseId);
             int rowsAffectedOnsiteCourse = preparedStatement.executeUpdate();
 
-            preparedStatement = connection.prepareStatement("DELETE FROM courseinstructor WHERE CourseID = ?");
+            preparedStatement = connection.prepareStatement(
+                    "DELETE FROM courseinstructor WHERE CourseID = ?");
             preparedStatement.setInt(1, courseId);
             int rowsAffectedCourseInstructor = preparedStatement.executeUpdate();
 
-            preparedStatement = connection.prepareStatement("DELETE FROM course WHERE CourseID = ?");
+            preparedStatement = connection.prepareStatement(
+                    "DELETE FROM course WHERE CourseID = ?");
             preparedStatement.setInt(1, courseId);
             int rowsAffectedCourse = preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "Query failure: " + e.getMessage());
-
+            throw new Exception();
         }
     }
 
@@ -210,34 +214,26 @@ public class CourseDal {
     public Boolean createCourseOnline(Integer courseId, String url) {
         java.sql.Connection connection = DbConnection.getInstance().getConnection();
         String sql = "INSERT INTO `onlinecourse` (`CourseID`, `url`) VALUES (?, ?)";
-
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, courseId);
             statement.setString(2, url);
-
             int affectedRows = statement.executeUpdate();
-
             return affectedRows > 0;
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "Query failure: " + e.getMessage());
         }
-
         return false;
     }
 
     public Boolean createCourseOnsite(Integer courseId, String location, String date, LocalTime time) {
         java.sql.Connection connection = DbConnection.getInstance().getConnection();
         String sql = "INSERT INTO `onsitecourse` (`CourseID`, `Location`, `Days`, `Time`) VALUES (?, ?, ?, ?)";
-
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, courseId);
             statement.setString(2, location);
-
             String formattedTime = time.format(DateTimeFormatter.ofPattern("HH:mm")); // Định dạng LocalTime thành chuỗi "HH:mm"
-
             statement.setString(3, date);
             statement.setString(4, formattedTime);
-
             int affectedRows = statement.executeUpdate();
             return affectedRows > 0;
         } catch (SQLException e) {

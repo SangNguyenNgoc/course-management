@@ -1,12 +1,11 @@
 package com.example.coursemanagement.dal;
 
-import com.example.coursemanagement.dtos.Course;
-import com.example.coursemanagement.dtos.OnlineCourse;
-import com.example.coursemanagement.utils.DbConnection;
+import com.example.coursemanagement.bll.dtos.Course;
+import com.example.coursemanagement.bll.dtos.OnlineCourse;
+import com.example.coursemanagement.bll.utils.DbConnection;
 import org.junit.jupiter.api.Test;
 
 import java.sql.Connection;
-import java.util.ConcurrentModificationException;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertNotEquals;

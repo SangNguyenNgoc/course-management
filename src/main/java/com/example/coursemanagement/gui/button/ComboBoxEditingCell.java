@@ -1,9 +1,8 @@
 package com.example.coursemanagement.gui.button;
 
-import com.example.coursemanagement.bll.DepartmentBll;
 import com.example.coursemanagement.bll.TeacherBll;
-import com.example.coursemanagement.dtos.Department;
-import com.example.coursemanagement.dtos.Teacher;
+import com.example.coursemanagement.bll.dtos.Department;
+import com.example.coursemanagement.bll.dtos.Teacher;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.TableCell;

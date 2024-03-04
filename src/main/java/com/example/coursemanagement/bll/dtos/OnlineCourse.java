@@ -1,4 +1,4 @@
-package com.example.coursemanagement.dtos;
+package com.example.coursemanagement.bll.dtos;
 
 import lombok.*;
 import lombok.experimental.SuperBuilder;

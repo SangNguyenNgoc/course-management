@@ -3,12 +3,12 @@ package com.example.coursemanagement.gui.controller;
 import com.example.coursemanagement.HomeApplication;
 import com.example.coursemanagement.bll.CourseBll;
 import com.example.coursemanagement.bll.StudentBll;
-import com.example.coursemanagement.dtos.Course;
-import com.example.coursemanagement.dtos.StudentGrade;
+import com.example.coursemanagement.bll.dtos.Course;
+import com.example.coursemanagement.bll.dtos.StudentGrade;
 import com.example.coursemanagement.gui.button.UnregisterButton;
 import com.example.coursemanagement.gui.page.Component;
-import com.example.coursemanagement.utils.AppUtil;
-import com.example.coursemanagement.utils.DialogUtil;
+import com.example.coursemanagement.bll.utils.AppUtil;
+import com.example.coursemanagement.gui.utils.DialogUtil;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -39,7 +39,8 @@ public class CourseDetailController {
         if (header.getChildren().size() > 1) {
             header.getChildren().remove(0);
         }
-        FXMLLoader loader = new FXMLLoader(HomeApplication.class.getResource(Component.COURSE_ITEM.getValue()));
+        FXMLLoader loader = new FXMLLoader(
+                HomeApplication.class.getResource(Component.COURSE_ITEM.getValue()));
         Parent root = loader.load();
         CourseItemController controller = loader.getController();
         Course course = CourseBll.getInstance().getById(id);
@@ -52,16 +53,14 @@ public class CourseDetailController {
             List<StudentGrade> studentGrades = StudentBll.getInstance().getStudentsInCourse(id);
             renderTable(id, studentGrades);
         }
-
-
-
     }
 
     public void initCourseDetail(Integer id, String search) throws IOException {
         if (header.getChildren().size() > 1) {
             header.getChildren().remove(0);
         }
-        FXMLLoader loader = new FXMLLoader(HomeApplication.class.getResource(Component.COURSE_ITEM.getValue()));
+        FXMLLoader loader = new FXMLLoader(
+                HomeApplication.class.getResource(Component.COURSE_ITEM.getValue()));
         Parent root = loader.load();
         CourseItemController controller = loader.getController();
         Course course = CourseBll.getInstance().getById(id);
@@ -73,9 +72,12 @@ public class CourseDetailController {
 
             List<StudentGrade> studentGrades = StudentBll.getInstance().getStudentsInCourse(id);
             if(AppUtil.getInstance().isInteger(search)) {
-                studentGrades = studentGrades.stream().filter(item -> item.getId().toString().equals(search)).collect(Collectors.toList());
+                studentGrades = studentGrades.stream().filter(item ->
+                        item.getId().toString().equals(search)).collect(Collectors.toList());
             } else {
-                studentGrades = studentGrades.stream().filter(item -> (item.getLastName() + " " + item.getFirstName()).toLowerCase().contains(search.toLowerCase())).collect(Collectors.toList());
+                studentGrades = studentGrades.stream().filter(item ->
+                        (item.getLastName() + " " + item.getFirstName()).toLowerCase()
+                                .contains(search.toLowerCase())).collect(Collectors.toList());
             }
             renderTable(id, studentGrades);
         }
@@ -86,8 +88,10 @@ public class CourseDetailController {
         parentTable.setItems(students);
 
         idColumn.setCellValueFactory(cellData -> initTableCell(cellData.getValue().getId().toString()));
-        nameColumn.setCellValueFactory(cellData -> initTableCell(cellData.getValue().getLastName() + " " + cellData.getValue().getFirstName()));
-        enrollmentColumn.setCellValueFactory(cellData -> initTableCell(AppUtil.getInstance().formatDate(cellData.getValue().getEnrollmentDate())));
+        nameColumn.setCellValueFactory(cellData -> initTableCell(
+                        cellData.getValue().getLastName() + " " + cellData.getValue().getFirstName()));
+        enrollmentColumn.setCellValueFactory(cellData -> initTableCell(
+                AppUtil.getInstance().formatDate(cellData.getValue().getEnrollmentDate())));
         gradeColumn.setCellValueFactory(cellData -> {
             if (cellData.getValue().getGrade() == null) {
                 return initTableCell("X");
@@ -102,15 +106,16 @@ public class CourseDetailController {
                 String input = studentGraceDoubleCellEditEvent.getNewValue();
                 try {
                     StudentBll.getInstance().updateGrade(studentGrade.getId(), id, input);
-                    DialogUtil.getInstance().showAlert("Thông báo", "Thay đổi điểm thành công", Alert.AlertType.INFORMATION);
+                    DialogUtil.getInstance().showAlert(
+                            "Thông báo", "Thay đổi điểm thành công", Alert.AlertType.INFORMATION);
                     studentGrade.setGrade(Double.parseDouble(input));
                 } catch (Exception e) {
-                    DialogUtil.getInstance().showAlert("Lỗi", "Thay đổi điểm không thành công", Alert.AlertType.ERROR);
+                    DialogUtil.getInstance().showAlert(
+                            "Lỗi", "Thay đổi điểm không thành công", Alert.AlertType.ERROR);
                 }
             }
         });
         actionColumn.setCellFactory(param -> new UnregisterButton(id, this));
-
         parentTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         parentTable.setFixedCellSize(30);
     }

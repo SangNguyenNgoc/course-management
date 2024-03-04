@@ -2,9 +2,9 @@ package com.example.coursemanagement.gui.controller;
 
 import com.example.coursemanagement.bll.StudentBll;
 import com.example.coursemanagement.bll.TeacherBll;
-import com.example.coursemanagement.dtos.Student;
-import com.example.coursemanagement.dtos.Teacher;
-import com.example.coursemanagement.utils.DialogUtil;
+import com.example.coursemanagement.bll.dtos.Student;
+import com.example.coursemanagement.bll.dtos.Teacher;
+import com.example.coursemanagement.gui.utils.DialogUtil;
 import javafx.scene.control.*;
 
 import java.io.IOException;
@@ -95,7 +95,10 @@ public class AddPersonController<T> {
                         dateField.getValue()
                 );
                 if (result != 0) {
-                    DialogUtil.getInstance().showAlert("Thông báo", "Thêm thành công", Alert.AlertType.INFORMATION);
+                    DialogUtil.getInstance().showAlert(
+                            "Thông báo",
+                            "Thêm thành công",
+                            Alert.AlertType.INFORMATION);
                     DashboardController c = (DashboardController) controller;
                     try {
                         c.initListStudent(null);
@@ -103,7 +106,10 @@ public class AddPersonController<T> {
                         throw new RuntimeException(e);
                     }
                 } else {
-                    DialogUtil.getInstance().showAlert("Lỗi", "Thêm không thành công", Alert.AlertType.ERROR);
+                    DialogUtil.getInstance().showAlert(
+                            "Lỗi",
+                            "Thêm không thành công",
+                            Alert.AlertType.ERROR);
                 }
                 break;
             }
@@ -115,7 +121,8 @@ public class AddPersonController<T> {
                         dateField.getValue()
                 );
                 if (result != 0) {
-                    DialogUtil.getInstance().showAlert("Thông báo", "Thêm thành công", Alert.AlertType.INFORMATION);
+                    DialogUtil.getInstance().showAlert(
+                            "Thông báo", "Thêm thành công", Alert.AlertType.INFORMATION);
                     DashboardController c = (DashboardController) controller;
                     try {
                         c.initListTeacher(null);
@@ -123,7 +130,8 @@ public class AddPersonController<T> {
                         throw new RuntimeException(e);
                     }
                 } else {
-                    DialogUtil.getInstance().showAlert("Lỗi", "Thêm không thành công", Alert.AlertType.ERROR);
+                    DialogUtil.getInstance().showAlert(
+                            "Lỗi", "Thêm không thành công", Alert.AlertType.ERROR);
                 }
                 break;
             }
@@ -136,7 +144,10 @@ public class AddPersonController<T> {
                         dateField.getValue()
                 );
                 if (result != 0) {
-                    DialogUtil.getInstance().showAlert("Thông báo", "Chỉnh sửa thành công", Alert.AlertType.INFORMATION);
+                    DialogUtil.getInstance().showAlert(
+                            "Thông báo",
+                            "Chỉnh sửa thành công",
+                            Alert.AlertType.INFORMATION);
                     PersonItemController c = (PersonItemController) controller;
                     c.initPerson(Student.builder()
                             .id(student.getId())
@@ -145,7 +156,10 @@ public class AddPersonController<T> {
                             .enrollmentDate(convertToUtilDate(dateField.getValue()))
                             .build());
                 } else {
-                    DialogUtil.getInstance().showAlert("Lỗi", "CHiỉnh sửa không thành công", Alert.AlertType.ERROR);
+                    DialogUtil.getInstance().showAlert(
+                            "Lỗi",
+                            "Chỉnh sửa không thành công",
+                            Alert.AlertType.ERROR);
                 }
                 break;
             }
@@ -158,7 +172,9 @@ public class AddPersonController<T> {
                         dateField.getValue()
                 );
                 if (result != 0) {
-                    DialogUtil.getInstance().showAlert("Thông báo", "Chỉnh sửa thành công", Alert.AlertType.INFORMATION);
+                    DialogUtil.getInstance().showAlert(
+                            "Thông báo",
+                            "Chỉnh sửa thành công", Alert.AlertType.INFORMATION);
                     PersonItemController c = (PersonItemController) controller;
                     c.initPerson(Teacher.builder()
                             .id(teacher.getId())
@@ -167,7 +183,9 @@ public class AddPersonController<T> {
                             .hireDate(LocalDateTime.of(dateField.getValue(), LocalTime.now()))
                             .build());
                 } else {
-                    DialogUtil.getInstance().showAlert("Lỗi", "Chỉnh sửa không thành công", Alert.AlertType.ERROR);
+                    DialogUtil.getInstance().showAlert(
+                            "Lỗi",
+                            "Chỉnh sửa không thành công", Alert.AlertType.ERROR);
                 }
                 break;
             }

@@ -1,7 +1,9 @@
-package com.example.coursemanagement.dtos;
+package com.example.coursemanagement.bll.dtos;
 
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+
+import java.util.Date;
 
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
@@ -9,6 +11,7 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-public class StudentGrade extends Student {
-    protected Double grade;
+public class Student extends Person {
+    protected Date enrollmentDate;
+
 }

@@ -1,5 +1,6 @@
-package com.example.coursemanagement.utils;
+package com.example.coursemanagement.bll.utils;
 
+import com.example.coursemanagement.gui.utils.DialogUtil;
 import javafx.scene.control.Alert;
 
 import java.text.SimpleDateFormat;

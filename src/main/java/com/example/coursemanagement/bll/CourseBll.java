@@ -2,13 +2,12 @@ package com.example.coursemanagement.bll;
 
 import com.example.coursemanagement.dal.CourseDal;
 import com.example.coursemanagement.dal.StudentDal;
-import com.example.coursemanagement.dtos.Course;
-import com.example.coursemanagement.dtos.Student;
-import com.example.coursemanagement.utils.AppUtil;
-import com.example.coursemanagement.utils.DialogUtil;
+import com.example.coursemanagement.bll.dtos.Course;
+import com.example.coursemanagement.bll.dtos.Student;
+import com.example.coursemanagement.bll.utils.AppUtil;
+import com.example.coursemanagement.gui.utils.DialogUtil;
 import javafx.scene.control.Alert;
 
-import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -44,7 +43,8 @@ public class CourseBll {
     public Course getById(Integer courseId) {
         Course course = CourseDal.getInstance().getById(courseId).orElse(null);
         if (course == null) {
-            DialogUtil.getInstance().showAlert("Lỗi", "Không tìm thấy khóa học.", Alert.AlertType.ERROR);
+            DialogUtil.getInstance().showAlert(
+                    "Lỗi", "Không tìm thấy khóa học.", Alert.AlertType.ERROR);
             return null;
         } else {
             return course;
@@ -55,36 +55,39 @@ public class CourseBll {
         int id = AppUtil.getInstance().validateInteger(studentId, "Mã sinh viên");
         Student student = StudentDal.getInstance().getById(id).orElse(null);
         if (student == null) {
-            DialogUtil.getInstance().showAlert("Lỗi", "Không tìm thấy sinh viên.", Alert.AlertType.ERROR);
+            DialogUtil.getInstance().showAlert(
+                    "Lỗi", "Không tìm thấy sinh viên.", Alert.AlertType.ERROR);
             throw new Exception();
         }
-
         Course course = CourseDal.getInstance().getById(courseId).orElse(null);
         if (course == null) {
-            DialogUtil.getInstance().showAlert("Lỗi", "Không tìm thấy khóa học.", Alert.AlertType.ERROR);
+            DialogUtil.getInstance().showAlert(
+                    "Lỗi", "Không tìm thấy khóa học.", Alert.AlertType.ERROR);
             throw new Exception();
         }
-
-
         if (CourseDal.getInstance().isStudentInCourse(id, courseId)) {
-            DialogUtil.getInstance().showAlert("Lỗi", "Sinh viên đã đăng ký khóa học.", Alert.AlertType.ERROR);
+            DialogUtil.getInstance().showAlert(
+                    "Lỗi", "Sinh viên đã đăng ký khóa học.", Alert.AlertType.ERROR);
             throw new Exception();
         }
-
         if (CourseDal.getInstance().isStudentInCourse(id, courseId) == null) {
-            DialogUtil.getInstance().showAlert("Lỗi", "Đã có lỗi xảy ra, vui lòng thử lại sau!", Alert.AlertType.ERROR);
+            DialogUtil.getInstance().showAlert(
+                    "Lỗi", "Đã có lỗi xảy ra, vui lòng thử lại sau!", Alert.AlertType.ERROR);
             throw new Exception();
         }
-
         int result = CourseDal.getInstance().registerStudentForCourse(id, courseId);
         if (result == 0) {
-            DialogUtil.getInstance().showAlert("Lỗi", "Đã có lỗi xảy ra, vui lòng thử lại sau!", Alert.AlertType.ERROR);
+            DialogUtil.getInstance().showAlert(
+                    "Lỗi", "Đã có lỗi xảy ra, vui lòng thử lại sau!", Alert.AlertType.ERROR);
             throw new Exception();
         }
 
     }
 
-    public Optional<Course> createCourse(String title, String credits, Integer departmentId, String url, Integer teacherId) throws Exception {
+    public Optional<Course> createCourse(
+            String title, String credits, Integer departmentId,
+            String url, Integer teacherId
+    ) throws Exception {
         if (validateCourseOnline(title, credits, departmentId, url, teacherId)) {
             Course newCourse = Course.builder()
                     .credits(validateCredits(credits))
@@ -96,21 +99,25 @@ public class CourseBll {
             if (CourseDal.getInstance().createCourseOnline(courseId, url)) {
                 return Optional.of(newCourse);
             }
-
         }
         return Optional.empty();
     }
 
-    public Optional<Course> createCourse(String title, String credits, Integer departmentId, String location, String days, String time, Integer teacherId) throws Exception {
+    public Optional<Course> createCourse(
+            String title, String credits, Integer departmentId,
+            String location, String days, String time, Integer teacherId
+    ) throws Exception {
         if (validateCourseOnsite(title, credits, departmentId, location, days, teacherId)) {
             Course newCourse = Course.builder()
                     .credits(validateCredits(credits))
                     .title(title)
                     .build();
-            Integer courseId = CourseDal.getInstance().createCourse(newCourse, departmentId, teacherId)
+            Integer courseId = CourseDal.getInstance().createCourse(
+                    newCourse, departmentId, teacherId)
                     .orElseThrow()
                     .getId();
-            if (CourseDal.getInstance().createCourseOnsite(courseId, location, days, Objects.requireNonNull(convertStringToTime(time)))) {
+            if (CourseDal.getInstance().createCourseOnsite(
+                    courseId, location, days, Objects.requireNonNull(convertStringToTime(time)))) {
                 return Optional.of(newCourse);
             }
 
@@ -121,12 +128,14 @@ public class CourseBll {
     public void deleteCourse(Integer courseId) throws Exception {
         Course course = CourseDal.getInstance().getById(courseId).orElse(null);
         if (course == null) {
-            DialogUtil.getInstance().showAlert("Lỗi", "Không tìm thấy khóa học.", Alert.AlertType.ERROR);
+            DialogUtil.getInstance().showAlert(
+                    "Lỗi", "Không tìm thấy khóa học.", Alert.AlertType.ERROR);
             throw new Exception();
         }
         int amount = StudentBll.getInstance().getStudentsInCourse(courseId).size();
         if (amount != 0) {
-            DialogUtil.getInstance().showAlert("Lỗi", "Không thể xóa do đã có học sinh đăng ký.", Alert.AlertType.WARNING);
+            DialogUtil.getInstance().showAlert(
+                    "Lỗi", "Không thể xóa do đã có học sinh đăng ký.", Alert.AlertType.WARNING);
             throw new Exception();
         }
         CourseDal.getInstance().deleteCourse(courseId);
@@ -143,7 +152,10 @@ public class CourseBll {
         }
     }
 
-    public int updateCourse(Integer courseId, String title, String credits, Integer departmentId, String url, Integer teacherId) throws Exception {
+    public int updateCourse(
+            Integer courseId, String title, String credits,
+            Integer departmentId, String url, Integer teacherId
+    ) throws Exception {
         if (validateCourseOnline(title, credits, departmentId, url, teacherId)) {
             Course course = Course.builder()
                     .id(courseId)
@@ -157,7 +169,10 @@ public class CourseBll {
         return 0;
     }
 
-    public int updateCourse(Integer courseId, String title, String credits, Integer departmentId, String location, String days, String time, Integer teacherId) throws Exception {
+    public int updateCourse(
+            Integer courseId, String title, String credits,
+            Integer departmentId, String location, String days, String time, Integer teacherId
+    ) throws Exception {
         if (validateCourseOnsite(title, credits, departmentId, location, days, teacherId)) {
             Course newCourse = Course.builder()
                     .id(courseId)
@@ -165,7 +180,8 @@ public class CourseBll {
                     .title(title)
                     .build();
             if (CourseDal.getInstance().updateCourse(newCourse, departmentId, teacherId) != 0) {
-                return CourseDal.getInstance().updateCourseOnsite(courseId, location, days, Objects.requireNonNull(convertStringToTime(time)));
+                return CourseDal.getInstance().updateCourseOnsite(
+                        courseId, location, days, Objects.requireNonNull(convertStringToTime(time)));
             }
         }
         return 0;

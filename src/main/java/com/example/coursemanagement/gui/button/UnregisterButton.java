@@ -2,9 +2,9 @@ package com.example.coursemanagement.gui.button;
 
 import com.example.coursemanagement.HomeApplication;
 import com.example.coursemanagement.bll.StudentBll;
-import com.example.coursemanagement.dtos.StudentGrade;
+import com.example.coursemanagement.bll.dtos.StudentGrade;
 import com.example.coursemanagement.gui.controller.CourseDetailController;
-import com.example.coursemanagement.utils.DialogUtil;
+import com.example.coursemanagement.gui.utils.DialogUtil;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -18,7 +18,8 @@ public class UnregisterButton extends TableCell<StudentGrade, Void> {
 
     public UnregisterButton(Integer courseId, CourseDetailController courseDetailController) {
         this.button = new Button("Hủy đăng ký");
-        this.button.getStylesheets().add(Objects.requireNonNull(HomeApplication.class.getResource("style/cell-button.css")).toExternalForm());
+        this.button.getStylesheets().add(Objects.requireNonNull(
+                HomeApplication.class.getResource("style/cell-button.css")).toExternalForm());
         button.setOnMouseEntered(event -> {
             button.setUnderline(true);
         });
@@ -34,13 +35,16 @@ public class UnregisterButton extends TableCell<StudentGrade, Void> {
                 try {
                     int result = StudentBll.getInstance().deleteGrade(studentGrade.getId(), courseId);
                     if(result != 0) {
-                        DialogUtil.getInstance().showAlert("Thông báo", "Hủy đăng ký thành công.", Alert.AlertType.INFORMATION);
+                        DialogUtil.getInstance().showAlert(
+                                "Thông báo", "Hủy đăng ký thành công.", Alert.AlertType.INFORMATION);
                     } else {
-                        DialogUtil.getInstance().showAlert("Lỗi", "Hủy đăng ký thất bại.", Alert.AlertType.ERROR);
+                        DialogUtil.getInstance().showAlert(
+                                "Lỗi", "Hủy đăng ký thất bại.", Alert.AlertType.ERROR);
                     }
                     courseDetailController.initCourseDetail(courseId);
                 } catch (Exception e) {
-                    DialogUtil.getInstance().showAlert("Lỗi", "Hủy đăng ký thất bại.", Alert.AlertType.ERROR);
+                    DialogUtil.getInstance().showAlert(
+                            "Lỗi", "Hủy đăng ký thất bại.", Alert.AlertType.ERROR);
                 }
             }
         });

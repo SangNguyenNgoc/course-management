@@ -1,4 +1,4 @@
-package com.example.coursemanagement.utils;
+package com.example.coursemanagement.gui.utils;
 
 import javafx.scene.control.Alert;
 

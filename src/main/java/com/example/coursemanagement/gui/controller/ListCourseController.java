@@ -2,11 +2,10 @@ package com.example.coursemanagement.gui.controller;
 
 import com.example.coursemanagement.HomeApplication;
 import com.example.coursemanagement.bll.CourseBll;
-import com.example.coursemanagement.dtos.Course;
-import com.example.coursemanagement.dtos.OnlineCourse;
-import com.example.coursemanagement.dtos.OnsiteCourse;
+import com.example.coursemanagement.bll.dtos.Course;
+import com.example.coursemanagement.bll.dtos.OnlineCourse;
+import com.example.coursemanagement.bll.dtos.OnsiteCourse;
 import com.example.coursemanagement.gui.page.Component;
-import com.example.coursemanagement.utils.AppUtil;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.layout.VBox;
@@ -26,11 +25,15 @@ public class ListCourseController {
             List<Course> courses = CourseBll.getInstance().getAllCourse();
             switch (type) {
                 case "onlineCourse": {
-                    courses = courses.stream().filter(item -> item instanceof OnlineCourse).collect(Collectors.toList());
+                    courses = courses.stream().filter(item ->
+                            item instanceof OnlineCourse)
+                            .collect(Collectors.toList());
                     break;
                 }
                 case "onsiteCourse": {
-                    courses = courses.stream().filter(item -> item instanceof OnsiteCourse).collect(Collectors.toList());
+                    courses = courses.stream().filter(item ->
+                            item instanceof OnsiteCourse)
+                            .collect(Collectors.toList());
                     break;
                 }
                 case "allCourse": {
@@ -49,6 +52,32 @@ public class ListCourseController {
         }
     }
 
+    public void initListCourses(List<Course> courses, String type, DashboardController dashboardController) {
+        content.getChildren().clear();
+        try {
+            switch (type) {
+                case "onlineCourse": {
+                    courses = courses.stream().filter(item ->
+                                    item instanceof OnlineCourse)
+                            .collect(Collectors.toList());
+                    break;
+                }
+                case "onsiteCourse": {
+                    courses = courses.stream().filter(item ->
+                                    item instanceof OnsiteCourse)
+                            .collect(Collectors.toList());
+                    break;
+                }
+                case "allCourse": {
+                    break;
+                }
+            }
+            render(courses, dashboardController);
+        } catch (IOException e) {
+            Logger.getLogger(DashboardController.class.getName()).log(Level.SEVERE, "Error", e);
+        }
+    }
+
     public void render(List<Course> courses, DashboardController dashboardController) throws IOException {
         if(courses.isEmpty()) {
             FXMLLoader loader = new FXMLLoader(HomeApplication.class.getResource(Component.EMPTY.getValue()));
@@ -58,7 +87,8 @@ public class ListCourseController {
             content.getChildren().add(root);
         } else {
             for (Course course : courses) {
-                FXMLLoader loader = new FXMLLoader(HomeApplication.class.getResource(Component.COURSE_ITEM.getValue()));
+                FXMLLoader loader = new FXMLLoader(
+                        HomeApplication.class.getResource(Component.COURSE_ITEM.getValue()));
                 Parent root = loader.load();
                 CourseItemController controller = loader.getController();
                 controller.setData(course, dashboardController);

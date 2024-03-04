@@ -2,18 +2,14 @@ package com.example.coursemanagement.gui.controller;
 
 import com.example.coursemanagement.bll.DepartmentBll;
 import com.example.coursemanagement.bll.TeacherBll;
-import com.example.coursemanagement.dal.DepartmentDal;
-import com.example.coursemanagement.dtos.Department;
-import com.example.coursemanagement.dtos.Teacher;
-import com.example.coursemanagement.utils.DialogUtil;
+import com.example.coursemanagement.bll.dtos.Department;
+import com.example.coursemanagement.bll.dtos.Teacher;
+import com.example.coursemanagement.gui.utils.DialogUtil;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
 
 import java.net.URL;
 import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -67,15 +63,18 @@ public class AddDepartmentController<T> implements Initializable {
                         teachers.get(teacherField.getSelectionModel().getSelectedIndex()).getId()
                 );
                 if(result != 0) {
-                    DialogUtil.getInstance().showAlert("Thông báo", "Tạo thành công", Alert.AlertType.INFORMATION);
+                    DialogUtil.getInstance().showAlert(
+                            "Thông báo", "Tạo thành công", Alert.AlertType.INFORMATION);
                     clearInput();
                     DashboardController c = (DashboardController) controller;
                     c.initListDepartment(null);
                 } else {
-                    DialogUtil.getInstance().showAlert("Lỗi", "Đã xảy ra lỗi, vui lòng thử lại", Alert.AlertType.ERROR);
+                    DialogUtil.getInstance().showAlert(
+                            "Lỗi", "Đã xảy ra lỗi, vui lòng thử lại", Alert.AlertType.ERROR);
                 }
             } catch (Exception e) {
-                DialogUtil.getInstance().showAlert("Lỗi", "Tạo không thành công", Alert.AlertType.ERROR);
+                DialogUtil.getInstance().showAlert(
+                        "Lỗi", "Tạo không thành công", Alert.AlertType.ERROR);
             }
         } else {
             try {
@@ -87,15 +86,18 @@ public class AddDepartmentController<T> implements Initializable {
                         teachers.get(teacherField.getSelectionModel().getSelectedIndex()).getId()
                 );
                 if(result != 0) {
-                    DialogUtil.getInstance().showAlert("Thông báo", "Cập nhật thành công", Alert.AlertType.INFORMATION);
+                    DialogUtil.getInstance().showAlert(
+                            "Thông báo", "Cập nhật thành công", Alert.AlertType.INFORMATION);
                     DepartmentItemController c = (DepartmentItemController) controller;
                     c.initDepartment(department.getId());
                 } else {
-                    DialogUtil.getInstance().showAlert("Lỗi", "Đã xảy ra lỗi, vui lòng thử lại", Alert.AlertType.ERROR);
+                    DialogUtil.getInstance().showAlert(
+                            "Lỗi", "Đã xảy ra lỗi, vui lòng thử lại", Alert.AlertType.ERROR);
                 }
             } catch (Exception e) {
                 System.out.println(e.getMessage());
-                DialogUtil.getInstance().showAlert("Lỗi", "Cập nhật không thành công", Alert.AlertType.ERROR);
+                DialogUtil.getInstance().showAlert(
+                        "Lỗi", "Cập nhật không thành công", Alert.AlertType.ERROR);
             }
         }
 

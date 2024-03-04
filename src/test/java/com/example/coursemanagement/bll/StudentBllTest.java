@@ -1,14 +1,12 @@
 package com.example.coursemanagement.bll;
 
-import com.example.coursemanagement.dal.StudentDal;
-import com.example.coursemanagement.dtos.Student;
+import com.example.coursemanagement.bll.dtos.Student;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.sql.Date;
 import java.time.LocalDate;
 
-import static javafx.beans.binding.Bindings.when;
 import static org.junit.jupiter.api.Assertions.*;
 
 class StudentBllTest {

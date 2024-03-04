@@ -1,7 +1,7 @@
 package com.example.coursemanagement.gui.controller;
 
 import com.example.coursemanagement.HomeApplication;
-import com.example.coursemanagement.dtos.Course;
+import com.example.coursemanagement.bll.dtos.Course;
 import com.example.coursemanagement.gui.button.ButtonModel;
 import com.example.coursemanagement.gui.page.Component;
 import com.example.coursemanagement.gui.page.Route;
@@ -98,6 +98,9 @@ public class DashboardController implements Initializable, Route {
                         throw new RuntimeException(e);
                     }
                 } else {
+                    if(rightToolbar.getChildren().size() > 1) {
+                        rightToolbar.getChildren().remove(1);
+                    }
                     addButtonRightToolbar(initFilterButton());
                     initListCourses(btn.getKey());
                 }
@@ -115,7 +118,9 @@ public class DashboardController implements Initializable, Route {
         button.getStyleClass().addAll("toolbar-button", "menu-button");
         button.setId(item.getKey());
         button.setOnMouseClicked(event -> {
-            rightToolbar.getChildren().remove(1);
+            if(rightToolbar.getChildren().size() > 1) {
+                rightToolbar.getChildren().remove(1);
+            }
             leftToolbar.getChildren().forEach(children ->
                     children.getStyleClass().remove("action"));
             button.getStyleClass().add("action");
@@ -133,7 +138,9 @@ public class DashboardController implements Initializable, Route {
         button.getStyleClass().addAll("toolbar-button", "menu-button");
         button.setId(item.getKey());
         button.setOnMouseClicked(event -> {
-            rightToolbar.getChildren().remove(1);
+            if(rightToolbar.getChildren().size() > 1) {
+                rightToolbar.getChildren().remove(1);
+            }
             leftToolbar.getChildren().forEach(children ->
                     children.getStyleClass().remove("action"));
             button.getStyleClass().add("action");
@@ -151,7 +158,9 @@ public class DashboardController implements Initializable, Route {
         button.getStyleClass().addAll("toolbar-button");
         button.setId(item.getKey());
         button.setOnMouseClicked(event -> {
-            rightToolbar.getChildren().remove(1);
+            if(rightToolbar.getChildren().size() > 1) {
+                rightToolbar.getChildren().remove(1);
+            }
             leftToolbar.getChildren().forEach(children ->
                     children.getStyleClass().remove("action"));
             button.getStyleClass().add("action");
@@ -169,7 +178,8 @@ public class DashboardController implements Initializable, Route {
         try {
             setStage(key);
             body.getChildren().clear();
-            FXMLLoader loader = new FXMLLoader(HomeApplication.class.getResource(Component.LIST_COURSE.getValue()));
+            FXMLLoader loader = new FXMLLoader(
+                    HomeApplication.class.getResource(Component.LIST_COURSE.getValue()));
             Parent root = null;
             root = loader.load();
             ListCourseController controller = loader.getController();
@@ -182,13 +192,12 @@ public class DashboardController implements Initializable, Route {
 
     public void initListCourses(List<Course> courses) {
         try {
-            setStage("allCourse");
             body.getChildren().clear();
             FXMLLoader loader = new FXMLLoader(HomeApplication.class.getResource(Component.LIST_COURSE.getValue()));
             Parent root = null;
             root = loader.load();
             ListCourseController controller = loader.getController();
-            controller.render(courses, this);
+            controller.initListCourses(courses, stage, this);
             body.getChildren().add(root);
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -411,7 +420,6 @@ public class DashboardController implements Initializable, Route {
 
     public void initListTeacher(String key) throws IOException {
         setStage("teachers");
-        System.out.println(stage);
         body.getChildren().clear();
         FXMLLoader loader = new FXMLLoader(HomeApplication.class.getResource(Component.LIST_PERSON.getValue()));
         Parent root = null;

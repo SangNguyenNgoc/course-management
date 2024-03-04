@@ -2,23 +2,20 @@ package com.example.coursemanagement.bll;
 
 import com.example.coursemanagement.dal.CourseDal;
 import com.example.coursemanagement.dal.StudentDal;
-import com.example.coursemanagement.dtos.Course;
-import com.example.coursemanagement.dtos.Student;
-import com.example.coursemanagement.dtos.StudentGrade;
-import com.example.coursemanagement.utils.AppUtil;
-import com.example.coursemanagement.utils.DialogUtil;
+import com.example.coursemanagement.bll.dtos.Course;
+import com.example.coursemanagement.bll.dtos.Student;
+import com.example.coursemanagement.bll.dtos.StudentGrade;
+import com.example.coursemanagement.bll.utils.AppUtil;
+import com.example.coursemanagement.gui.utils.DialogUtil;
 import javafx.scene.control.Alert;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 public class StudentBll {
-
-    private static class StudentBllHolder {
-        private static final StudentBll INSTANCE = new StudentBll();
-    }
 
     private StudentBll() {
     }
@@ -37,15 +34,27 @@ public class StudentBll {
         }
     }
 
+    public Optional<Student> getStudentById(Integer id) {
+        Optional<Student> student = StudentDal.getInstance().getById(id);
+        if (student.isEmpty()) {
+            DialogUtil.getInstance().showAlert("Lỗi", "Đã xảy ra lỗi", Alert.AlertType.ERROR);
+            return Optional.empty();
+        } else {
+            return student;
+        }
+    }
+
     public List<StudentGrade> getStudentsInCourse(Integer courseId) {
         Course course = CourseDal.getInstance().getById(courseId).orElse(null);
         if (course == null) {
-            DialogUtil.getInstance().showAlert("Lỗi", "Không tìm thấy khóa học.", Alert.AlertType.ERROR);
+            DialogUtil.getInstance().showAlert(
+                    "Lỗi", "Không tìm thấy khóa học.", Alert.AlertType.ERROR);
             return new ArrayList<>();
         }
         List<StudentGrade> studentGrades = StudentDal.getInstance().getStudentsInCourse(courseId);
         if (studentGrades == null) {
-            DialogUtil.getInstance().showAlert("Lỗi", "Không tìm thấy khóa học.", Alert.AlertType.ERROR);
+            DialogUtil.getInstance().showAlert(
+                    "Lỗi", "Đã xảy ra lỗi, vui lòng thử lại.", Alert.AlertType.ERROR);
             return new ArrayList<>();
         }
         return studentGrades;
@@ -54,17 +63,20 @@ public class StudentBll {
     public void updateGrade(Integer personId, Integer courseId, String grade) throws Exception {
         Course course = CourseDal.getInstance().getById(courseId).orElse(null);
         if (course == null) {
-            DialogUtil.getInstance().showAlert("Lỗi", "Không tìm thấy khóa học.", Alert.AlertType.ERROR);
+            DialogUtil.getInstance().showAlert(
+                    "Lỗi", "Không tìm thấy khóa học.", Alert.AlertType.ERROR);
             throw new Exception();
         }
         Student student = StudentDal.getInstance().getById(personId).orElse(null);
         if (student == null) {
-            DialogUtil.getInstance().showAlert("Lỗi", "Không tìm thấy học sinh.", Alert.AlertType.ERROR);
+            DialogUtil.getInstance().showAlert(
+                    "Lỗi", "Không tìm thấy học sinh.", Alert.AlertType.ERROR);
             throw new Exception();
         }
         double gradeDouble = AppUtil.getInstance().validateDouble(grade, "Điểm");
         if (gradeDouble < 0 || gradeDouble > 10) {
-            DialogUtil.getInstance().showAlert("Lỗi", "Điểm phải là số lớn hơn 0 và bé hơn 10.", Alert.AlertType.ERROR);
+            DialogUtil.getInstance().showAlert(
+                    "Lỗi", "Điểm phải là số lớn hơn 0 và bé hơn 10.", Alert.AlertType.ERROR);
             return;
         }
         StudentDal.getInstance().updateGrade(personId, courseId, gradeDouble);
@@ -74,20 +86,29 @@ public class StudentBll {
     public int deleteGrade(Integer personId, Integer courseId) throws Exception {
         Course course = CourseDal.getInstance().getById(courseId).orElse(null);
         if (course == null) {
-            DialogUtil.getInstance().showAlert("Lỗi", "Không tìm thấy khóa học.", Alert.AlertType.ERROR);
+            DialogUtil.getInstance().showAlert(
+                    "Lỗi", "Không tìm thấy khóa học.", Alert.AlertType.ERROR);
             throw new Exception();
         }
         Student student = StudentDal.getInstance().getById(personId).orElse(null);
         if (student == null) {
-            DialogUtil.getInstance().showAlert("Lỗi", "Không tìm thấy học sinh.", Alert.AlertType.ERROR);
+            DialogUtil.getInstance().showAlert(
+                    "Lỗi", "Không tìm thấy học sinh.", Alert.AlertType.ERROR);
             throw new Exception();
         }
         return StudentDal.getInstance().deleteGrade(courseId, personId);
 
     }
+
     public int addStudent(String firstname, String lastName, LocalDate date) {
+        if(firstname.isEmpty() || lastName.isEmpty() || date == null) {
+            DialogUtil.getInstance().showAlert(
+                    "Lỗi",
+                    "Được để trống thông tin.",
+                    Alert.AlertType.ERROR);
+            return 0;
+        }
         Student student = Student.builder()
-                .id(1)
                 .firstName(firstname)
                 .lastName(lastName)
                 .enrollmentDate(convertToUtilDate(date))
@@ -105,7 +126,10 @@ public class StudentBll {
                 .enrollmentDate(convertToUtilDate(date))
                 .build();
         if (StudentDal.getInstance().getById(student.getId()).isEmpty()) {
-            DialogUtil.getInstance().showAlert("Lỗi", "Học sinh không tồn tại trong hệ thống.", Alert.AlertType.ERROR);
+            DialogUtil.getInstance().showAlert(
+                    "Lỗi",
+                    "Học sinh không tồn tại trong hệ thống.",
+                    Alert.AlertType.ERROR);
             return 0; // Trả về 0 để biểu thị lỗi
         }
         // Thực hiện sửa thông tin học sinh
@@ -115,7 +139,10 @@ public class StudentBll {
     public int deleteStudent(Integer studentId) {
         // Kiểm tra xem student có tồn tại trong bảng studentgrade không
         if (StudentDal.getInstance().isStudentInGradeTable(studentId)) {
-            DialogUtil.getInstance().showAlert("Lỗi", "Không thể xóa học sinh vì học sinh đã có điểm trong bảng studentgrade.", Alert.AlertType.ERROR);
+            DialogUtil.getInstance().showAlert(
+                    "Lỗi",
+                    "Không thể xóa học sinh vì học sinh đã có điểm trong bảng studentgrade.",
+                    Alert.AlertType.ERROR);
             return 0; // Trả về 0 để biểu thị lỗi
         }
 
@@ -128,5 +155,9 @@ public class StudentBll {
             return null;
         }
         return java.sql.Date.valueOf(localDate);
+    }
+
+    private static class StudentBllHolder {
+        private static final StudentBll INSTANCE = new StudentBll();
     }
 }

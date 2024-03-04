@@ -1,6 +1,6 @@
 package com.example.coursemanagement.dal;
 
-import com.example.coursemanagement.dtos.Department;
+import com.example.coursemanagement.bll.dtos.Department;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

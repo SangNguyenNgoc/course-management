@@ -1,7 +1,7 @@
 package com.example.coursemanagement.dal;
 
-import com.example.coursemanagement.dtos.Student;
-import com.example.coursemanagement.dtos.StudentGrade;
+import com.example.coursemanagement.bll.dtos.Student;
+import com.example.coursemanagement.bll.dtos.StudentGrade;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

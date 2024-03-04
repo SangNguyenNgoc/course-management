@@ -3,11 +3,11 @@ package com.example.coursemanagement.gui.controller;
 import com.example.coursemanagement.bll.CourseBll;
 import com.example.coursemanagement.bll.DepartmentBll;
 import com.example.coursemanagement.bll.TeacherBll;
-import com.example.coursemanagement.dtos.Course;
-import com.example.coursemanagement.dtos.Department;
-import com.example.coursemanagement.dtos.OnsiteCourse;
-import com.example.coursemanagement.dtos.Teacher;
-import com.example.coursemanagement.utils.DialogUtil;
+import com.example.coursemanagement.bll.dtos.Course;
+import com.example.coursemanagement.bll.dtos.Department;
+import com.example.coursemanagement.bll.dtos.OnsiteCourse;
+import com.example.coursemanagement.bll.dtos.Teacher;
+import com.example.coursemanagement.gui.utils.DialogUtil;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -81,13 +81,16 @@ public class OnsiteCourseFormController implements Initializable {
                             teachers.get(onsiteTeacherInput.getSelectionModel().getSelectedIndex()).getId()
                     );
                     if (newCourse.isPresent()) {
-                        DialogUtil.getInstance().showAlert("Thành công", "Đã thêm thành công", Alert.AlertType.CONFIRMATION);
+                        DialogUtil.getInstance().showAlert(
+                                "Thành công", "Đã thêm thành công", Alert.AlertType.CONFIRMATION);
                         clearInput();
                     } else {
-                        DialogUtil.getInstance().showAlert("Lỗi", "Lỗi không xác định", Alert.AlertType.ERROR);
+                        DialogUtil.getInstance().showAlert(
+                                "Lỗi", "Lỗi không xác định", Alert.AlertType.ERROR);
                     }
                 } catch (Exception e) {
-                    DialogUtil.getInstance().showAlert("Lỗi", "Thêm không thành công.", Alert.AlertType.ERROR);
+                    DialogUtil.getInstance().showAlert(
+                            "Lỗi", "Thêm không thành công.", Alert.AlertType.ERROR);
                 }
             }
         });
@@ -140,10 +143,12 @@ public class OnsiteCourseFormController implements Initializable {
                         onsiteTimeInput.getText(),
                         teachers.get(onsiteTeacherInput.getSelectionModel().getSelectedIndex()).getId()
                 );
-                DialogUtil.getInstance().showAlert("Thông báo", "Cập nhật thành công.", Alert.AlertType.INFORMATION);
+                DialogUtil.getInstance().showAlert(
+                        "Thông báo", "Cập nhật thành công.", Alert.AlertType.INFORMATION);
                 dashboardController.initListCourses(dashboardController.getStage());
             } catch (Exception e) {
-                DialogUtil.getInstance().showAlert("Lỗi", "Cập nhật không thành công.", Alert.AlertType.ERROR);
+                DialogUtil.getInstance().showAlert(
+                        "Lỗi", "Cập nhật không thành công.", Alert.AlertType.ERROR);
             }
         });
     }

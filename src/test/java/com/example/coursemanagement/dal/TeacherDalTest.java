@@ -1,11 +1,9 @@
 package com.example.coursemanagement.dal;
 
-import com.example.coursemanagement.dtos.Teacher;
+import com.example.coursemanagement.bll.dtos.Teacher;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class TeacherDalTest {
 

@@ -1,8 +1,8 @@
 package com.example.coursemanagement.dal;
 
-import com.example.coursemanagement.dtos.Student;
-import com.example.coursemanagement.dtos.StudentGrade;
-import com.example.coursemanagement.utils.DbConnection;
+import com.example.coursemanagement.bll.dtos.Student;
+import com.example.coursemanagement.bll.dtos.StudentGrade;
+import com.example.coursemanagement.bll.utils.DbConnection;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -85,7 +85,6 @@ public class StudentDal {
                 ON p.PersonID = d.StudentID
                 WHERE d.CourseID = %s
                 """.formatted(courseId);
-
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             List<StudentGrade> studentGrades = new ArrayList<>();
             ResultSet resultSet = preparedStatement.executeQuery();

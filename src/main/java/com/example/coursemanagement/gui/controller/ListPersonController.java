@@ -3,11 +3,10 @@ package com.example.coursemanagement.gui.controller;
 import com.example.coursemanagement.HomeApplication;
 import com.example.coursemanagement.bll.StudentBll;
 import com.example.coursemanagement.bll.TeacherBll;
-import com.example.coursemanagement.dtos.Department;
-import com.example.coursemanagement.dtos.Student;
-import com.example.coursemanagement.dtos.Teacher;
+import com.example.coursemanagement.bll.dtos.Student;
+import com.example.coursemanagement.bll.dtos.Teacher;
 import com.example.coursemanagement.gui.page.Component;
-import com.example.coursemanagement.utils.AppUtil;
+import com.example.coursemanagement.bll.utils.AppUtil;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.layout.VBox;
@@ -58,9 +57,13 @@ public class ListPersonController {
         content.getChildren().clear();
         List<Student> students = StudentBll.getInstance().getAllStudents();
         if(AppUtil.getInstance().isInteger(key)) {
-            students = students.stream().filter(item -> item.getId().toString().equals(key)).collect(Collectors.toList());
+            students = students.stream().filter(item ->
+                    item.getId().toString().equals(key))
+                    .collect(Collectors.toList());
         } else {
-            students = students.stream().filter(item -> (item.getLastName() + " " + item.getFirstName()).toLowerCase().contains(key.toLowerCase())).collect(Collectors.toList());
+            students = students.stream().filter(item ->
+                    (item.getLastName() + " " + item.getFirstName()).toLowerCase().contains(key.toLowerCase()))
+                    .collect(Collectors.toList());
         }
         renderListStudents(students);
     }
@@ -68,7 +71,9 @@ public class ListPersonController {
     private void renderListStudents(List<Student> students) {
         if(!students.isEmpty()) {
             for (Student student : students) {
-                FXMLLoader loader = new FXMLLoader(HomeApplication.class.getResource(Component.PERSON_ITEM.getValue()));
+                FXMLLoader loader = new FXMLLoader(
+                        HomeApplication.class.getResource(Component.PERSON_ITEM.getValue())
+                );
                 Parent root = null;
                 try {
                     root = loader.load();
@@ -81,7 +86,9 @@ public class ListPersonController {
                 content.getChildren().add(root);
             }
         } else {
-            FXMLLoader loader = new FXMLLoader(HomeApplication.class.getResource(Component.EMPTY.getValue()));
+            FXMLLoader loader = new FXMLLoader(
+                    HomeApplication.class.getResource(Component.EMPTY.getValue())
+            );
             Parent root = null;
             try {
                 root = loader.load();
@@ -133,9 +140,13 @@ public class ListPersonController {
         content.getChildren().clear();
         List<Teacher> teachers = TeacherBll.getInstance().getAllTeacher();
         if(AppUtil.getInstance().isInteger(key)) {
-            teachers = teachers.stream().filter(item -> item.getId().toString().equals(key)).collect(Collectors.toList());
+            teachers = teachers.stream().filter(item ->
+                    item.getId().toString().equals(key))
+                    .collect(Collectors.toList());
         } else {
-            teachers = teachers.stream().filter(item -> (item.getLastName() + " " + item.getFirstName()).toLowerCase().contains(key.toLowerCase())).collect(Collectors.toList());
+            teachers = teachers.stream().filter(item ->
+                    (item.getLastName() + " " + item.getFirstName()).toLowerCase().contains(key.toLowerCase()))
+                    .collect(Collectors.toList());
         }
         renderList(teachers);
     }

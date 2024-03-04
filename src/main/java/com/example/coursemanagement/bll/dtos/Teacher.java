@@ -1,10 +1,9 @@
-package com.example.coursemanagement.dtos;
+package com.example.coursemanagement.bll.dtos;
 
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
@@ -12,7 +11,6 @@ import java.util.Date;
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Student extends Person {
-    protected Date enrollmentDate;
-
+public class Teacher extends Person {
+    protected LocalDateTime hireDate;
 }

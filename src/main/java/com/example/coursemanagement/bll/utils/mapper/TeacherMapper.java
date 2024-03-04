@@ -1,10 +1,9 @@
-package com.example.coursemanagement.mapper;
+package com.example.coursemanagement.bll.utils.mapper;
 
-import com.example.coursemanagement.dtos.Teacher;
+import com.example.coursemanagement.bll.dtos.Teacher;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.ZoneId;
 
 public class TeacherMapper {
     private static class TeacherMapperHolder{
