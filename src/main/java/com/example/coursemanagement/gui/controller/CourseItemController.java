@@ -124,16 +124,17 @@ public class CourseItemController {
     }
 
     public void deleteCourse() {
-        try {
-            CourseBll.getInstance().deleteCourse(course.getId());
-            DialogUtil.getInstance().showAlert(
-                    "Thông báo","Xóa thành công!", Alert.AlertType.INFORMATION);
-            dashboardController.initListCourses(dashboardController.getStage());
-        } catch (Exception e) {
-            DialogUtil.getInstance().showAlert(
-                    "Lỗi","Xóa không thành công!", Alert.AlertType.ERROR);
+        if(DialogUtil.getInstance().showConfirm("Xóa khóa học", "Bạn chắc chắn muốn xóa khóa học này?")) {
+            try {
+                CourseBll.getInstance().deleteCourse(course.getId());
+                DialogUtil.getInstance().showAlert(
+                        "Thông báo","Xóa thành công!", Alert.AlertType.INFORMATION);
+                dashboardController.initListCourses(dashboardController.getStage());
+            } catch (Exception e) {
+                DialogUtil.getInstance().showAlert(
+                        "Lỗi","Xóa không thành công!", Alert.AlertType.ERROR);
+            }
         }
-
     }
 
     public void setHeaderDetail(Course course) {

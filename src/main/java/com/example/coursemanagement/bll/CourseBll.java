@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class CourseBll {
 
@@ -38,6 +39,35 @@ public class CourseBll {
         } else {
             return courses;
         }
+    }
+
+    public List<Course> getOnlineCourse() {
+        List<Course> courses = CourseDal.getInstance().getOnlineCourse();
+        if (courses == null) {
+            DialogUtil.getInstance().showAlert("Lỗi", "Đã xảy ra lỗi", Alert.AlertType.ERROR);
+            return new ArrayList<>();
+        } else {
+            return courses;
+        }
+    }
+
+    public List<Course> getOnsiteCourse() {
+        List<Course> courses = CourseDal.getInstance().getOnsiteCourse();
+        if (courses == null) {
+            DialogUtil.getInstance().showAlert("Lỗi", "Đã xảy ra lỗi", Alert.AlertType.ERROR);
+            return new ArrayList<>();
+        } else {
+            return courses;
+        }
+    }
+
+    public List<Course> filter(String key) {
+        List<Course> courses = CourseDal.getInstance().getAll();
+        courses = courses.stream().filter(item ->
+                        item.getTitle().toLowerCase().contains(key.toLowerCase())
+                                || item.getDepartment().toLowerCase().contains(key.toLowerCase()))
+                .collect(Collectors.toList());
+        return courses;
     }
 
     public Course getById(Integer courseId) {
@@ -185,6 +215,50 @@ public class CourseBll {
             }
         }
         return 0;
+    }
+
+    public List<Course> filter(String stage, String nameInput,
+                               String creditInput, String departmentInput, String teacherInout) {
+        List<Course> courses;
+        switch (stage) {
+            case "onlineCourse": {
+                courses = getOnlineCourse();
+                break;
+            }
+            case "onsiteCourse": {
+                courses = getOnsiteCourse();
+                break;
+            }
+            case "allCourse": {
+                courses = getAllCourse();
+                break;
+            }
+            default: {
+                courses = getAllCourse();
+            }
+        }
+        if(!nameInput.isEmpty()) {
+            courses = courses.stream().filter(item ->
+                    item.getTitle().toLowerCase()
+                            .contains(nameInput.toLowerCase())).collect(Collectors.toList());
+        }
+        if(AppUtil.getInstance().isInteger(creditInput) && !creditInput.isEmpty()) {
+            courses = courses.stream().filter(item ->
+                    item.getCredits() == Integer.parseInt(creditInput))
+                    .collect(Collectors.toList());
+        }
+        if(!departmentInput.isEmpty()) {
+            courses = courses.stream().filter(item ->
+                    item.getDepartment().toLowerCase()
+                            .contains(departmentInput.toLowerCase())).collect(Collectors.toList());
+        }
+        if(!teacherInout.isEmpty()) {
+            courses = courses.stream().filter(item ->
+                    item.getTeacher().toLowerCase()
+                            .contains(departmentInput.toLowerCase())).collect(Collectors.toList());
+
+        }
+        return courses;
     }
 
     public static boolean validateCourseOnline(String title, String credits, Integer departmentId, String url, Integer teacherId) {

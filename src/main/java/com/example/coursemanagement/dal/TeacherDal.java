@@ -47,6 +47,29 @@ public class TeacherDal {
         }
     }
 
+    public List<Teacher> getAllByName(String name) {
+        java.sql.Connection connection = DbConnection.getInstance().getConnection();
+        String sql = """
+                SELECT p.PersonID, p.Lastname, p.Firstname, p.HireDate FROM person p
+                WHERE CONCAT(p.Lastname, ' ', p.Firstname) LIKE ?
+                AND p.EnrollmentDate IS NULL
+                """;
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setString(1, "%" + name + "%");
+            List<Teacher> teachers = new ArrayList<>();
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                Teacher teacher = null;
+                teacher = TeacherMapper.getInstance().initTeacher(resultSet);
+                teachers.add(teacher);
+            }
+            return teachers;
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, "Query failure: " + e.getMessage());
+            return null;
+        }
+    }
+
     public Optional<Teacher> getById(Integer teacherId) {
         java.sql.Connection connection = DbConnection.getInstance().getConnection();
         String sql = "SELECT * FROM person WHERE PersonID = ? AND person.HireDate IS NOT NULL";

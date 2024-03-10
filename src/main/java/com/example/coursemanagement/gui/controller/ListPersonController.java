@@ -12,6 +12,7 @@ import javafx.scene.Parent;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -55,15 +56,11 @@ public class ListPersonController {
 
     public void initListStudent(String key) {
         content.getChildren().clear();
-        List<Student> students = StudentBll.getInstance().getAllStudents();
+        List<Student> students = new ArrayList<>();
         if(AppUtil.getInstance().isInteger(key)) {
-            students = students.stream().filter(item ->
-                    item.getId().toString().equals(key))
-                    .collect(Collectors.toList());
+            StudentBll.getInstance().getStudentById(Integer.parseInt(key)).ifPresent(students::add);
         } else {
-            students = students.stream().filter(item ->
-                    (item.getLastName() + " " + item.getFirstName()).toLowerCase().contains(key.toLowerCase()))
-                    .collect(Collectors.toList());
+            students.addAll(StudentBll.getInstance().   getAllStudentsByName(key));
         }
         renderListStudents(students);
     }
@@ -110,7 +107,8 @@ public class ListPersonController {
     private void renderList(List<Teacher> teachers) {
         if(!teachers.isEmpty()) {
             for (Teacher teacher : teachers) {
-                FXMLLoader loader = new FXMLLoader(HomeApplication.class.getResource(Component.PERSON_ITEM.getValue()));
+                FXMLLoader loader = new FXMLLoader(
+                        HomeApplication.class.getResource(Component.PERSON_ITEM.getValue()));
                 Parent root = null;
                 try {
                     root = loader.load();
@@ -123,7 +121,8 @@ public class ListPersonController {
                 content.getChildren().add(root);
             }
         } else {
-            FXMLLoader loader = new FXMLLoader(HomeApplication.class.getResource(Component.EMPTY.getValue()));
+            FXMLLoader loader = new FXMLLoader(
+                    HomeApplication.class.getResource(Component.EMPTY.getValue()));
             Parent root = null;
             try {
                 root = loader.load();
@@ -138,15 +137,11 @@ public class ListPersonController {
 
     public void initListTeacher(String key) {
         content.getChildren().clear();
-        List<Teacher> teachers = TeacherBll.getInstance().getAllTeacher();
+        List<Teacher> teachers = new ArrayList<>();
         if(AppUtil.getInstance().isInteger(key)) {
-            teachers = teachers.stream().filter(item ->
-                    item.getId().toString().equals(key))
-                    .collect(Collectors.toList());
+            TeacherBll.getInstance().getTeacherById(Integer.parseInt(key)).ifPresent(teachers::add);
         } else {
-            teachers = teachers.stream().filter(item ->
-                    (item.getLastName() + " " + item.getFirstName()).toLowerCase().contains(key.toLowerCase()))
-                    .collect(Collectors.toList());
+            teachers.addAll(TeacherBll.getInstance().getAllTeacherByName(key));
         }
         renderList(teachers);
     }

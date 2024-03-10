@@ -22,13 +22,9 @@ public class CourseFilterController {
     public ComboBox<String> departmentInput;
     public TextField creditInput;
 
-    private List<Department> departments;
-
-    private List<Teacher> teachers;
-
     public void initToFilter(DashboardController dashboardController, Stage stage) {
-        departments = DepartmentBll.getInstance().getAll();
-        teachers = TeacherBll.getInstance().getAllTeacher();
+        List<Department> departments = DepartmentBll.getInstance().getAll();
+        List<Teacher> teachers = TeacherBll.getInstance().getAllTeacher();
         departmentInput.getItems().add("Tất cả");
         departments.forEach(item -> departmentInput.getItems().add(item.getName()));
         departmentInput.getSelectionModel().select(0);
@@ -36,26 +32,18 @@ public class CourseFilterController {
         teachers.forEach(item -> teacherInput.getItems().add(item.getLastName() + " " + item.getFirstName()));
         teacherInput.getSelectionModel().select(0);
         submitButton.setOnMouseClicked(event -> {
-            dashboardController.initListCourses(filter());
+            dashboardController.initListCourses(CourseBll.getInstance().filter(
+                    dashboardController.getStage(),
+                    nameInput.getText(),
+                    creditInput.getText(),
+                    departmentInput.getSelectionModel().getSelectedIndex() > 0 ?
+                            departmentInput.getSelectionModel().getSelectedItem() : "",
+                    teacherInput.getSelectionModel().getSelectedIndex() > 0 ?
+                            teacherInput.getSelectionModel().getSelectedItem() : ""
+                    ));
             stage.close();
         });
     }
 
-    public List<Course> filter() {
-        List<Course> courses = CourseBll.getInstance().getAllCourse();
-        if(!nameInput.getText().isEmpty()) {
-            courses = courses.stream().filter(item -> item.getTitle().toLowerCase().contains(nameInput.getText().toLowerCase())).collect(Collectors.toList());
-        }
-        if(AppUtil.getInstance().isInteger(creditInput.getText()) && !creditInput.getText().isEmpty()) {
-            courses = courses.stream().filter(item -> item.getCredits() == Integer.parseInt(creditInput.getText())).collect(Collectors.toList());
-        }
-        if(departmentInput.getSelectionModel().getSelectedIndex() > 0) {
-            courses = courses.stream().filter(item -> item.getDepartment().toLowerCase().contains(departmentInput.getSelectionModel().getSelectedItem().toLowerCase())).collect(Collectors.toList());
-        }
-        if(teacherInput.getSelectionModel().getSelectedIndex() > 0) {
-            courses = courses.stream().filter(item -> item.getTeacher().toLowerCase().contains(departmentInput.getSelectionModel().getSelectedItem().toLowerCase())).collect(Collectors.toList());
 
-        }
-        return courses;
-    }
 }

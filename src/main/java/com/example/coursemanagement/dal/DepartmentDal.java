@@ -57,6 +57,38 @@ public class DepartmentDal {
         }
     }
 
+    public List<Department> getAllByName(String name) {
+        java.sql.Connection connection = DbConnection.getInstance().getConnection();
+        String sql = """
+                SELECT d.*, p.Lastname,p.Firstname
+                FROM department d
+                JOIN person p ON d.Administrator = p.PersonID
+                WHERE d.Name LIKE ?
+                """;
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setString(1, "%" + name + "%");
+            List<Department> departments = new ArrayList<>();
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                Department department = Department.builder()
+                        .id(resultSet.getInt("DepartmentID"))
+                        .name(resultSet.getString("Name"))
+                        .budget(resultSet.getDouble("Budget"))
+                        .startDate(resultSet.getDate("StartDate"))
+                        .administrator(
+                                resultSet.getString("Lastname") + " " +
+                                        resultSet.getString("Firstname"))
+                        .administratorId(resultSet.getInt("Administrator"))
+                        .build();
+                departments.add(department);
+            }
+            return departments;
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, "Query failure: " + e.getMessage());
+            return null;
+        }
+    }
+
     public Optional<Department> getById(Integer id) {
         java.sql.Connection connection = DbConnection.getInstance().getConnection();
         String sql = """

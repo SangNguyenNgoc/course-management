@@ -2,7 +2,9 @@ package com.example.coursemanagement.gui.controller;
 
 import com.example.coursemanagement.bll.CourseBll;
 import com.example.coursemanagement.bll.StudentBll;
+import com.example.coursemanagement.bll.dtos.Student;
 import com.example.coursemanagement.bll.dtos.StudentGrade;
+import com.example.coursemanagement.bll.utils.AppUtil;
 import com.example.coursemanagement.gui.utils.DialogUtil;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -16,6 +18,10 @@ public class RegisterController<T> {
     public Label title;
     public Label label;
     public Button submitBtn;
+
+    public Label name;
+    public Label day;
+    public Button find;
 
     private StudentGrade studentGrade;
 
@@ -57,12 +63,32 @@ public class RegisterController<T> {
                 title.setText("Đăng ký mới");
                 label.setText("Nhập mã sinh viên");
                 submitBtn.setText("Đăng ký");
+                submitBtn.setDisable(true);
+                inputField.setOnMouseClicked(event -> {
+                    name.setText("Họ và tên: ");
+                    day.setText("Ngày đăng ký: ");
+                    submitBtn.setDisable(true);
+                });
                 submitBtn.setOnMouseClicked(event -> {
                     registerCourse();
                 });
                 break;
             }
         }
+    }
+
+    public void findStudent() {
+        try {
+            int id = AppUtil.getInstance().validateInteger(inputField.getText(), "Mã sinh viên");
+            StudentBll.getInstance().getStudentById(id).ifPresent(item -> {
+                name.setText("Họ và tên: " + item.getLastName() + " " + item.getFirstName());
+                day.setText("Ngày đăng ký: " + item.getEnrollmentDate().toString());
+                submitBtn.setDisable(false);
+            });
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     public void updateGrade() {
@@ -74,7 +100,6 @@ public class RegisterController<T> {
         } catch (Exception e) {
             DialogUtil.getInstance().showAlert("Lỗi", "Thay đổi điểm không thành công", Alert.AlertType.ERROR);
         }
-        this.stage.close();
     }
 
     public void registerCourse() {
@@ -88,6 +113,5 @@ public class RegisterController<T> {
             DialogUtil.getInstance().showAlert(
                     "Lỗi", "Đăng ký không thành công", Alert.AlertType.ERROR);
         }
-        this.stage.close();
     }
 }

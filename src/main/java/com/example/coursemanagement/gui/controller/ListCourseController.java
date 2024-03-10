@@ -22,28 +22,22 @@ public class ListCourseController {
     public void initListCourses(String type, DashboardController dashboardController) {
         content.getChildren().clear();
         try {
-            List<Course> courses = CourseBll.getInstance().getAllCourse();
+            List<Course> courses;
             switch (type) {
                 case "onlineCourse": {
-                    courses = courses.stream().filter(item ->
-                            item instanceof OnlineCourse)
-                            .collect(Collectors.toList());
+                    courses = CourseBll.getInstance().getOnlineCourse();
                     break;
                 }
                 case "onsiteCourse": {
-                    courses = courses.stream().filter(item ->
-                            item instanceof OnsiteCourse)
-                            .collect(Collectors.toList());
+                    courses = CourseBll.getInstance().getOnsiteCourse();
                     break;
                 }
                 case "allCourse": {
+                    courses = CourseBll.getInstance().getAllCourse();
                     break;
                 }
                 default: {
-                    courses = courses.stream().filter(item ->
-                            item.getTitle().toLowerCase().contains(type.toLowerCase())
-                            || item.getDepartment().toLowerCase().contains(type.toLowerCase()))
-                            .collect(Collectors.toList());
+                    courses = CourseBll.getInstance().filter(type);
                 }
             }
             render(courses, dashboardController);
@@ -52,34 +46,9 @@ public class ListCourseController {
         }
     }
 
-    public void initListCourses(List<Course> courses, String type, DashboardController dashboardController) {
-        content.getChildren().clear();
-        try {
-            switch (type) {
-                case "onlineCourse": {
-                    courses = courses.stream().filter(item ->
-                                    item instanceof OnlineCourse)
-                            .collect(Collectors.toList());
-                    break;
-                }
-                case "onsiteCourse": {
-                    courses = courses.stream().filter(item ->
-                                    item instanceof OnsiteCourse)
-                            .collect(Collectors.toList());
-                    break;
-                }
-                case "allCourse": {
-                    break;
-                }
-            }
-            render(courses, dashboardController);
-        } catch (IOException e) {
-            Logger.getLogger(DashboardController.class.getName()).log(Level.SEVERE, "Error", e);
-        }
-    }
 
     public void render(List<Course> courses, DashboardController dashboardController) throws IOException {
-        if(courses.isEmpty()) {
+        if (courses.isEmpty()) {
             FXMLLoader loader = new FXMLLoader(HomeApplication.class.getResource(Component.EMPTY.getValue()));
             Parent root = loader.load();
             EmptyController controller = loader.getController();

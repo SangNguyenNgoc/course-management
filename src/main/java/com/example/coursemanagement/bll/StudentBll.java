@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class StudentBll {
 
@@ -34,10 +35,20 @@ public class StudentBll {
         }
     }
 
+    public List<Student> getAllStudentsByName(String name) {
+        List<Student> students = StudentDal.getInstance().getAllByName(name);
+        if (students == null) {
+            DialogUtil.getInstance().showAlert("Lỗi", "Đã xảy ra lỗi", Alert.AlertType.ERROR);
+            return new ArrayList<>();
+        } else {
+            return students;
+        }
+    }
+
     public Optional<Student> getStudentById(Integer id) {
         Optional<Student> student = StudentDal.getInstance().getById(id);
         if (student.isEmpty()) {
-            DialogUtil.getInstance().showAlert("Lỗi", "Đã xảy ra lỗi", Alert.AlertType.ERROR);
+            DialogUtil.getInstance().showAlert("Lỗi", "Không tìm thấy sinh viên", Alert.AlertType.ERROR);
             return Optional.empty();
         } else {
             return student;
@@ -56,6 +67,19 @@ public class StudentBll {
             DialogUtil.getInstance().showAlert(
                     "Lỗi", "Đã xảy ra lỗi, vui lòng thử lại.", Alert.AlertType.ERROR);
             return new ArrayList<>();
+        }
+        return studentGrades;
+    }
+
+    public List<StudentGrade> getStudentsInCourse(Integer courseId, String search) {
+        List<StudentGrade> studentGrades = getStudentsInCourse(courseId);
+        if(AppUtil.getInstance().isInteger(search)) {
+            studentGrades = studentGrades.stream().filter(item ->
+                    item.getId().toString().equals(search)).collect(Collectors.toList());
+        } else {
+            studentGrades = studentGrades.stream().filter(item ->
+                    (item.getLastName() + " " + item.getFirstName()).toLowerCase()
+                            .contains(search.toLowerCase())).collect(Collectors.toList());
         }
         return studentGrades;
     }

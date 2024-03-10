@@ -36,6 +36,16 @@ public class TeacherBll {
         }
     }
 
+    public List<Teacher> getAllTeacherByName(String name) {
+        List<Teacher> teachers = TeacherDal.getInstance().getAllByName(name);
+        if (teachers == null) {
+            DialogUtil.getInstance().showAlert("Lỗi", "Đã xảy ra lỗi", Alert.AlertType.ERROR);
+            return new ArrayList<>();
+        } else {
+            return teachers;
+        }
+    }
+
     public Optional<Teacher> getTeacherById(Integer id) {
         Optional<Teacher> teacher = TeacherDal.getInstance().getById(id);
         if (teacher.isEmpty()) {

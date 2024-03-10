@@ -113,25 +113,29 @@ public class PersonItemController {
 
     public void deleteAction(ActionEvent actionEvent) {
         if(state.equals("student")) {
-            int result = StudentBll.getInstance().deleteStudent(student.getId());
-            if(result != 0) {
-                controller.initListStudent();
-                DialogUtil.getInstance().showAlert(
-                        "Thông báo",
-                        "Xóa thành công.", Alert.AlertType.INFORMATION);
-            } else {
-                DialogUtil.getInstance().showAlert(
-                        "Lỗi", "Xóa không thành công.", Alert.AlertType.ERROR);
+            if(DialogUtil.getInstance().showConfirm("Xóa sinh viên", "Bạn có chăc chắn muốn xóa sinh viên này?")) {
+                int result = StudentBll.getInstance().deleteStudent(student.getId());
+                if(result != 0) {
+                    controller.initListStudent();
+                    DialogUtil.getInstance().showAlert(
+                            "Thông báo",
+                            "Xóa thành công.", Alert.AlertType.INFORMATION);
+                } else {
+                    DialogUtil.getInstance().showAlert(
+                            "Lỗi", "Xóa không thành công.", Alert.AlertType.ERROR);
+                }
             }
         } else {
-            int result = TeacherBll.getInstance().deleteTeacher(teacher.getId());
-            if(result != 0) {
-                controller.initListTeacher();
-                DialogUtil.getInstance().showAlert(
-                        "Thông báo", "Xóa thành công.", Alert.AlertType.INFORMATION);
-            } else {
-                DialogUtil.getInstance().showAlert(
-                        "Lỗi", "Xóa không thành công.", Alert.AlertType.ERROR);
+            if(DialogUtil.getInstance().showConfirm("Xóa giảng viên", "Bạn có chăc chắn muốn xóa giảng viên này?")) {
+                int result = TeacherBll.getInstance().deleteTeacher(teacher.getId());
+                if(result != 0) {
+                    controller.initListTeacher();
+                    DialogUtil.getInstance().showAlert(
+                            "Thông báo", "Xóa thành công.", Alert.AlertType.INFORMATION);
+                } else {
+                    DialogUtil.getInstance().showAlert(
+                            "Lỗi", "Xóa không thành công.", Alert.AlertType.ERROR);
+                }
             }
         }
     }

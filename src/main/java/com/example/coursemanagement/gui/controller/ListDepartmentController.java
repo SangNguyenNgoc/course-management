@@ -10,6 +10,7 @@ import javafx.scene.Parent;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -53,11 +54,11 @@ public class ListDepartmentController {
 
     public void initList(String key) {
         content.getChildren().clear();
-        List<Department> departments = DepartmentBll.getInstance().getAll();
+        List<Department> departments = new ArrayList<>();
         if(AppUtil.getInstance().isInteger(key)) {
-            departments = departments.stream().filter(item -> item.getId().toString().equals(key)).collect(Collectors.toList());
+            DepartmentBll.getInstance().getDepartmentById(Integer.parseInt(key)).ifPresent(departments::add);
         } else {
-            departments = departments.stream().filter(item -> item.getName().toLowerCase().contains(key.toLowerCase())).collect(Collectors.toList());
+            departments.addAll(DepartmentBll.getInstance().getAllByName(key));
         }
         renderList(departments);
     }

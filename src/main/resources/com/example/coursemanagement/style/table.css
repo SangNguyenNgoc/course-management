@@ -19,6 +19,14 @@
     -fx-max-height: 35px;
 }
 
+.pass {
+    -fx-text-fill: green;
+}
+
+.fail {
+    -fx-text-fill: #cd4242;
+}
+
 
 
 

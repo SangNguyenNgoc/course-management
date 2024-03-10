@@ -35,6 +35,16 @@ public class DepartmentBll {
         }
     }
 
+    public List<Department> getAllByName(String name) {
+        List<Department> departments = DepartmentDal.getInstance().getAllByName(name);
+        if (departments == null) {
+            DialogUtil.getInstance().showAlert("Lỗi", "Đã xảy ra lỗi", Alert.AlertType.ERROR);
+            return new ArrayList<>();
+        } else {
+            return departments;
+        }
+    }
+
     public Optional<Department> getDepartmentById(Integer id) {
         Optional<Department> department = DepartmentDal.getInstance().getById(id);
         if (department.isEmpty()) {

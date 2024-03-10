@@ -197,7 +197,7 @@ public class DashboardController implements Initializable, Route {
             Parent root = null;
             root = loader.load();
             ListCourseController controller = loader.getController();
-            controller.initListCourses(courses, stage, this);
+            controller.render(courses, this);
             body.getChildren().add(root);
         } catch (IOException e) {
             throw new RuntimeException(e);

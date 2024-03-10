@@ -17,7 +17,7 @@ public class UnregisterButton extends TableCell<StudentGrade, Void> {
     private final Button button;
 
     public UnregisterButton(Integer courseId, CourseDetailController courseDetailController) {
-        this.button = new Button("Hủy đăng ký");
+        this.button = new Button("Hủy kết quả");
         this.button.getStylesheets().add(Objects.requireNonNull(
                 HomeApplication.class.getResource("style/cell-button.css")).toExternalForm());
         button.setOnMouseEntered(event -> {
@@ -28,23 +28,20 @@ public class UnregisterButton extends TableCell<StudentGrade, Void> {
         });
         button.setOnAction(event -> {
             StudentGrade studentGrade = getTableView().getItems().get(getIndex());
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setHeaderText("Có chắc chắn muốn hủy kết quả của sinh viên này?");
-            Optional<ButtonType> reply = alert.showAndWait();
-            if (reply.isPresent() && reply.get() == ButtonType.OK) {
+            if(DialogUtil.getInstance().showConfirm("Hủy kêt quả", "Bạn có chắc chắn muốn hủy kết quả của sinh viên này?")) {
                 try {
                     int result = StudentBll.getInstance().deleteGrade(studentGrade.getId(), courseId);
                     if(result != 0) {
                         DialogUtil.getInstance().showAlert(
-                                "Thông báo", "Hủy đăng ký thành công.", Alert.AlertType.INFORMATION);
+                                "Thông báo", "Hủy kết quả thành công.", Alert.AlertType.INFORMATION);
                     } else {
                         DialogUtil.getInstance().showAlert(
-                                "Lỗi", "Hủy đăng ký thất bại.", Alert.AlertType.ERROR);
+                                "Lỗi", "Hủy kết quả thất bại.", Alert.AlertType.ERROR);
                     }
                     courseDetailController.initCourseDetail(courseId);
                 } catch (Exception e) {
                     DialogUtil.getInstance().showAlert(
-                            "Lỗi", "Hủy đăng ký thất bại.", Alert.AlertType.ERROR);
+                            "Lỗi", "Hủy kết quả thất bại.", Alert.AlertType.ERROR);
                 }
             }
         });

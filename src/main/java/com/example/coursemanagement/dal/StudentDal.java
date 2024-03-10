@@ -2,7 +2,9 @@ package com.example.coursemanagement.dal;
 
 import com.example.coursemanagement.bll.dtos.Student;
 import com.example.coursemanagement.bll.dtos.StudentGrade;
+import com.example.coursemanagement.bll.dtos.Teacher;
 import com.example.coursemanagement.bll.utils.DbConnection;
+import com.example.coursemanagement.bll.utils.mapper.TeacherMapper;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -50,6 +52,33 @@ public class StudentDal {
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "Query failure: " + e.getMessage());
             return new ArrayList<>();
+        }
+    }
+
+    public List<Student> getAllByName(String name) {
+        java.sql.Connection connection = DbConnection.getInstance().getConnection();
+        String sql = """
+                SELECT p.PersonID, p.Lastname, p.Firstname, p.EnrollmentDate FROM person p
+                WHERE CONCAT(p.Lastname, ' ', p.Firstname) LIKE ?
+                AND p.EnrollmentDate IS NOT NULL
+                """;
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setString(1,"%" + name + "%");
+            List<Student> students = new ArrayList<>();
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                Student student = Student.builder()
+                        .id(resultSet.getInt("PersonID"))
+                        .lastName(resultSet.getString("Lastname"))
+                        .firstName(resultSet.getString("Firstname"))
+                        .enrollmentDate(resultSet.getDate("EnrollmentDate"))
+                        .build();
+                students.add(student);
+            }
+            return students;
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, "Query failure: " + e.getMessage());
+            return null;
         }
     }
 

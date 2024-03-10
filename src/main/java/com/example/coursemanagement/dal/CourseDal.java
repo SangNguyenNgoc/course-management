@@ -71,6 +71,66 @@ public class CourseDal {
         }
     }
 
+    public List<Course> getOnlineCourse() {
+        java.sql.Connection connection = DbConnection.getInstance().getConnection();
+        String sql = """
+                SELECT c.*, d.Name, c1.PersonID, p.Firstname, p.Lastname, o.url, COUNT(s.StudentID) as sumOfStudents
+                FROM course c
+                LEFT JOIN department d
+                ON c.DepartmentID = d.DepartmentID
+                LEFT JOIN courseinstructor c1
+                ON c.CourseID = c1.CourseID
+                LEFT JOIN person p
+                ON c1.PersonID = p.PersonID
+                INNER JOIN onlinecourse o
+                ON c.CourseID = o.CourseID
+                LEFT JOIN school.studentgrade s
+                ON c.CourseID = s.CourseID GROUP BY c.CourseID ORDER BY c.CourseID;                                                   
+                """;
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            List<Course> courses = new ArrayList<>();
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                Course course = CourseMapper.getInstance().initOnlineCourse(resultSet);;
+                courses.add(course);
+            }
+            return courses;
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, "Query failure: " + e.getMessage());
+            return null;
+        }
+    }
+
+    public List<Course> getOnsiteCourse() {
+        java.sql.Connection connection = DbConnection.getInstance().getConnection();
+        String sql = """
+                SELECT c.*, d.Name, c1.PersonID, p.Firstname, p.Lastname, o1.Location, Days, Time, COUNT(s.StudentID) as sumOfStudents
+                FROM course c
+                LEFT JOIN department d
+                ON c.DepartmentID = d.DepartmentID
+                LEFT JOIN courseinstructor c1
+                ON c.CourseID = c1.CourseID
+                LEFT JOIN person p
+                ON c1.PersonID = p.PersonID
+                INNER JOIN onsitecourse o1
+                ON c.CourseID = o1.CourseID
+                LEFT JOIN school.studentgrade s
+                ON c.CourseID = s.CourseID GROUP BY c.CourseID ORDER BY c.CourseID;
+                """;
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            List<Course> courses = new ArrayList<>();
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                Course course = CourseMapper.getInstance().initOnsiteCourse(resultSet);;
+                courses.add(course);
+            }
+            return courses;
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, "Query failure: " + e.getMessage());
+            return null;
+        }
+    }
+
     public Optional<Course> getById(Integer courseId) {
         java.sql.Connection connection = DbConnection.getInstance().getConnection();
         String sql = """

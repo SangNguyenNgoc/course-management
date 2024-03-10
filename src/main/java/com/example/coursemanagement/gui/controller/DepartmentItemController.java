@@ -72,18 +72,20 @@ public class DepartmentItemController {
 
 
     public void deleteDepartment() {
-        try {
-            if(DepartmentBll.getInstance().deleteDepartment(department.getId()) != 0) {
+        if(DialogUtil.getInstance().showConfirm("Xóa khoa", "Bạn có chăc chắn muốn xóa khoa này?")) {
+            try {
+                if(DepartmentBll.getInstance().deleteDepartment(department.getId()) != 0) {
+                    DialogUtil.getInstance().showAlert(
+                            "Thông báo", "Xóa thành công.", Alert.AlertType.INFORMATION);
+                    listDepartmentController.initList();
+                } else {
+                    DialogUtil.getInstance().showAlert(
+                            "Lỗi", "Xóa không thành công, lỗi bất định.", Alert.AlertType.ERROR);
+                }
+            } catch (Exception e) {
                 DialogUtil.getInstance().showAlert(
-                        "Thông báo", "Xóa thành công.", Alert.AlertType.INFORMATION);
-                listDepartmentController.initList();
-            } else {
-                DialogUtil.getInstance().showAlert(
-                        "Lỗi", "Xóa không thành công, lỗi bất định.", Alert.AlertType.ERROR);
+                        "Lỗi", "Xóa không thành công.", Alert.AlertType.ERROR);
             }
-        } catch (Exception e) {
-            DialogUtil.getInstance().showAlert(
-                    "Lỗi", "Xóa không thành công.", Alert.AlertType.ERROR);
         }
     }
 }
