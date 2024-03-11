@@ -68,6 +68,8 @@ public class CourseDal {
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "Query failure: " + e.getMessage());
             return null;
+        } finally {
+            DbConnection.getInstance().closeConnection();
         }
     }
 
@@ -98,6 +100,8 @@ public class CourseDal {
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "Query failure: " + e.getMessage());
             return null;
+        } finally {
+            DbConnection.getInstance().closeConnection();
         }
     }
 
@@ -128,6 +132,8 @@ public class CourseDal {
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "Query failure: " + e.getMessage());
             return null;
+        } finally {
+            DbConnection.getInstance().closeConnection();
         }
     }
 
@@ -167,6 +173,8 @@ public class CourseDal {
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "Query failure: " + e.getMessage());
             return Optional.empty();
+        } finally {
+            DbConnection.getInstance().closeConnection();
         }
     }
 
@@ -180,6 +188,8 @@ public class CourseDal {
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "Query failure: " + e.getMessage());
             return 0;
+        } finally {
+            DbConnection.getInstance().closeConnection();
         }
     }
 
@@ -224,6 +234,8 @@ public class CourseDal {
             }
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "Query failure: " + e.getMessage());
+        } finally {
+            DbConnection.getInstance().closeConnection();
         }
         return Optional.empty();
     }
@@ -254,6 +266,8 @@ public class CourseDal {
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "Query failure: " + e.getMessage());
             throw new Exception();
+        } finally {
+            DbConnection.getInstance().closeConnection();
         }
     }
 
@@ -268,6 +282,8 @@ public class CourseDal {
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "Query failure: " + e.getMessage());
             return null;
+        } finally {
+            DbConnection.getInstance().closeConnection();
         }
     }
 
@@ -281,6 +297,8 @@ public class CourseDal {
             return affectedRows > 0;
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "Query failure: " + e.getMessage());
+        } finally {
+            DbConnection.getInstance().closeConnection();
         }
         return false;
     }
@@ -298,6 +316,8 @@ public class CourseDal {
             return affectedRows > 0;
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "Query failure: " + e.getMessage());
+        } finally {
+            DbConnection.getInstance().closeConnection();
         }
         return false;
     }
@@ -322,6 +342,8 @@ public class CourseDal {
             }
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "Query failure: " + e.getMessage());
+        } finally {
+            DbConnection.getInstance().closeConnection();
         }
         return 0;
     }
@@ -338,6 +360,8 @@ public class CourseDal {
             return preparedStatement.executeUpdate();
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "Query failure: " + e.getMessage());
+        } finally {
+            DbConnection.getInstance().closeConnection();
         }
         return 0;
     }
@@ -351,6 +375,8 @@ public class CourseDal {
             return preparedStatement.executeUpdate();
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "Query failure: " + e.getMessage());
+        } finally {
+            DbConnection.getInstance().closeConnection();
         }
         return 0;
     }

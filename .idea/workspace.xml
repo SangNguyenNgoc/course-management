@@ -5,31 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0e8c9f3f-92af-4f34-ae72-882333f2c02a" name="Changes" comment="update 4/3">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/bll/CourseBll.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/bll/CourseBll.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/bll/DepartmentBll.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/bll/DepartmentBll.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/bll/StudentBll.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/bll/StudentBll.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/bll/TeacherBll.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/bll/TeacherBll.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/bll/utils/DbConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/bll/utils/DbConnection.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/dal/CourseDal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/dal/CourseDal.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/dal/DepartmentDal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/dal/DepartmentDal.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/dal/StudentDal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/dal/StudentDal.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/dal/TeacherDal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/dal/TeacherDal.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/gui/button/UnregisterButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/gui/button/UnregisterButton.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/gui/controller/CourseDetailController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/gui/controller/CourseDetailController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/gui/controller/CourseFilterController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/gui/controller/CourseFilterController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/gui/controller/CourseItemController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/gui/controller/CourseItemController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/gui/controller/DashboardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/gui/controller/DashboardController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/gui/controller/DepartmentItemController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/gui/controller/DepartmentItemController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/gui/controller/ListCourseController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/gui/controller/ListCourseController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/gui/controller/ListDepartmentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/gui/controller/ListDepartmentController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/gui/controller/ListPersonController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/gui/controller/ListPersonController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/gui/controller/PersonItemController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/gui/controller/PersonItemController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/gui/controller/RegisterController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/gui/controller/RegisterController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/gui/utils/DialogUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/coursemanagement/gui/utils/DialogUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/coursemanagement/style/table.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/coursemanagement/style/table.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/coursemanagement/view/course-detail.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/coursemanagement/view/course-detail.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/coursemanagement/view/register.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/coursemanagement/view/register.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,7 +32,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="dev" />
+        <entry key="$PROJECT_DIR$" value="master" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />

@@ -44,6 +44,8 @@ public class TeacherDal {
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "Query failure: " + e.getMessage());
             return null;
+        } finally {
+            DbConnection.getInstance().closeConnection();
         }
     }
 
@@ -67,6 +69,8 @@ public class TeacherDal {
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "Query failure: " + e.getMessage());
             return null;
+        } finally {
+            DbConnection.getInstance().closeConnection();
         }
     }
 
@@ -90,6 +94,8 @@ public class TeacherDal {
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "Query failure: " + e.getMessage());
             return Optional.empty();
+        } finally {
+            DbConnection.getInstance().closeConnection();
         }
     }
     public int addTeacher(Teacher teacher) {
@@ -109,6 +115,8 @@ public class TeacherDal {
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "Insertion failure: " + e.getMessage());
             return 0;
+        } finally {
+            DbConnection.getInstance().closeConnection();
         }
     }
     public int updateTeacher(Teacher teacher) {
@@ -130,6 +138,8 @@ public class TeacherDal {
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "Update failure: " + e.getMessage());
             return 0;
+        } finally {
+            DbConnection.getInstance().closeConnection();
         }
     }
     public boolean checkTeacher(int personID) {
@@ -142,6 +152,8 @@ public class TeacherDal {
             return resultSet.next();
         } catch (SQLException e) {
             logger.log(Level.SEVERE,e.getMessage());
+        } finally {
+            DbConnection.getInstance().closeConnection();
         }
         return true;
     }
@@ -158,6 +170,8 @@ public class TeacherDal {
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "Deletion failure: " + e.getMessage());
             return 0;
+        } finally {
+            DbConnection.getInstance().closeConnection();
         }
     }
 

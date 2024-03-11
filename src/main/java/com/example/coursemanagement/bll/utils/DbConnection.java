@@ -14,6 +14,8 @@ public class DbConnection {
     private static final String USERNAME = "root";
     private static final String PASSWORD = "";
 
+    private Connection c;
+
     private static class DbConnectionHolder{
         private static final DbConnection INSTANCE = new DbConnection();
     }
@@ -26,8 +28,10 @@ public class DbConnection {
     }
 
     public Connection getConnection() {
-        java.sql.Connection c = null;
         try {
+            if(c != null && !c.isClosed()) {
+                return c;
+            }
             c = DriverManager.getConnection(URL, USERNAME, PASSWORD);
             Logger.getLogger(DbConnection.class.getName()).log(Level.INFO, "Connection successfully");
         } catch (Exception e) {
@@ -37,11 +41,11 @@ public class DbConnection {
         return c;
     }
 
-    public void closeConnection(java.sql.Connection c) {
+    public void closeConnection() {
         try {
             if (c != null) {
                 c.close();
-                Logger.getLogger(DbConnection.class.getName()).log(Level.INFO, "Close connection failure");            }
+                Logger.getLogger(DbConnection.class.getName()).log(Level.INFO, "Close connection successfully");            }
         } catch (Exception e) {
             Logger.getLogger(DbConnection.class.getName()).log(Level.SEVERE, "Close connection failure", e);
         }

@@ -54,6 +54,8 @@ public class DepartmentDal {
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "Query failure: " + e.getMessage());
             return null;
+        } finally {
+            DbConnection.getInstance().closeConnection();
         }
     }
 
@@ -86,6 +88,8 @@ public class DepartmentDal {
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "Query failure: " + e.getMessage());
             return null;
+        } finally {
+            DbConnection.getInstance().closeConnection();
         }
     }
 
@@ -117,6 +121,8 @@ public class DepartmentDal {
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "Query failure: " + e.getMessage());
             return Optional.empty();
+        } finally {
+            DbConnection.getInstance().closeConnection();
         }
     }
 
@@ -136,6 +142,8 @@ public class DepartmentDal {
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "Query failure: " + e.getMessage());
             return 0;
+        } finally {
+            DbConnection.getInstance().closeConnection();
         }
     }
 
@@ -153,6 +161,8 @@ public class DepartmentDal {
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "Query failure: " + e.getMessage());
             return -1;
+        } finally {
+            DbConnection.getInstance().closeConnection();
         }
     }
 
@@ -176,6 +186,8 @@ public class DepartmentDal {
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "Query failure: " + e.getMessage());
             return 0;
+        } finally {
+            DbConnection.getInstance().closeConnection();
         }
     }
 
@@ -190,6 +202,8 @@ public class DepartmentDal {
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "Query failure: " + e.getMessage());
             return 0;
+        } finally {
+            DbConnection.getInstance().closeConnection();
         }
     }
 
@@ -205,6 +219,8 @@ public class DepartmentDal {
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "Query failure: " + e.getMessage());
             return false;
+        } finally {
+            DbConnection.getInstance().closeConnection();
         }
     }
 }
